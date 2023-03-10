@@ -26,7 +26,7 @@ const DeleteButton = ({ name }) => {
 };
 
 const useCharacterMenu = ({ withDelete = false } = {}) => {
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
   const { characters } = useContext(ChatLogsContext);
 
   return characters.map(({ name, count }) => ({
@@ -45,7 +45,11 @@ const useCharacterMenu = ({ withDelete = false } = {}) => {
       </>
     ),
     href: `/characters/${name}`,
-    onClick: () => navigate(`/characters/${name}`),
+    onClick: e => {
+      e.preventDefault();
+      e.stopPropagation();
+      navigate(`/characters/${name}`);
+    },
   }));
 };
 

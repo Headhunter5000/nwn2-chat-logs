@@ -15,7 +15,11 @@ const InternalLink = ({ to, children, ui, ...props }) => {
     ...props,
     href: to,
     label: children,
-    onClick: () => navigate(to),
+    onClick: e => {
+      e.preventDefault();
+      e.stopPropagation();
+      navigate(to);
+    },
   });
 };
 
