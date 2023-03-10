@@ -1,0 +1,11 @@
+export const HTML_TAGS = /(<[^>]+>)/g;
+export const LINE_BREAK = /(\r\n|\r|\n)/g;
+export const LINE_BREAK_LAST_ONE = /(\r\n|\r|\n)+(?=$)/g;
+export const LINE_BREAK_NOT_LAST_ONE = /(\r\n|\r|\n)+(?!$)/g;
+export const COLOR_END_TAG = /<\/color>/g;
+export const COLOR_TAG_SPEECH = /<color=white>/g;
+export const COLOR_TAG_EMOTE = /<color=lightgreen>/g;
+export const STAR = /\*/g;
+export const STAR_NESTED_TAGS = /<span class="text-speech"><span class="text-emote">\*<\/span><\/span>/g;
+export const BRACE_OPEN = /(\(){2,}/g;
+export const BRACE_CLOSE = /(\)){2,}/g;
