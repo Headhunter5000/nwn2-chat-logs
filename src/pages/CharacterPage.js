@@ -1,34 +1,34 @@
-import { useContext, useMemo } from 'react';
+/* eslint-disable no-unused-vars */
 import { useParams } from 'react-router-dom';
-import { Box, PageHeader } from 'grommet';
+import { Box, PageHeader, Text } from 'grommet';
 
-import { ChatLogsContext } from '../utils/chatLogsContext';
 import ChatLogs from '../components/ChatLogs';
 import InternalLink from '../components/InternalLink';
+import useLogsOfChar from '../utils/dbHooks';
 
 const CharacterPage = () => {
   const { char } = useParams();
-  const { chatLogs } = useContext(ChatLogsContext);
+  const logs = useLogsOfChar(char);
 
-  const filteredChatLogs = useMemo(
-    () => Object.keys(chatLogs)
-      .reduce((acc, key) => {
-        if (key.includes(char))
-          return [...acc, { file: key, data: chatLogs[key] }];
-        return acc;
-      }, [])
-      .sort((a, b) => a.file.localeCompare(b.file)),
-    [char, chatLogs],
-  );
+  if (!Array.isArray(logs)) {
+    return (
+      <>
+        <Box direction="row">
+          <InternalLink to="/">&larr; back</InternalLink>
+        </Box>
+        <Text margin={{ top: 'large' }}>Loading...</Text>
+      </>
+    );
+  }
 
-  if (filteredChatLogs.length >= 1) {
+  if (logs.length >= 1) {
     return (
       <>
         <Box direction="row">
           <InternalLink to="/">&larr; back</InternalLink>
         </Box>
         <PageHeader title={char.replace('_', ' ')} />
-        <ChatLogs {...{ logs: filteredChatLogs }} />
+        <ChatLogs {...{ logs }} />
       </>
     );
   }
