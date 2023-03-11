@@ -3,8 +3,6 @@ import { createContext, useMemo, useState } from 'react';
 
 import getChatLogRegex from '../regex/chatlog';
 import getChatLogFileRegex from '../regex/chatlogFile';
-import formatMessage from './formatMessage';
-import formatPlainMessage from './formatPlainMessage';
 import { retrieveChatLogs, storeChatLogs } from './chatLogsStorage';
 
 export const ChatLogsContext = createContext();
@@ -43,8 +41,7 @@ export const ChatLogsProvider = ({ children }) => {
       .map(([, time, user, char, type, message], index) => ({
         time, user, char, type,
         id: String(index).padStart(4, 0),
-        message: formatMessage(message),
-        plainMessage: formatPlainMessage(message),
+        message,
       }));
 
     const storage = retrieveChatLogs();
