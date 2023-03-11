@@ -5,13 +5,13 @@ import { Accordion, AccordionPanel, DataTable, Text } from 'grommet';
 import ColorHash from 'color-hash';
 
 import getChatLogFileRegex from '../regex/chatlogFile';
-import formatMessage from '../utils/formatMessage';
+import formatHtmlMessage from '../utils/formatHtmlMessage';
 import formatPlainMessage from '../utils/formatPlainMessage';
 
 const colorHash = new ColorHash();
 
 const ChatLogEntryPropTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   time: PropTypes.string.isRequired,
   user: PropTypes.string,
   char: PropTypes.string,
@@ -72,15 +72,15 @@ MessageText.propTypes = {
   message: ChatLogEntryPropTypes.message,
 };
 
-const ChatLogFile = ({ data }) => {
-  const formattedData = useMemo(() => {
+const ChatLogFile = ({ messages }) => {
+  const formattedMessages = useMemo(() => {
     console.log('formatting data created');
-    return data.map(entry => ({
+    return messages.map(entry => ({
       ...entry,
       plainMessage: formatPlainMessage(entry.message),
-      message: formatMessage(entry.message),
+      message: formatHtmlMessage(entry.message),
     }));
-  }, [data]);
+  }, [messages]);
 
   return (
     <DataTable
@@ -118,13 +118,13 @@ const ChatLogFile = ({ data }) => {
           render: ({ type, message }) => <MessageText {...{ type, message }} />,
         },
       ]}
-      data={formattedData}
+      data={formattedMessages}
     />
   );
 };
 
 ChatLogFile.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
+  messages: PropTypes.arrayOf(PropTypes.shape({
     ...ChatLogEntryPropTypes,
   })).isRequired,
 };
@@ -133,11 +133,11 @@ const ChatLogList = ({ logs }) => (
   <>
     <MessageStyles />
     <StickyAccordion animate={false}>
-      {logs.map(({ file, data }) => {
+      {logs.map(({ file, messages }) => {
         const label = file.replace(getChatLogFileRegex(), '$2');
         return (
           <AccordionPanel label={label} key={label}>
-            <ChatLogFile {...{ data }} key={file} />
+            <ChatLogFile {...{ messages }} key={file} />
           </AccordionPanel>
         );
       })}
@@ -148,7 +148,7 @@ const ChatLogList = ({ logs }) => (
 ChatLogList.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.shape({
     file: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   })).isRequired,
 };
 
