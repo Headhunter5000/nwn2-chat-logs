@@ -1,20 +1,22 @@
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle, css } from 'styled-components';
 import { Accordion, AccordionPanel, DataTable, Text } from 'grommet';
 import ColorHash from 'color-hash';
 
 import getChatLogFileRegex from '../regex/chatlogFile';
+import formatHtmlMessage from '../utils/formatHtmlMessage';
+import formatPlainMessage from '../utils/formatPlainMessage';
 
 const colorHash = new ColorHash();
 
 const ChatLogEntryPropTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   time: PropTypes.string.isRequired,
   user: PropTypes.string,
   char: PropTypes.string,
   type: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  plainMessage: PropTypes.string.isRequired,
 };
 
 const MessageStyles = createGlobalStyle`
@@ -70,48 +72,59 @@ MessageText.propTypes = {
   message: ChatLogEntryPropTypes.message,
 };
 
-const ChatLogFile = ({ data }) => (
-  <DataTable
-    primaryKey="id"
-    verticalAlign={{ body: 'top' }}
-    pad={{ vertical: 'medium' }}
-    columns={[
-      {
-        property: 'time',
-        header: 'Time',
-        size: 'xsmall',
-      },
-      {
-        property: 'user',
-        header: 'User',
-        size: 'medium',
-        render: datum => <ColoredText>{datum.user}</ColoredText>,
-      },
-      {
-        property: 'char',
-        header: 'Character',
-        size: 'medium',
-        render: datum => <ColoredText>{datum.char}</ColoredText>,
-      },
-      {
-        property: 'type',
-        header: 'Type',
-        size: 'xsmall',
-      },
-      {
-        property: 'plainMessage',
-        header: 'Message',
-        size: '60%',
-        search: true,
-        render: ({ type, message }) => <MessageText {...{ type, message }} />,
-      },
-    ]}
-    data={data}
-  />
-);
+const ChatLogFile = ({ messages }) => {
+  const formattedMessages = useMemo(() => {
+    console.log('formatting data created');
+    return messages.map(entry => ({
+      ...entry,
+      plainMessage: formatPlainMessage(entry.message),
+      message: formatHtmlMessage(entry.message),
+    }));
+  }, [messages]);
+
+  return (
+    <DataTable
+      primaryKey="id"
+      verticalAlign={{ body: 'top' }}
+      pad={{ vertical: 'medium' }}
+      columns={[
+        {
+          property: 'time',
+          header: 'Time',
+          size: 'xsmall',
+        },
+        {
+          property: 'user',
+          header: 'User',
+          size: 'medium',
+          render: datum => <ColoredText>{datum.user}</ColoredText>,
+        },
+        {
+          property: 'char',
+          header: 'Character',
+          size: 'medium',
+          render: datum => <ColoredText>{datum.char}</ColoredText>,
+        },
+        {
+          property: 'type',
+          header: 'Type',
+          size: 'xsmall',
+        },
+        {
+          property: 'plainMessage',
+          header: 'Message',
+          size: '60%',
+          search: true,
+          render: ({ type, message }) => <MessageText {...{ type, message }} />,
+        },
+      ]}
+      data={formattedMessages}
+    />
+  );
+};
 
 ChatLogFile.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
+  messages: PropTypes.arrayOf(PropTypes.shape({
     ...ChatLogEntryPropTypes,
   })).isRequired,
 };
@@ -120,11 +133,11 @@ const ChatLogList = ({ logs }) => (
   <>
     <MessageStyles />
     <StickyAccordion animate={false}>
-      {logs.map(({ file, data }) => {
+      {logs.map(({ file, messages }) => {
         const label = file.replace(getChatLogFileRegex(), '$2');
         return (
           <AccordionPanel label={label} key={label}>
-            <ChatLogFile {...{ data }} key={file} />
+            <ChatLogFile {...{ messages }} key={file} />
           </AccordionPanel>
         );
       })}
@@ -135,9 +148,7 @@ const ChatLogList = ({ logs }) => (
 ChatLogList.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.shape({
     file: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(PropTypes.shape({
-      ...ChatLogEntryPropTypes.propTypes,
-    })).isRequired,
+    messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   })).isRequired,
 };
 
