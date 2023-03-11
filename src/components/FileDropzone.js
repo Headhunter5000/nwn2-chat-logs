@@ -33,7 +33,7 @@ const FileDropzone = () => {
           addChatLog({ file: name, text: result });
         } catch (err) {
           console.error(err);
-          alert('Failed to parse file');
+          // alert('Failed to parse file');
         }
       };
 

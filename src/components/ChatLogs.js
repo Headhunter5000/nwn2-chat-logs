@@ -1,9 +1,12 @@
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled, { createGlobalStyle, css } from 'styled-components';
 import { Accordion, AccordionPanel, DataTable, Text } from 'grommet';
 import ColorHash from 'color-hash';
 
 import getChatLogFileRegex from '../regex/chatlogFile';
+import formatMessage from '../utils/formatMessage';
+import formatPlainMessage from '../utils/formatPlainMessage';
 
 const colorHash = new ColorHash();
 
@@ -14,7 +17,6 @@ const ChatLogEntryPropTypes = {
   char: PropTypes.string,
   type: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  plainMessage: PropTypes.string.isRequired,
 };
 
 const MessageStyles = createGlobalStyle`
@@ -70,45 +72,56 @@ MessageText.propTypes = {
   message: ChatLogEntryPropTypes.message,
 };
 
-const ChatLogFile = ({ data }) => (
-  <DataTable
-    primaryKey="id"
-    verticalAlign={{ body: 'top' }}
-    pad={{ vertical: 'medium' }}
-    columns={[
-      {
-        property: 'time',
-        header: 'Time',
-        size: 'xsmall',
-      },
-      {
-        property: 'user',
-        header: 'User',
-        size: 'medium',
-        render: datum => <ColoredText>{datum.user}</ColoredText>,
-      },
-      {
-        property: 'char',
-        header: 'Character',
-        size: 'medium',
-        render: datum => <ColoredText>{datum.char}</ColoredText>,
-      },
-      {
-        property: 'type',
-        header: 'Type',
-        size: 'xsmall',
-      },
-      {
-        property: 'plainMessage',
-        header: 'Message',
-        size: '60%',
-        search: true,
-        render: ({ type, message }) => <MessageText {...{ type, message }} />,
-      },
-    ]}
-    data={data}
-  />
-);
+const ChatLogFile = ({ data }) => {
+  const formattedData = useMemo(() => {
+    console.log('formatting data created');
+    return data.map(entry => ({
+      ...entry,
+      plainMessage: formatPlainMessage(entry.message),
+      message: formatMessage(entry.message),
+    }));
+  }, [data]);
+
+  return (
+    <DataTable
+      primaryKey="id"
+      verticalAlign={{ body: 'top' }}
+      pad={{ vertical: 'medium' }}
+      columns={[
+        {
+          property: 'time',
+          header: 'Time',
+          size: 'xsmall',
+        },
+        {
+          property: 'user',
+          header: 'User',
+          size: 'medium',
+          render: datum => <ColoredText>{datum.user}</ColoredText>,
+        },
+        {
+          property: 'char',
+          header: 'Character',
+          size: 'medium',
+          render: datum => <ColoredText>{datum.char}</ColoredText>,
+        },
+        {
+          property: 'type',
+          header: 'Type',
+          size: 'xsmall',
+        },
+        {
+          property: 'plainMessage',
+          header: 'Message',
+          size: '60%',
+          search: true,
+          render: ({ type, message }) => <MessageText {...{ type, message }} />,
+        },
+      ]}
+      data={formattedData}
+    />
+  );
+};
 
 ChatLogFile.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
@@ -135,9 +148,7 @@ const ChatLogList = ({ logs }) => (
 ChatLogList.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.shape({
     file: PropTypes.string.isRequired,
-    data: PropTypes.arrayOf(PropTypes.shape({
-      ...ChatLogEntryPropTypes.propTypes,
-    })).isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
   })).isRequired,
 };
 
