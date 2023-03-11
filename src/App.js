@@ -4,7 +4,6 @@ import { Grommet } from 'grommet';
 
 import theme from './config/theme';
 import router from './config/router';
-import { ChatLogsProvider } from './utils/chatLogsContext';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -15,9 +14,7 @@ const GlobalStyle = createGlobalStyle`
 const App = () =>  (
   <Grommet {...{ theme }} full>
     <GlobalStyle />
-    <ChatLogsProvider>
-      <RouterProvider router={router} />
-    </ChatLogsProvider>
+    <RouterProvider router={router} />
   </Grommet>
 );
 

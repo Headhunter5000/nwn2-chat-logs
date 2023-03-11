@@ -10,7 +10,7 @@ import {
   STAR_NESTED_TAGS,
 } from '../regex/message';
 
-const formatMessage = message => message
+const formatHtmlMessage = message => message
   .replace(LINE_BREAK_LAST_ONE, '')
   .replace(LINE_BREAK_NOT_LAST_ONE, '<br />')
   .replace(COLOR_END_TAG, '</span>')
@@ -21,4 +21,4 @@ const formatMessage = message => message
   .replace(BRACE_OPEN, '<span class="text-ooc">(')
   .replace(BRACE_CLOSE, ')</span>');
 
-export default formatMessage;
+export default formatHtmlMessage;

@@ -1,33 +1,28 @@
-import { Box, Button, Text } from 'grommet';
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import { ChatLogsContext } from '../utils/chatLogsContext';
+import { Box, Button, Text } from 'grommet';
 import { FormTrash } from 'grommet-icons';
 
-const DeleteButton = ({ name }) => {
-  const { deleteChatLogsOfChar } = useContext(ChatLogsContext);
+import { deleteChatLogsOfChar, useChars } from './dbHooks';
 
-  return (
-    <Button
-      a11yTitle="delete"
-      icon={<FormTrash color="status-critical" />}
-      margin={{ left: 'small' }}
-      onClick={e => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (window.confirm(`Are you sure you want to delete all chat logs of ${name}?`)) {
-          deleteChatLogsOfChar(name);
-        }
-      }}
-    />
-  );
-};
+const DeleteButton = ({ name }) => (
+  <Button
+    a11yTitle="delete"
+    icon={<FormTrash color="status-critical" />}
+    margin={{ left: 'small' }}
+    onClick={e => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (window.confirm(`Are you sure you want to delete all chat logs of ${name}?`)) {
+        deleteChatLogsOfChar(name);
+      }
+    }}
+  />
+);
 
 const useCharacterMenu = ({ withDelete = false } = {}) => {
   const navigate = useNavigate();
-  const { characters } = useContext(ChatLogsContext);
+  const characters = useChars();
 
   return characters.map(({ name, count }) => ({
     key: name,
