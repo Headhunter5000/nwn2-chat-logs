@@ -31,6 +31,10 @@ export const ChatLogsProvider = ({ children }) => {
   );
 
   const addChatLog = ({ file, text }) => {
+    if (!file.match(getChatLogFileRegex())) {
+      throw new Error('File name haswrong format');
+    }
+
     if (typeof text !== 'string' || !/\[(\d{2}:\d{2})\]/.test(text.substring(0, 7))) {
       throw new Error('File is not a string');
     }

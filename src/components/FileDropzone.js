@@ -54,7 +54,7 @@ const FileDropzone = () => {
       {
         isDragActive ?
           <p>Drop it here ...</p> :
-          <p>Drag &apos;n&apos; drop your files here, or click here.</p>
+          <p>Drag &apos;n&apos; drop your files here, or click.</p>
       }
     </DropZoneBox>
   );
