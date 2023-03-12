@@ -7,7 +7,7 @@ const PageLayout = ({ children }) => {
   return (
     <Page>
       <Header />
-      <PageContent pad="large">
+      <PageContent pad={{ horizontal: 'large' }}>
         {children}
       </PageContent>
     </Page>
