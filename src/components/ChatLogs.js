@@ -4,7 +4,6 @@ import styled, { createGlobalStyle, css } from 'styled-components';
 import { Accordion, AccordionPanel, DataTable, Text } from 'grommet';
 import ColorHash from 'color-hash';
 
-import getChatLogFileRegex from '../regex/chatlogFile';
 import formatHtmlMessage from '../utils/formatHtmlMessage';
 import formatPlainMessage from '../utils/formatPlainMessage';
 
@@ -50,7 +49,7 @@ const MessageStyles = createGlobalStyle`
 const StickyAccordion = styled(Accordion)`
   button[aria-expanded] {
     position: sticky;
-    top: 0;
+    top: ${({ theme }) => theme.global.size.xxsmall};
     z-index: 1;
     background: white;
   }
@@ -61,10 +60,12 @@ const ColoredText = styled(Text)(({ children }) => css`
 `);
 
 const MessageText = ({ type, message }) => (
-  <span
-    className={`message-type-${type.toLowerCase()}`}
-    dangerouslySetInnerHTML={{ __html: message }}
-  />
+  <Text>
+    <span
+      className={`message-type-${type.toLowerCase()}`}
+      dangerouslySetInnerHTML={{ __html: message }}
+    />
+  </Text>
 );
 
 MessageText.propTypes = {
@@ -108,7 +109,7 @@ const ChatLogFile = ({ messages }) => {
         {
           property: 'type',
           header: 'Type',
-          size: 'xsmall',
+          size: 'small',
         },
         {
           property: 'plainMessage',
@@ -133,11 +134,10 @@ const ChatLogList = ({ logs }) => (
   <>
     <MessageStyles />
     <StickyAccordion animate={false}>
-      {logs.map(({ file, messages }) => {
-        const label = file.replace(getChatLogFileRegex(), '$2');
+      {logs.map(({ date, messages }) => {
         return (
-          <AccordionPanel label={label} key={label}>
-            <ChatLogFile {...{ messages }} key={file} />
+          <AccordionPanel label={date} key={date}>
+            <ChatLogFile {...{ messages }} />
           </AccordionPanel>
         );
       })}

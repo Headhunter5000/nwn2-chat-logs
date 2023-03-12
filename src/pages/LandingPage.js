@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Nav, PageHeader } from 'grommet';
+import { Box, Button, Heading, Nav } from 'grommet';
 import FileDropzone from '../components/FileDropzone';
 
 import useCharacterMenu from '../utils/useCharacterMenu';
@@ -8,21 +8,23 @@ const LandingPage = () => {
 
   return (
     <>
-      <PageHeader title="Home" />
-
       <Heading level="3">Upload your logs</Heading>
       <FileDropzone />
 
-      <Heading level="3">Characters</Heading>
-      <Nav alignSelf="start">
-        {items.map(({ key, label, ...props }) => (
-          <Button {...props} key={key} hoverIndicator>
-            <Box direction="row" justify="between">
-              {label}
-            </Box>
-          </Button>
-        ))}
-      </Nav>
+      {items.length > 0 && (
+        <>
+          <Heading level="3">Characters</Heading>
+          <Nav alignSelf="start">
+            {items.map(({ key, label, ...props }) => (
+              <Button {...props} key={key} hoverIndicator>
+                <Box direction="row" justify="between">
+                  {label}
+                </Box>
+              </Button>
+            ))}
+          </Nav>
+        </>
+      )}
     </>
   );
 };

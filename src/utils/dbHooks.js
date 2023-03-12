@@ -13,14 +13,13 @@ export const useChars = () => useLiveQuery(
       else acc[index].count += 1;
 
       return acc;
-    }, [])
-    .sort((a, b) => a.name.localeCompare(b.name))
+    }, []),
   ),
   undefined,
   [],
 );
 
-const useLogsOfChar = char => useLiveQuery(
+export const useLogsOfChar = char => useLiveQuery(
   () => db.chats.where('char').equals(char).toArray(),
 );
 
@@ -61,5 +60,3 @@ export const addChatLog = async ({ file, text }) => {
 
 export const deleteChatLogsOfChar = char =>
   db.chats.where('char').equals(char).delete();
-
-export default useLogsOfChar;
