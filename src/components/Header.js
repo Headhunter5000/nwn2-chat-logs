@@ -6,12 +6,13 @@ import useCharacterMenu from '../utils/useCharacterMenu';
 
 const StickyHeader = styled(Header)`
   position: sticky;
+  z-index: 1;
   top: 0;
-  width: 100%;
-  z-index: 100;
+  left: 0;
+  right: 0;
 `;
 
-const MainHeader = props => {
+const AppHeader = props => {
   const navigate = useNavigate();
   const items = useCharacterMenu();
 
@@ -21,6 +22,7 @@ const MainHeader = props => {
       background="brand"
       elevation="medium"
       height="xxsmall"
+      data-testid="app-header"
       {...props}
     >
       <Text
@@ -40,4 +42,4 @@ const MainHeader = props => {
   );
 };
 
-export default MainHeader;
+export default AppHeader;

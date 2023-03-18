@@ -2,8 +2,9 @@ import { RouterProvider } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import { Grommet } from 'grommet';
 
-import theme from './config/theme';
-import router from './config/router';
+import theme from '../config/theme';
+import router from '../config/router';
+import { ChatLogsProvider } from '../utils/statsContext';
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -14,7 +15,9 @@ const GlobalStyle = createGlobalStyle`
 const App = () =>  (
   <Grommet {...{ theme }} full>
     <GlobalStyle />
-    <RouterProvider router={router} />
+    <ChatLogsProvider>
+      <RouterProvider router={router} />
+    </ChatLogsProvider>
   </Grommet>
 );
 

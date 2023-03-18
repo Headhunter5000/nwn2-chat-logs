@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled, { css } from 'styled-components';
 
-import { addChatLog } from '../utils/dbHooks';
+import { addOrUpdateChatLog } from '../utils/addOrUpdateChatLog';
 import UploadModal from './UploadModal';
 
 const DropZoneBox = styled.div(({ $isDragActive }) => css`
@@ -39,7 +39,7 @@ const FileDropzone = () => {
         const { result } = reader;
 
         try {
-          await addChatLog({ file: name, text: result });
+          await addOrUpdateChatLog({ file: name, text: result });
           setSuccess(prev => ([...prev, name]));
         } catch (err) {
           setError(prev => ([...prev, name]));

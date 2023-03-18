@@ -1,5 +1,5 @@
-import { expectToEqualJSON } from '../utils/expectToEqualJSON';
-import getChatLogRegex from './chatlog';
+import { expectToEqualJSON } from '../utils/testUtils';
+import CHAT_LOG_PATTERN from './chatlog';
 
 const LOREM_IPSUM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
 
@@ -39,9 +39,12 @@ const ENTRY_B_MESSAGE = LOREM_IPSUM;
 const ENTRY_B = `[${ENTRY_B_TIME}] [${ENTRY_B_USER}] ${ENTRY_B_CHAR}: [${ENTRY_B_TYPE}] ${ENTRY_B_MESSAGE}`;
 
 describe('CHAT_LOG_PATTERN', () => {
+  beforeEach(() => {
+    CHAT_LOG_PATTERN.lastIndex = 0;
+  });
+
   test('regex pattern is valid', () => {
-    const regex = getChatLogRegex();
-    expect(regex).toBeInstanceOf(RegExp);
+    expect(CHAT_LOG_PATTERN).toBeInstanceOf(RegExp);
   });
 
   test('matches server tell entry', () => {
@@ -54,7 +57,7 @@ describe('CHAT_LOG_PATTERN', () => {
       ENTRY_SRV_MESSAGE,
     ];
 
-    const actual = getChatLogRegex().exec(ENTRY_SRV);
+    const actual = CHAT_LOG_PATTERN.exec(ENTRY_SRV);
 
     expectToEqualJSON(actual, expected);
   });
@@ -69,7 +72,7 @@ describe('CHAT_LOG_PATTERN', () => {
       ENTRY_DL_MESSAGE,
     ];
 
-    const actual = getChatLogRegex().exec(ENTRY_DL);
+    const actual = CHAT_LOG_PATTERN.exec(ENTRY_DL);
 
     expectToEqualJSON(actual, expected);
   });
@@ -84,7 +87,7 @@ describe('CHAT_LOG_PATTERN', () => {
       ENTRY_GM_MESSAGE,
     ];
 
-    const actual = getChatLogRegex().exec(ENTRY_GM);
+    const actual = CHAT_LOG_PATTERN.exec(ENTRY_GM);
 
     expectToEqualJSON(actual, expected);
   });
@@ -99,7 +102,7 @@ describe('CHAT_LOG_PATTERN', () => {
       ENTRY_A_MESSAGE,
     ];
 
-    const actual = getChatLogRegex().exec(ENTRY_A);
+    const actual = CHAT_LOG_PATTERN.exec(ENTRY_A);
 
     expectToEqualJSON(actual, expected);
   });
@@ -114,7 +117,7 @@ describe('CHAT_LOG_PATTERN', () => {
       ENTRY_B_MESSAGE,
     ];
 
-    const actual = getChatLogRegex().exec(ENTRY_B);
+    const actual = CHAT_LOG_PATTERN.exec(ENTRY_B);
 
     expectToEqualJSON(actual, expected);
   });
@@ -139,7 +142,7 @@ describe('CHAT_LOG_PATTERN', () => {
       ],
     ];
 
-    const actual = [...`${ENTRY_DL}\n${ENTRY_A}`.matchAll(getChatLogRegex())];
+    const actual = [...`${ENTRY_DL}\n${ENTRY_A}`.matchAll(CHAT_LOG_PATTERN)];
 
     expectToEqualJSON(actual, expected);
   });

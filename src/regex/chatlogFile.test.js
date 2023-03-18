@@ -1,18 +1,17 @@
-import {expectToEqualJSON, expectNotToEqualJSON } from '../utils/expectToEqualJSON';
-import getChatLogFileRegex from './chatlogFile';
+import { expectNotToEqualJSON, expectToEqualJSON } from '../utils/testUtils';
+import CHAT_LOG_FILE_PATTERN from './chatlogFile';
 
 const VALID_FILE_NAME_CHAR = 'TestChar';
 const VALID_FILE_NAME_DATE = '2018-01-01';
-const VALID_FILE = `${VALID_FILE_NAME_CHAR}_Chatlog_${VALID_FILE_NAME_DATE}.log`;
+const VALID_FILE = `${VALID_FILE_NAME_CHAR} (Chatlog) ${VALID_FILE_NAME_DATE}.log`;
 
 const INVALID_FILE_NAME_CHAR = 'TestChar';
 const INVALID_FILE_NAME_DATE = '2018-01-01';
-const INVALID_FILE = `${INVALID_FILE_NAME_CHAR}_Combatlog_${INVALID_FILE_NAME_DATE}.log`;
+const INVALID_FILE = `${INVALID_FILE_NAME_CHAR} (Combatlog) ${INVALID_FILE_NAME_DATE}.log`;
 
 describe('CHAT_LOG_FILE_PATTERN', () => {
   test('regex pattern is valid', () => {
-    const regex = getChatLogFileRegex();
-    expect(regex).toBeInstanceOf(RegExp);
+    expect(CHAT_LOG_FILE_PATTERN).toBeInstanceOf(RegExp);
   });
 
   test('matches file name', () => {
@@ -22,7 +21,7 @@ describe('CHAT_LOG_FILE_PATTERN', () => {
       VALID_FILE_NAME_DATE,
     ];
 
-    const actual = getChatLogFileRegex().exec(VALID_FILE);
+    const actual = VALID_FILE.match(CHAT_LOG_FILE_PATTERN);
 
     expectToEqualJSON(actual, expected);
   });
@@ -34,7 +33,7 @@ describe('CHAT_LOG_FILE_PATTERN', () => {
       INVALID_FILE_NAME_DATE,
     ];
 
-    const actual = getChatLogFileRegex().exec(INVALID_FILE);
+    const actual = INVALID_FILE.match(CHAT_LOG_FILE_PATTERN);
 
     expectNotToEqualJSON(actual, expected);
   });

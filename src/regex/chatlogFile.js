@@ -1,5 +1,3 @@
-const CHAT_LOG_FILE_PATTERN = '^(.+)\\s\\(Chatlog\\)\\s(\\d{4}-\\d{2}-\\d{2})\\.log$';
+const CHAT_LOG_FILE_PATTERN = /^(.+)\s\(Chatlog\)\s(\d{4}-\d{2}-\d{2})\.log$/i;
 
-const getChatLogFileRegex = () => new RegExp(CHAT_LOG_FILE_PATTERN, 'i');
-
-export default getChatLogFileRegex;
+export default CHAT_LOG_FILE_PATTERN;
