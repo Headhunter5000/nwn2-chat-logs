@@ -1,59 +1,22 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import styled, { createGlobalStyle, css } from 'styled-components';
-import { Accordion, AccordionPanel, DataTable, Text } from 'grommet';
+import styled, { css } from 'styled-components';
+import { DataTable, Text } from 'grommet';
 import ColorHash from 'color-hash';
 
-import formatHtmlMessage from '../utils/formatHtmlMessage';
-import formatPlainMessage from '../utils/formatPlainMessage';
+import formatHtmlMessage from '../../utils/formatHtmlMessage';
+import formatPlainMessage from '../../utils/formatPlainMessage';
 
 const colorHash = new ColorHash();
 
-const ChatLogEntryPropTypes = {
-  id: PropTypes.number.isRequired,
+const ChatLogMessagePropTypes = {
+  id: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   user: PropTypes.string,
   char: PropTypes.string,
   type: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
 };
-
-const MessageStyles = createGlobalStyle`
-  .hide-overflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .message-type-dialog {
-    color: #777;
-  }
-
-  .message-type-tell {
-    color: blue;
-  }
-
-  .text-speech {
-    color: black;
-  }
-
-  .text-emote {
-    color: green;
-  }
-
-  .text-ooc {
-    color: purple;
-  }
-`;
-
-const StickyAccordion = styled(Accordion)`
-  button[aria-expanded] {
-    position: sticky;
-    top: ${({ theme }) => theme.global.size.xxsmall};
-    z-index: 1;
-    background: white;
-  }
-`;
 
 const ColoredText = styled(Text)(({ children }) => css`
   color: ${colorHash.hex(typeof children === 'string' ? children : '')};
@@ -69,13 +32,12 @@ const MessageText = ({ type, message }) => (
 );
 
 MessageText.propTypes = {
-  type: ChatLogEntryPropTypes.type,
-  message: ChatLogEntryPropTypes.message,
+  type: ChatLogMessagePropTypes.type,
+  message: ChatLogMessagePropTypes.message,
 };
 
-const ChatLogFile = ({ messages }) => {
+const ChatLogMessages = ({ messages, 'data-testid': testId }) => {
   const formattedMessages = useMemo(() => {
-    console.log('formatting data created');
     return messages.map(entry => ({
       ...entry,
       plainMessage: formatPlainMessage(entry.message),
@@ -87,7 +49,8 @@ const ChatLogFile = ({ messages }) => {
     <DataTable
       primaryKey="id"
       verticalAlign={{ body: 'top' }}
-      pad={{ vertical: 'medium' }}
+      pad={{ vertical: 'medium', right: 'medium' }}
+      step={100}
       columns={[
         {
           property: 'time',
@@ -120,36 +83,20 @@ const ChatLogFile = ({ messages }) => {
         },
       ]}
       data={formattedMessages}
+      data-testid={testId}
     />
   );
 };
 
-ChatLogFile.propTypes = {
+ChatLogMessages.propTypes = {
   messages: PropTypes.arrayOf(PropTypes.shape({
-    ...ChatLogEntryPropTypes,
+    ...ChatLogMessagePropTypes,
   })).isRequired,
+  'data-testid': PropTypes.string,
 };
 
-const ChatLogList = ({ logs }) => (
-  <>
-    <MessageStyles />
-    <StickyAccordion animate={false}>
-      {logs.map(({ date, messages }) => {
-        return (
-          <AccordionPanel label={date} key={date}>
-            <ChatLogFile {...{ messages }} />
-          </AccordionPanel>
-        );
-      })}
-    </StickyAccordion>
-  </>
-);
-
-ChatLogList.propTypes = {
-  logs: PropTypes.arrayOf(PropTypes.shape({
-    file: PropTypes.string.isRequired,
-    messages: PropTypes.arrayOf(PropTypes.object).isRequired,
-  })).isRequired,
+ChatLogMessages.defaultProps = {
+  'data-testid': undefined,
 };
 
-export default ChatLogList;
+export default ChatLogMessages;

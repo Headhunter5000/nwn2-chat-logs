@@ -14,7 +14,7 @@ const LandingPage = () => {
       {items.length > 0 && (
         <>
           <Heading level="3">Characters</Heading>
-          <Nav alignSelf="start">
+          <Nav alignSelf="start" data-testid="char-menu">
             {items.map(({ key, label, ...props }) => (
               <Button {...props} key={key} hoverIndicator>
                 <Box direction="row" justify="between">

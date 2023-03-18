@@ -4,7 +4,7 @@ const CHAR_NAME_PATTERN = '([^\\[]*)?';
 const TYPE_PATTERN = '\\[(Dialog|Talk|Tell|ServerTell)\\]';
 const MESSAGE_PATTERN = '([^\\[]*)?';
 
-const CHAT_LOG_PATTERN =
+const CHAT_LOG_PATTERN_STRING =
   `${TIME_PATTERN}\\s*`+
   `${USER_NAME_PATTERN}\\s*`+
   `${CHAR_NAME_PATTERN}:\\s*`+
@@ -12,6 +12,6 @@ const CHAT_LOG_PATTERN =
   `${MESSAGE_PATTERN}`+
   '(?:\\r\\n|\\r|\\n|$)';
 
-const getChatLogRegex = () => new RegExp(CHAT_LOG_PATTERN, 'gmi');
+const CHAT_LOG_PATTERN = new RegExp(CHAT_LOG_PATTERN_STRING, 'gmi');
 
-export default getChatLogRegex;
+export default CHAT_LOG_PATTERN;

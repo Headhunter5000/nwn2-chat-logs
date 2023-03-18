@@ -1,39 +1,64 @@
+
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-children-prop */
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PageHeader } from 'grommet';
+import { FormPreviousLink } from 'grommet-icons';
 
-import { useLogsOfChar } from '../utils/dbHooks';
-import ChatLogs from '../components/ChatLogs';
-import InternalLink from '../components/InternalLink';
+import ChatLogItem from '../components/chatLogs/ChatLogItem';
+import InternalLink from '../components/common/InternalLink';
+import ChatLogCalendar from '../components/chatLogs/ChatLogCalendar';
+import ChatLogStyles from '../components/chatLogs/ChatLogStyles';
+import { ChatLogsContext } from '../utils/statsContext';
+
+const renderedHeader = ({ char, count }) => (
+  <>
+    <PageHeader
+      title={char.replace('_', ' ')}
+      subtitle={count ? `${count} logs` : 'Loading...'}
+      parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
+    />
+  </>
+);
 
 const CharacterPage = () => {
   const { char } = useParams();
-  const logs = useLogsOfChar(char);
-  const count = logs?.length;
+  const { statsByChar, isLoaded } = useContext(ChatLogsContext);
+  const [currentDate, setCurrrentDate] = useState();
 
-  const renderedHeader = (
-    <>
-      <PageHeader
-        title={char.replace('_', ' ')}
-        subtitle={count ? `${count} logs` : 'Loading...'}
-        parent={<InternalLink to="/">&larr; back</InternalLink>}
-      />
-    </>
+  const { lastDate, count } = useMemo(
+    () => (statsByChar ?? {})[char] ?? {},
+    [char, statsByChar]
   );
 
-  if (!Array.isArray(logs)) {
-    return renderedHeader;
+  const header = useMemo(
+    () => renderedHeader({ char, count }),
+    [char, count]
+  );
+
+  useEffect(() => {
+    if (!currentDate && lastDate) {
+      setCurrrentDate(lastDate);
+    }
+  }, [setCurrrentDate, currentDate, lastDate]);
+
+  if (isLoaded && !lastDate) {
+    throw new Response('Not Found', { status: 404 });
   }
 
-  if (count > 0) {
+  if (currentDate) {
     return (
       <>
-        {renderedHeader}
-        <ChatLogs {...{ logs }} />
+        {header}
+        <ChatLogStyles />
+        <ChatLogCalendar {...{ char, currentDate, setCurrrentDate }} />
+        <ChatLogItem {...{ char, date: currentDate }} />
       </>
     );
   }
 
-  throw new Response('Not Found', { status: 404 });
+  return header;
 };
 
 export default CharacterPage;

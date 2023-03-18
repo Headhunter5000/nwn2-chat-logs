@@ -1,5 +1,5 @@
 import { Box, PageHeader } from 'grommet';
-import InternalLink from '../components/InternalLink';
+import InternalLink from '../components/common/InternalLink';
 import PageLayout from '../components/PageLayout';
 
 const ErrorPage = () => {

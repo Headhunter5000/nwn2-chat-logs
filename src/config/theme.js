@@ -25,6 +25,13 @@ const theme = deepFreeze({
       xlarge: '48px',
     },
   },
+  accordion: {
+    hover: {
+      heading: {
+        color: 'inherit',
+      },
+    },
+  },
   button: {
     border: {
       radius: '5px',
@@ -47,10 +54,11 @@ const theme = deepFreeze({
       },
     },
   },
-  accordion: {
-    hover: {
-      heading: {
-        color: 'inherit',
+  calendar: {
+    small: {
+      title: {
+        size: 'small',
+        weight: 'bold',
       },
     },
   },
