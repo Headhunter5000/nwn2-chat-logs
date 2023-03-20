@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/nwn2-chat-logs/static/js/main.2c40f037.js",
+    "main.js": "/nwn2-chat-logs/static/js/main.cc4c22e1.js",
     "static/js/787.7c82ee26.chunk.js": "/nwn2-chat-logs/static/js/787.7c82ee26.chunk.js",
     "index.html": "/nwn2-chat-logs/index.html",
-    "main.2c40f037.js.map": "/nwn2-chat-logs/static/js/main.2c40f037.js.map",
+    "main.cc4c22e1.js.map": "/nwn2-chat-logs/static/js/main.cc4c22e1.js.map",
     "787.7c82ee26.chunk.js.map": "/nwn2-chat-logs/static/js/787.7c82ee26.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.2c40f037.js"
+    "static/js/main.cc4c22e1.js"
   ]
 }
