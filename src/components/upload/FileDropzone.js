@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled, { css } from 'styled-components';
 
-import { addOrUpdateChatLog } from '../utils/addOrUpdateChatLog';
+import { addOrUpdateChatLog } from '../../utils/addOrUpdateChatLog';
 import UploadModal from './UploadModal';
 
 const DropZoneBox = styled.div(({ $isDragActive }) => css`

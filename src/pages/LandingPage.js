@@ -1,7 +1,6 @@
 import { Box, Button, Heading, Nav } from 'grommet';
-import FileDropzone from '../components/FileDropzone';
-
 import useCharacterMenu from '../utils/useCharacterMenu';
+import FileDropzone from '../components/upload/FileDropzone';
 
 const LandingPage = () => {
   const items = useCharacterMenu({ withDelete: true });

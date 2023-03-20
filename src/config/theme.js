@@ -24,6 +24,13 @@ const theme = deepFreeze({
       large: '24px',
       xlarge: '48px',
     },
+    input: {
+      padding: {
+        horizontal: '12px',
+        vertical: '8px',
+      },
+      weight: 400,
+    },
   },
   accordion: {
     hover: {
@@ -59,6 +66,16 @@ const theme = deepFreeze({
       title: {
         size: 'small',
         weight: 'bold',
+      },
+    },
+  },
+  dataTable: {
+    pinned: {
+      header: {
+        background: {
+          dark: 'black',
+          light: 'white',
+        },
       },
     },
   },

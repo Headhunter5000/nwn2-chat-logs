@@ -1,4 +1,5 @@
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Calendar, Drop, Button } from 'grommet';
 import { FormCalendar } from 'grommet-icons';
 import PropTypes from 'prop-types';
@@ -13,10 +14,11 @@ const createCalendarDay = ({ dates, size, onClick }) => ({ date: currentDate, ..
   return <CalendarDay {...{ ...props, size, isMarked, onClick }} />;
 };
 
-const ChatLogCalendar = ({ char, setCurrrentDate, currentDate, size }) => {
+const LogCalendar = ({ char, currentDate, size }) => {
+  const navigate = useNavigate();
   const { statsByChar } = useContext(ChatLogsContext);
   const [visible, setVisible] = useState(false);
-  const dropRef = useRef();
+  const targetRef = useRef();
 
   const { dates, firstDate, lastDate } = useMemo(
     () => statsByChar[char] ?? {},
@@ -33,12 +35,12 @@ const ChatLogCalendar = ({ char, setCurrrentDate, currentDate, size }) => {
           label={currentDate}
           icon={<FormCalendar />}
           onClick={show}
-          ref={dropRef}
+          ref={targetRef}
         />
       </div>
-      {visible && dropRef.current && (
+      {visible && targetRef.current && (
         <Drop
-          target={dropRef.current}
+          target={targetRef.current}
           onClickOutside={hide}
           onEsc={hide}
         >
@@ -50,7 +52,7 @@ const ChatLogCalendar = ({ char, setCurrrentDate, currentDate, size }) => {
             firstDayOfWeek={1}
             bounds={[firstDate, lastDate]}
             date={getIsoStringFromDate(currentDate)}
-            onSelect={date => setCurrrentDate(getDateFromISOString(date))}
+            onSelect={date => navigate(`/characters/${char}/${getDateFromISOString(date)}`)}
             // eslint-disable-next-line react/no-children-prop
             children={createCalendarDay({ dates, size, onClick: hide })}
           />
@@ -60,16 +62,14 @@ const ChatLogCalendar = ({ char, setCurrrentDate, currentDate, size }) => {
   );
 };
 
-ChatLogCalendar.propTypes = {
+LogCalendar.propTypes = {
   char: PropTypes.string.isRequired,
-  setCurrrentDate: PropTypes.func.isRequired,
-  currentDate: PropTypes.string,
+  currentDate: PropTypes.string.isRequired,
   size: PropTypes.string,
 };
 
-ChatLogCalendar.defaultProps = {
-  currentDate: undefined,
+LogCalendar.defaultProps = {
   size: 'medium',
 };
 
-export default ChatLogCalendar;
+export default LogCalendar;

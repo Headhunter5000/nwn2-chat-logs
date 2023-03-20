@@ -1,26 +1,15 @@
 import { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
 import { DataTable, Text } from 'grommet';
-import ColorHash from 'color-hash';
+import { useSearchParams } from 'react-router-dom';
 
+import MessagePropTypes from '../../config/propTypes/messagePropTypes';
 import formatHtmlMessage from '../../utils/formatHtmlMessage';
-import formatPlainMessage from '../../utils/formatPlainMessage';
+import { getMessageId } from '../../utils/stringUtils';
+import ColoredText from '../common/ColoredText';
 
-const colorHash = new ColorHash();
-
-const ChatLogMessagePropTypes = {
-  id: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  user: PropTypes.string,
-  char: PropTypes.string,
-  type: PropTypes.string.isRequired,
-  message: PropTypes.string.isRequired,
-};
-
-const ColoredText = styled(Text)(({ children }) => css`
-  color: ${colorHash.hex(typeof children === 'string' ? children : '')};
-`);
+const PAGINATE = true;
+const STEP_SIZE = 50;
 
 const MessageText = ({ type, message }) => (
   <Text>
@@ -32,25 +21,45 @@ const MessageText = ({ type, message }) => (
 );
 
 MessageText.propTypes = {
-  type: ChatLogMessagePropTypes.type,
-  message: ChatLogMessagePropTypes.message,
+  type: MessagePropTypes.type,
+  message: MessagePropTypes.message,
 };
 
-const ChatLogMessages = ({ messages, 'data-testid': testId }) => {
+const LogMessages = ({ file, messages, 'data-testid': testId }) => {
+  const [params] = useSearchParams();
+  const index = params.get('index');
+
   const formattedMessages = useMemo(() => {
-    return messages.map(entry => ({
-      ...entry,
-      plainMessage: formatPlainMessage(entry.message),
-      message: formatHtmlMessage(entry.message),
+    return messages.map(({ message, ...rest }) => ({
+      ...rest,
+      message: formatHtmlMessage(message),
     }));
   }, [messages]);
+
+  const show = useMemo(() => {
+    if (!index) return undefined;
+
+    return Number(index);
+  }, [index]);
+
+  const rowProps = useMemo(() => {
+    if (!index) return undefined;
+
+    return {
+      [getMessageId(file, index)]: { background: 'black' },
+    };
+  }, [file, index]);
 
   return (
     <DataTable
       primaryKey="id"
       verticalAlign={{ body: 'top' }}
       pad={{ vertical: 'medium', right: 'medium' }}
-      step={100}
+      key={show}
+      show={show}
+      rowProps={rowProps}
+      paginate={PAGINATE}
+      step={STEP_SIZE}
       columns={[
         {
           property: 'time',
@@ -88,15 +97,16 @@ const ChatLogMessages = ({ messages, 'data-testid': testId }) => {
   );
 };
 
-ChatLogMessages.propTypes = {
+LogMessages.propTypes = {
+  file: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(PropTypes.shape({
-    ...ChatLogMessagePropTypes,
+    ...MessagePropTypes,
   })).isRequired,
   'data-testid': PropTypes.string,
 };
 
-ChatLogMessages.defaultProps = {
+LogMessages.defaultProps = {
   'data-testid': undefined,
 };
 
-export default ChatLogMessages;
+export default LogMessages;

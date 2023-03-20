@@ -1,12 +1,11 @@
-import { Header, Menu, Text } from 'grommet';
+import { Header, Text } from 'grommet';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-
-import useCharacterMenu from '../utils/useCharacterMenu';
+import Search from '../search/Search';
 
 const StickyHeader = styled(Header)`
   position: sticky;
-  z-index: 1;
+  z-index: 10;
   top: 0;
   left: 0;
   right: 0;
@@ -14,11 +13,10 @@ const StickyHeader = styled(Header)`
 
 const AppHeader = props => {
   const navigate = useNavigate();
-  const items = useCharacterMenu();
 
   return (
     <StickyHeader
-      pad={{ left: 'large', right: 'medium' }}
+      pad={{ horizontal: 'large' }}
       background="brand"
       elevation="medium"
       height="xxsmall"
@@ -32,12 +30,8 @@ const AppHeader = props => {
       >
         NWN2 Chat Logs
       </Text>
-      {items.length > 0 && (
-        <Menu
-          label="Characters"
-          items={items}
-        />
-      )}
+
+      <Search />
     </StickyHeader>
   );
 };

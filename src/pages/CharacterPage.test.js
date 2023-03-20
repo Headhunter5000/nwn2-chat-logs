@@ -4,6 +4,7 @@ import { renderWithProviders } from '../utils/testUtils';
 import CharacterPage from './CharacterPage';
 
 const CHAR = 'TestChar';
+const LAST_DATE = '2021-01-03';
 
 const CHARS = [
   {
@@ -16,6 +17,7 @@ const CHARS = [
 ];
 
 const LOGS = {
+  file: 'TestChar (Chatlog) 2021-01-03.log',
   messages: [{
     id: '1',
     time: '19:30',
@@ -27,8 +29,9 @@ const LOGS = {
 };
 
 jest.mock('react-router-dom', () => ({
-  useParams: () => ({ char: CHAR }),
-  useNavigate: () => {},
+  useParams: () => ({ char: CHAR, date: LAST_DATE }),
+  useSearchParams: () => [{ get: () => undefined }],
+  useNavigate: () => () => {},
 }));
 
 jest.mock('../utils/dbUtils', () => ({
@@ -39,6 +42,6 @@ jest.mock('../utils/dbUtils', () => ({
 describe('CharacterPage', () => {
   test('renders component', async () => {
     renderWithProviders(<CharacterPage />);
-    expect(screen.getByTestId(`messages-chat-log-${CHAR}-${CHARS[0].dates[2]}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`messages-chat-log-${CHAR}-${LAST_DATE}`)).toBeInTheDocument();
   });
 });

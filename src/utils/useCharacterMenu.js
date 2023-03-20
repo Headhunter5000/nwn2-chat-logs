@@ -27,28 +27,33 @@ const useCharacterMenu = ({ withDelete = false } = {}) => {
   const { stats } = useContext(ChatLogsContext);
 
   return useMemo(
-    () => stats.map(({ name, count }) => ({
-      key: name,
-      label: (
-        <>
-          <Box direction="row" align="center"  alignSelf="center" gap="small">
-            <Text>
-              {name.replace('_', ' ')}
-            </Text>
-            <Text size="small" color={{ dark: 'dark-6', light: 'dark-3' }}>
-            ({count})
-            </Text>
-          </Box>
-          {withDelete && <DeleteButton {...{ name }} />}
-        </>
-      ),
-      href: `/characters/${name}`,
-      onClick: e => {
-        e.preventDefault();
-        e.stopPropagation();
-        navigate(`/characters/${name}`);
-      },
-    })),
+    () => stats.map(({ name, lastDate, count }) => {
+      const href = `/characters/${name}/${lastDate}`;
+      const key = name;
+
+      return {
+        key,
+        href,
+        label: (
+          <>
+            <Box direction="row" align="center" alignSelf="center" gap="small">
+              <Text>
+                {name.replace('_', ' ')}
+              </Text>
+              <Text size="small" color={{ dark: 'dark-6', light: 'dark-3' }}>
+                ({count})
+              </Text>
+            </Box>
+            {withDelete && <DeleteButton {...{ name }} />}
+          </>
+        ),
+        onClick: e => {
+          e.preventDefault();
+          e.stopPropagation();
+          navigate(href);
+        },
+      };
+    }),
     [navigate, withDelete, stats]
   );
 };
