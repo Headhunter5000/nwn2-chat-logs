@@ -1,6 +1,8 @@
 import CHAT_LOG_PATTERN from '../regex/chatlog';
 import CHAT_LOG_FILE_PATTERN from '../regex/chatlogFile';
 import { addChatLog, geChatLogIdByFileName, updateChatLogById } from './dbUtils';
+import formatPlainMessage from './formatPlainMessage';
+import { getMessageId } from './stringUtils';
 
 export const addOrUpdateChatLog = async ({ file, text }) => {
   const match = file.match(CHAT_LOG_FILE_PATTERN);
@@ -19,12 +21,13 @@ export const addOrUpdateChatLog = async ({ file, text }) => {
 
   const messages = [...text.matchAll(CHAT_LOG_PATTERN)]
     .map(([, time, user, char, type, message], index) => ({
-      id: `${file} / ${String(index).padStart(4, 0)}`,
+      id: getMessageId(file, index),
       time,
       user,
       char,
       type,
       message,
+      plainMessage: formatPlainMessage(message),
     }));
 
   const existingId = await geChatLogIdByFileName(file);

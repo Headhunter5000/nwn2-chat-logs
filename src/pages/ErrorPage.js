@@ -1,15 +1,17 @@
-import { Box, PageHeader } from 'grommet';
+import { PageHeader } from 'grommet';
+import { FormPreviousLink } from 'grommet-icons';
+
 import InternalLink from '../components/common/InternalLink';
-import PageLayout from '../components/PageLayout';
+import Page from '../components/layout/Page';
 
 const ErrorPage = () => {
   return (
-    <PageLayout>
-      <Box direction="row">
-        <InternalLink to="/">&larr; back</InternalLink>
-      </Box>
-      <PageHeader title="404 - Not Found!" />
-    </PageLayout>
+    <Page>
+      <PageHeader
+        title="404 - Not Found!"
+        parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
+      />
+    </Page>
   );
 };
 

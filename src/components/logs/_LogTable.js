@@ -1,12 +1,25 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Data, DataTable } from 'grommet';
+import { Data, DataTable, Text } from 'grommet';
 
-import formatPlainMessage from '../../utils/formatPlainMessage';
+import MessagePropTypes from '../../config/propTypes/messagePropTypes';
 import formatHtmlMessage from '../../utils/formatHtmlMessage';
-import ChatLogStyles from './ChatLogStyles';
-import ColoredText from './ColoredText';
-import MessageText from './MessageText';
+import ColoredText from '../common/ColoredText';
+import LogStyles from './LogStyles';
+
+const MessageText = ({ type, message }) => (
+  <Text>
+    <span
+      className={`message-type-${type.toLowerCase()}`}
+      dangerouslySetInnerHTML={{ __html: message }}
+    />
+  </Text>
+);
+
+MessageText.propTypes = {
+  type: MessagePropTypes.type,
+  message: MessagePropTypes.message,
+};
 
 const properties = {
   date: {
@@ -83,7 +96,6 @@ const useMapData = logs => {
           ({ message, ...rest }) => ({
             date,
             ...rest,
-            plainMessage: formatPlainMessage(message),
             message: formatHtmlMessage(message),
           })
         ),
@@ -98,12 +110,12 @@ const useMapData = logs => {
   return mappedData;
 };
 
-const ChatLogTable = ({ logs }) => {
+const LogTable = ({ logs }) => {
   const data = useMapData(logs);
 
   return (
     <>
-      <ChatLogStyles />
+      <LogStyles />
       <Data {...{
         toolbar: true,
         properties,
@@ -120,8 +132,8 @@ const ChatLogTable = ({ logs }) => {
   );
 };
 
-ChatLogTable.propTypes = {
+LogTable.propTypes = {
   logs: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-export default ChatLogTable;
+export default LogTable;

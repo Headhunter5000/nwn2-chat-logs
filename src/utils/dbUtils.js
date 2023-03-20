@@ -1,6 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 
 import db from '../config/db';
+import { finalFilterLogs, preFilterLogs } from './logs';
 
 export const useChatLogStats = () => useLiveQuery(
   () => db.chats.orderBy('[char+date]').keys().then(dates => dates
@@ -39,6 +40,17 @@ export const useChatLogOfCharAndDate = (char, date) => useLiveQuery(
 export const useChatLogsOfChar = char => useLiveQuery(
   () => db.chats.where({ char }).sortBy('date'),
   [char],
+);
+
+export const useFilteredChatLogs = (search, limit) => useLiveQuery(
+  () => db.chats
+    .orderBy('date')
+    .reverse()
+    .filter(preFilterLogs(search))
+    .limit(20)
+    .toArray()
+    .then(finalFilterLogs(search, limit)),
+  [search],
 );
 
 export const geChatLogIdByFileName = file =>

@@ -1,16 +1,13 @@
-
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/no-children-prop */
-import { useContext, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { PageHeader } from 'grommet';
+import { useContext, useEffect, useMemo } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { FormPreviousLink } from 'grommet-icons';
+import { PageHeader } from 'grommet';
 
-import ChatLogItem from '../components/chatLogs/ChatLogItem';
-import InternalLink from '../components/common/InternalLink';
-import ChatLogCalendar from '../components/chatLogs/ChatLogCalendar';
-import ChatLogStyles from '../components/chatLogs/ChatLogStyles';
 import { ChatLogsContext } from '../utils/statsContext';
+import InternalLink from '../components/common/InternalLink';
+import LogItem from '../components/logs/LogItem';
+import LogCalendar from '../components/logs/LogCalendar';
+import LogStyles from '../components/logs/LogStyles';
 
 const renderedHeader = ({ char, count }) => (
   <>
@@ -23,9 +20,9 @@ const renderedHeader = ({ char, count }) => (
 );
 
 const CharacterPage = () => {
-  const { char } = useParams();
+  const { char, date } = useParams();
+  const navigate = useNavigate();
   const { statsByChar, isLoaded } = useContext(ChatLogsContext);
-  const [currentDate, setCurrrentDate] = useState();
 
   const { lastDate, count } = useMemo(
     () => (statsByChar ?? {})[char] ?? {},
@@ -38,22 +35,22 @@ const CharacterPage = () => {
   );
 
   useEffect(() => {
-    if (!currentDate && lastDate) {
-      setCurrrentDate(lastDate);
+    if (!date && lastDate) {
+      navigate(`/characters/${char}/${lastDate}`, { replace: true });
     }
-  }, [setCurrrentDate, currentDate, lastDate]);
+  }, [char, date, lastDate, navigate]);
 
   if (isLoaded && !lastDate) {
     throw new Response('Not Found', { status: 404 });
   }
 
-  if (currentDate) {
+  if (date) {
     return (
       <>
         {header}
-        <ChatLogStyles />
-        <ChatLogCalendar {...{ char, currentDate, setCurrrentDate }} />
-        <ChatLogItem {...{ char, date: currentDate }} />
+        <LogStyles />
+        <LogCalendar {...{ char, currentDate: date }} />
+        <LogItem {...{ char, date }} />
       </>
     );
   }

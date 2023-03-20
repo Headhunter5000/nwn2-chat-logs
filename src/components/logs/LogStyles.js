@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const ChatLogStyles = createGlobalStyle`
+const LogStyles = createGlobalStyle`
   .hide-overflow {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -16,7 +16,7 @@ const ChatLogStyles = createGlobalStyle`
   }
 
   .text-speech {
-    color: black;
+    color: inherit;
   }
 
   .text-emote {
@@ -28,4 +28,4 @@ const ChatLogStyles = createGlobalStyle`
   }
 `;
 
-export default ChatLogStyles;
+export default LogStyles;
