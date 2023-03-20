@@ -1,4 +1,4 @@
-import { PageHeader } from 'grommet';
+import { PageHeader, Paragraph } from 'grommet';
 import { FormPreviousLink } from 'grommet-icons';
 
 import InternalLink from '../components/common/InternalLink';
@@ -11,6 +11,11 @@ const ErrorPage = () => {
         title="404 - Not Found!"
         parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
       />
+
+      <Paragraph margin="none">
+        This site is still in the early stages of development and things can change quickly.
+        If you encounter a problem, first try deleting your chat logs and importing them again.
+      </Paragraph>
     </Page>
   );
 };
