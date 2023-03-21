@@ -1,25 +1,29 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled, { css } from 'styled-components';
+import { Box, Text } from 'grommet';
 
-import { addOrUpdateChatLog } from '../../utils/addOrUpdateChatLog';
-import UploadModal from './UploadModal';
+import importLogFile from '../../utils/importLogFile';
+import ImportModal from './ImportModal';
 
-const DropZoneBox = styled.div(({ $isDragActive }) => css`
-  display: flex;
-  align-items: center;
-  width: 10rem;
-  height: 10rem;
-  margin-bottom: 1rem;
-  padding: 1rem;
+const DropzoneBox = styled(Box).attrs({
+  align: 'center',
+  justify: 'center',
+  width: '12em',
+  height: '12em',
+  pad: 'large',
+  margin: { bottom: 'large' },
+})(({ $isDragActive }) => css`
   border: 2px dashed #ccc;
-  border-radius: 1rem;
+  border-radius: 6px;
   cursor: pointer;
 
-  ${$isDragActive && css`border-color: #46a`}
+  ${$isDragActive && css`
+    border-color: ${({ theme }) => theme.global.colors.brand};
+  `}
 `);
 
-const FileDropzone = () => {
+const Upload = () => {
   const [success, setSuccess] = useState([]);
   const [error, setError] = useState([]);
   const [loadingCountdown, setLoadingCountdown] = useState(0);
@@ -39,7 +43,7 @@ const FileDropzone = () => {
         const { result } = reader;
 
         try {
-          await addOrUpdateChatLog({ file: name, text: result });
+          await importLogFile({ file: name, text: result });
           setSuccess(prev => ([...prev, name]));
         } catch (err) {
           setError(prev => ([...prev, name]));
@@ -62,17 +66,21 @@ const FileDropzone = () => {
 
   return (
     <>
-      <DropZoneBox {...getRootProps()} $isDragActive={isDragActive}>
+      <DropzoneBox {...getRootProps()} $isDragActive={isDragActive}>
         <input {...getInputProps()} />
-        {
-          isDragActive ?
-            <p>Drop it here ...</p> :
-            <p>Drag &apos;n&apos; drop your files here, or click.</p>
-        }
-      </DropZoneBox>
-      <UploadModal {...{ loadingCountdown, success, setSuccess, error, setError }} />
+        {isDragActive
+          ? <Text>Drop files here&hellip;</Text>
+          : <Text>Drag &apos;n&apos; drop or click to import one or multiple files</Text>}
+      </DropzoneBox>
+      <ImportModal {...{
+        loadingCountdown,
+        success,
+        setSuccess,
+        error,
+        setError,
+      }} />
     </>
   );
 };
 
-export default FileDropzone;
+export default memo(Upload);

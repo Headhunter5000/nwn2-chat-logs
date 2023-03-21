@@ -1,4 +1,4 @@
-import { caseInsensitiveIncludes, highlightString } from './stringUtils';
+import { caseInsensitiveIncludes, formatSearchMessage } from '../stringUtils';
 
 export const preFilterLogs = search => ({ messages }) =>  messages.some(
   ({ plainMessage }) => caseInsensitiveIncludes(plainMessage, search)
@@ -16,7 +16,7 @@ export const finalFilterLogs = (search, limit) => logs => {
               date,
               messageIndex,
               plainMessage,
-              message: highlightString(plainMessage, search),
+              message: formatSearchMessage(plainMessage, search),
             });
           }
         });

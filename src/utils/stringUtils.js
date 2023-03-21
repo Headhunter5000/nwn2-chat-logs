@@ -1,14 +1,30 @@
+import {
+  BRACE_CLOSE,
+  BRACE_OPEN,
+  COLOR_END_TAG,
+  COLOR_TAG_EMOTE,
+  COLOR_TAG_SPEECH,
+  HTML_TAGS,
+  LINE_BREAK,
+  LINE_BREAK_LAST_ONE,
+  LINE_BREAK_NOT_LAST_ONE,
+  STAR,
+  STAR_NESTED_TAGS,
+} from '../regex/message';
+
 export const caseInsensitiveIndexOf = (text, search) =>
   text.toLowerCase().indexOf(search.toLowerCase());
 
 export const caseInsensitiveIncludes = (text, search) =>
   caseInsensitiveIndexOf(text, search) !== -1;
 
-export const highlightString = (text, search, maxLength = 60) => {
-  const matchIndex = caseInsensitiveIndexOf(text, search);
+export const getMessageId = (file, index) => `${file} / ${String(index).padStart(4, 0)}`;
+
+export const formatSearchMessage = (message, search, maxLength = 60) => {
+  const matchIndex = caseInsensitiveIndexOf(message, search);
 
   const searchLength = search.length;
-  const textLength = text.length;
+  const messageLength = message.length;
   const padLeft = Math.floor((maxLength - searchLength) / 2);
   const padRight = Math.ceil((maxLength - searchLength) / 2);
 
@@ -21,17 +37,37 @@ export const highlightString = (text, search, maxLength = 60) => {
     const matchIndesEnd = matchIndex + searchLength;
 
     const afterIndexStart = matchIndex + searchLength;
-    const afterIndexEnd = Math.min(textLength, matchIndex + searchLength + padRight);
-    const afterSuffix = afterIndexEnd === textLength ? '' : '&hellip;';
+    const afterIndexEnd = Math.min(messageLength, matchIndex + searchLength + padRight);
+    const afterSuffix = afterIndexEnd === messageLength ? '' : '&hellip;';
 
-    const beforeStr = text.substring(beforeIndexStart, beforeIndexEnd);
-    const matchStr = text.substring(matchIndexStart, matchIndesEnd);
-    const afterStr = text.substring(afterIndexStart, afterIndexEnd);
+    const beforeStr = message.substring(beforeIndexStart, beforeIndexEnd);
+    const matchStr = message.substring(matchIndexStart, matchIndesEnd);
+    const afterStr = message.substring(afterIndexStart, afterIndexEnd);
 
     return `${beforePrefix}${beforeStr}<strong>${matchStr}</strong>${afterStr}${afterSuffix}`;
   }
 
-  return text;
+  if(messageLength > maxLength) {
+    return `${message.substring(0, maxLength)}&hellip;`;
+  }
+
+  return message;
 };
 
-export const getMessageId = (file, index) => `${file} / ${String(index).padStart(4, 0)}`;
+export const formatHtmlMessage = message => message
+  .replace(LINE_BREAK_LAST_ONE, '')
+  .replace(LINE_BREAK_NOT_LAST_ONE, '<br />')
+  .replace(COLOR_END_TAG, '</span>')
+  .replace(COLOR_TAG_SPEECH, '<span class="text-speech">')
+  .replace(COLOR_TAG_EMOTE, '<span class="text-emote">')
+  .replace(STAR, '<span class="text-emote">*</span>')
+  .replace(STAR_NESTED_TAGS, '<span class="text-emote">*</span>')
+  .replace(BRACE_OPEN, '<span class="text-ooc">(')
+  .replace(BRACE_CLOSE, ')</span>');
+
+export const formatPlainMessage = message => message
+  .replace(HTML_TAGS, '')
+  .replace(LINE_BREAK, '')
+  .replace(STAR, '')
+  .replace(BRACE_OPEN, '')
+  .replace(BRACE_CLOSE, '');

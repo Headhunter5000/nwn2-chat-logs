@@ -1,10 +1,9 @@
 import CHAT_LOG_PATTERN from '../regex/chatlog';
 import CHAT_LOG_FILE_PATTERN from '../regex/chatlogFile';
 import { addChatLog, geChatLogIdByFileName, updateChatLogById } from './dbUtils';
-import formatPlainMessage from './formatPlainMessage';
-import { getMessageId } from './stringUtils';
+import { getMessageId, formatPlainMessage } from './stringUtils';
 
-export const addOrUpdateChatLog = async ({ file, text }) => {
+const importLogFile = async ({ file, text }) => {
   const match = file.match(CHAT_LOG_FILE_PATTERN);
 
   if (!match) {
@@ -43,3 +42,5 @@ export const addOrUpdateChatLog = async ({ file, text }) => {
     messages,
   });
 };
+
+export default importLogFile;

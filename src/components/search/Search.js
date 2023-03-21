@@ -2,20 +2,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, Button, Layer, TextInput } from 'grommet';
 import { FormSearch } from 'grommet-icons';
 import debounce from 'lodash.debounce';
-import styled from 'styled-components';
 
 import SearchResults from './SearchResults';
 
 const MIN_SEARCH_LENGTH = 2;
-
-const SearchInput = styled(TextInput)`
-  background-color: white;
-  color: black;
-
-  &, &:focus {
-    box-shadow: none;
-  }
-`;
 
 const Search = () => {
   const targetRef = useRef();
@@ -64,7 +54,7 @@ const Search = () => {
     <>
       <Box>
         {inputVisible ? (
-          <SearchInput
+          <TextInput
             ref={targetRef}
             onChange={onChange}
             onBlur={onBlur}
@@ -85,8 +75,10 @@ const Search = () => {
           onClickOutside={hide}
           onEsc={hide}
           modal={false}
+          responsive={false}
+          margin="large"
         >
-          <Box pad="large">
+          <Box pad="large" style={{ maxHeight: 'calc(100vh - 6em)', overflow: 'hidden' }}>
             <SearchResults {...{ search: value.trim(), hide }} />
           </Box>
         </Layer>

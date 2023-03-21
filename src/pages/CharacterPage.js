@@ -4,39 +4,27 @@ import { FormPreviousLink } from 'grommet-icons';
 import { PageHeader } from 'grommet';
 
 import { ChatLogsContext } from '../utils/statsContext';
+import { buildCharacterUrl } from '../utils/navigation';
 import InternalLink from '../components/common/InternalLink';
-import LogItem from '../components/logs/LogItem';
 import LogCalendar from '../components/logs/LogCalendar';
-import LogStyles from '../components/logs/LogStyles';
+import LogItem from '../components/logs/LogItem';
 
-const renderedHeader = ({ char, count }) => (
-  <>
-    <PageHeader
-      title={char.replace('_', ' ')}
-      subtitle={count ? `${count} logs` : 'Loading...'}
-      parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
-    />
-  </>
-);
+const getStatsOfChar = (statsByChar, char) =>
+  (statsByChar ?? {})[char] ?? {};
 
 const CharacterPage = () => {
-  const { char, date } = useParams();
   const navigate = useNavigate();
+  const { char, date, index } = useParams();
   const { statsByChar, isLoaded } = useContext(ChatLogsContext);
 
   const { lastDate, count } = useMemo(
-    () => (statsByChar ?? {})[char] ?? {},
-    [char, statsByChar]
-  );
-
-  const header = useMemo(
-    () => renderedHeader({ char, count }),
-    [char, count]
+    () => getStatsOfChar(statsByChar, char),
+    [char, statsByChar],
   );
 
   useEffect(() => {
     if (!date && lastDate) {
-      navigate(`/characters/${char}/${lastDate}`, { replace: true });
+      navigate(buildCharacterUrl(char, lastDate), { replace: true });
     }
   }, [char, date, lastDate, navigate]);
 
@@ -44,18 +32,21 @@ const CharacterPage = () => {
     throw new Response('Not Found', { status: 404 });
   }
 
-  if (date) {
-    return (
-      <>
-        {header}
-        <LogStyles />
-        <LogCalendar {...{ char, currentDate: date }} />
-        <LogItem {...{ char, date }} />
-      </>
-    );
-  }
-
-  return header;
+  return (
+    <>
+      <PageHeader
+        title={char}
+        subtitle={count ? `${count} logs` : 'Loading...'}
+        parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
+      />
+      {date && (
+        <>
+          <LogCalendar {...{ char, currentDate: date }} />
+          <LogItem {...{ char, date, index }} />
+        </>
+      )}
+    </>
+  );
 };
 
 export default CharacterPage;

@@ -1,12 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const LogStyles = createGlobalStyle`
-  .hide-overflow {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
+const LogMessageStyles = createGlobalStyle`
   .message-type-dialog {
     color: #777;
   }
@@ -28,4 +22,4 @@ const LogStyles = createGlobalStyle`
   }
 `;
 
-export default LogStyles;
+export default LogMessageStyles;

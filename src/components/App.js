@@ -13,7 +13,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const App = () =>  (
-  <Grommet {...{ theme }} full>
+  <Grommet theme={theme} id="app-root" full>
     <GlobalStyle />
     <ChatLogsProvider>
       <RouterProvider router={router} />

@@ -1,30 +1,28 @@
+import { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { DataTable, Text } from 'grommet';
 
-import MessagePropTypes from '../../config/propTypes/messagePropTypes';
 import { useFilteredChatLogs } from '../../utils/dbUtils';
+import { buildCharacterUrl } from '../../utils/navigation';
 import InternalLink from '../common/InternalLink';
 import ColoredText from '../common/ColoredText';
+import MessageText from '../common/MessageText';
 
 const getColumns = hide =>  [
   {
     property: 'date',
     header: 'Date',
     size: '7em',
-    render: ({ owner, date, messageIndex }) => {
-      const href = `/characters/${owner}/${date}?index=${messageIndex}`;
-
-      return (
-        <Text>
-          <InternalLink
-            to={href}
-            onClick={hide}
-          >
-            {date}
-          </InternalLink>
-        </Text>
-      );
-    },
+    render: ({ owner, date, messageIndex }) => (
+      <Text>
+        <InternalLink
+          to={buildCharacterUrl(owner, date, messageIndex)}
+          onClick={hide}
+        >
+          {date}
+        </InternalLink>
+      </Text>
+    ),
   },
   {
     property: 'char',
@@ -40,19 +38,10 @@ const getColumns = hide =>  [
   },
 ];
 
-const MessageText = ({ type, message }) => (
-  <Text truncate>
-    <span dangerouslySetInnerHTML={{ __html: message }} />
-  </Text>
-);
-
-MessageText.propTypes = {
-  type: MessagePropTypes.type,
-  message: MessagePropTypes.message,
-};
-
 const SearchResults = ({ search, hide }) => {
   const data = useFilteredChatLogs(search, 50);
+
+  const columns = useMemo(() => getColumns(hide), [hide]);
 
   if (!data) {
     return <Text>Loading...</Text>;
@@ -66,9 +55,16 @@ const SearchResults = ({ search, hide }) => {
     <DataTable {...{
       primaryKey: 'id',
       verticalAlign: { body: 'top' },
-      pad: { vertical: 'medium', right: 'medium' },
+      pad: {
+        header: {
+          vertical: 'none', right: 'medium',
+        },
+        body: {
+          vertical: 'medium', right: 'medium',
+        },
+      },
       size: '25.5em',
-      columns: getColumns(hide),
+      columns,
       data,
     }} />
   );

@@ -1,4 +1,7 @@
 import { deepFreeze } from 'grommet/utils';
+import { css } from 'styled-components';
+
+import { StyledDayContainer } from 'grommet/components/Calendar/StyledCalendar';
 
 const theme = deepFreeze({
   global: {
@@ -7,6 +10,12 @@ const theme = deepFreeze({
       control: {
         dark: 'accent-1',
         light: 'brand',
+      },
+    },
+    focus: {
+      shadow: {
+        size: '0px',
+        color: 'transparent',
       },
     },
     font: {
@@ -27,7 +36,7 @@ const theme = deepFreeze({
     input: {
       padding: {
         horizontal: '12px',
-        vertical: '8px',
+        vertical: '6px',
       },
       weight: 400,
     },
@@ -40,28 +49,54 @@ const theme = deepFreeze({
     },
   },
   button: {
+    padding: {
+      horizontal: '12px',
+      vertical: '6px',
+    },
     border: {
-      radius: '5px',
+      radius: '6px',
     },
     size: {
       small: {
+        pad: {
+          horizontal: '6px',
+          vertical: '3px',
+        },
         border: {
-          radius: '5px',
+          radius: '6px',
         },
       },
       medium: {
+        pad: {
+          horizontal: '12px',
+          vertical: '6px',
+        },
         border: {
-          radius: '5px',
+          radius: '6px',
         },
       },
       large: {
+        pad: {
+          horizontal: '18px',
+          vertical: '9px',
+        },
         border: {
-          radius: '5px',
+          radius: '6px',
         },
       },
     },
   },
   calendar: {
+    day: {
+      extend: css`
+        opacity: 0.7;
+      `,
+    },
+    extend: css`
+      ${StyledDayContainer} button {
+        opacity: 1;
+      }
+    `,
     small: {
       title: {
         size: 'small',
@@ -83,6 +118,19 @@ const theme = deepFreeze({
     item: {
       justify: 'between',
     },
+  },
+  table: {
+    header: {
+      extend: css`
+        height: 40px;
+      `,
+    },
+  },
+  textInput: {
+    extend: css`
+      background-color: white;
+      color: black;
+    `,
   },
 });
 
