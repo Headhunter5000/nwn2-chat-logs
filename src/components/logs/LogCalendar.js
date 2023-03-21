@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { getDateFromISOString, getIsoStringFromDate } from '../../utils/dateUtils';
 import { ChatLogsContext } from '../../utils/statsContext';
 import CalendarDay from '../common/CalendarDay';
+import { buildCharacterUrl } from '../../utils/navigation';
 
 // eslint-disable-next-line react/prop-types, react/display-name
 const createCalendarDay = ({ dates, size, onClick }) => ({ date: currentDate, ...props }) => {
@@ -52,7 +53,7 @@ const LogCalendar = ({ char, currentDate, size }) => {
             firstDayOfWeek={1}
             bounds={[firstDate, lastDate]}
             date={getIsoStringFromDate(currentDate)}
-            onSelect={date => navigate(`/characters/${char}/${getDateFromISOString(date)}`)}
+            onSelect={date => navigate(buildCharacterUrl(char, getDateFromISOString(date)))}
             // eslint-disable-next-line react/no-children-prop
             children={createCalendarDay({ dates, size, onClick: hide })}
           />

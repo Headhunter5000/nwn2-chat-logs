@@ -1,36 +1,39 @@
-import { Box, Button, Heading, Nav, Paragraph } from 'grommet';
-import useCharacterMenu from '../utils/useCharacterMenu';
-import FileDropzone from '../components/upload/FileDropzone';
+import { useContext } from 'react';
+import { Heading, Paragraph } from 'grommet';
 
-const LandingPage = () => {
-  const items = useCharacterMenu({ withDelete: true });
+import { ChatLogsContext } from '../utils/statsContext';
+import Characters from '../components/characters/Characters';
+
+const LandingPageHeading = () => {
+  const { stats } = useContext(ChatLogsContext);
 
   return (
-    <>
-      <Heading level="3">Import your logs</Heading>
-
-      <Paragraph margin={{ top: 'none', bottom: 'large' }}>
-        Imported logs are stored on your system in the browser. No files are transferred to any server.
-      </Paragraph>
-
-      <FileDropzone />
-
-      {items.length > 0 && (
-        <>
-          <Heading level="3">Characters</Heading>
-          <Nav alignSelf="start" gap="none" data-testid="char-menu">
-            {items.map(({ key, label, ...props }) => (
-              <Button {...props} key={key} hoverIndicator>
-                <Box direction="row" justify="between">
-                  {label}
-                </Box>
-              </Button>
-            ))}
-          </Nav>
-        </>
-      )}
-    </>
+    <Heading level="3" margin={{ top: 'large' }}>
+      {stats.length > 0
+        ? `You have chat logs of ${stats.length} characters`
+        : 'Import some chat logs'
+      }
+    </Heading>
   );
+
+  /* return (
+    <PageHeader
+      title={char.replace('_', ' ')}
+      subtitle={count ? `${count} logs` : 'Loading...'}
+      parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
+    />
+  ); */
 };
+
+const LandingPage = () => (
+  <>
+    <LandingPageHeading />
+    <Paragraph margin={{ top: 'none', bottom: 'large' }}>
+        Chat logs are stored locally in browser memory.<br />
+        No files are transferred to any server.
+    </Paragraph>
+    <Characters />
+  </>
+);
 
 export default LandingPage;

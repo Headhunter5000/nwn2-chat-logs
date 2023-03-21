@@ -1,18 +1,23 @@
 import PropTypes from 'prop-types';
 
 import { useChatLogOfCharAndDate } from '../../utils/dbUtils';
-import LogMessages from './LogMessages';
+import MessageStyles from './MessageStyles';
+import Messages from './Messages';
 
-export const LogItem = ({ char, date }) => {
+export const LogItem = ({ char, date, index }) => {
   const log = useChatLogOfCharAndDate(char, date);
 
   if (log && 'messages' in log) {
     return (
-      <LogMessages
-        file={log.file}
-        messages={log.messages}
-        data-testid={`messages-chat-log-${char}-${date}`}
-      />
+      <>
+        <MessageStyles />
+        <Messages
+          file={log.file}
+          messages={log.messages}
+          messageIndex={index ? Number(index) : undefined}
+          data-testid={`chat-log-${char}-${date}`}
+        />
+      </>
     );
   }
 
@@ -22,6 +27,11 @@ export const LogItem = ({ char, date }) => {
 LogItem.propTypes = {
   char: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
+  index: PropTypes.string,
+};
+
+LogItem.defaultProps = {
+  index: undefined,
 };
 
 export default LogItem;

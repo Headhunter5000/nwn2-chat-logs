@@ -42,6 +42,6 @@ jest.mock('../utils/dbUtils', () => ({
 describe('CharacterPage', () => {
   test('renders component', async () => {
     renderWithProviders(<CharacterPage />);
-    expect(screen.getByTestId(`messages-chat-log-${CHAR}-${LAST_DATE}`)).toBeInTheDocument();
+    expect(screen.getByTestId(`chat-log-${CHAR}-${LAST_DATE}`)).toBeInTheDocument();
   });
 });

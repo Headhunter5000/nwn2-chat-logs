@@ -15,15 +15,20 @@ const CalendarDay = styled(({ className, day, isSelected, isMarked, onClick: onC
   align-items: center;
   width: ${theme.calendar[size].daySize};
   height: ${theme.calendar[size].daySize};
+  color: ${theme.global.colors.text.light};
+  opacity: 0.5;
 
   ${isSelected && css`
     background: ${theme.global.colors.brand};
     color: ${theme.global.colors.text.dark};
-    font-weight: bold;
+    font-weight: 500;
+    opacity: 1;
   `}
 
   ${isMarked && !isSelected && css`
     color: ${theme.global.colors.brand};
+    font-weight: 500;
+    opacity: 1;
   `}
 `);
 

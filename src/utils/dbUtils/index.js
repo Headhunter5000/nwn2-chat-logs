@@ -1,35 +1,11 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 
-import db from '../config/db';
-import { finalFilterLogs, preFilterLogs } from './logs';
+import db from '../../config/db';
+import aggregateStats from './aggregateStats';
+import { finalFilterLogs, preFilterLogs } from './searchFilters';
 
 export const useChatLogStats = () => useLiveQuery(
-  () => db.chats.orderBy('[char+date]').keys().then(dates => dates
-    // group by char, add date and count
-    .reduce(
-      (acc, [name, date]) => {
-        const index = acc.findIndex(c => c.name === name);
-
-        if (index === -1) {
-          acc.push({ name, dates: [date], count: 1 });
-        } else {
-          acc[index].dates.push(date);
-          acc[index].count += 1;
-        }
-
-        return acc;
-      }, [])
-    // add first and last date
-    .map(
-      ({ name, dates, count }) => ({
-        name,
-        dates,
-        firstDate: dates[0],
-        lastDate: dates[count-1],
-        count,
-      })
-    )
-  ),
+  () => db.chats.orderBy('[char+date]').keys().then(aggregateStats),
 );
 
 export const useChatLogOfCharAndDate = (char, date) => useLiveQuery(

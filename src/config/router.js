@@ -17,11 +17,7 @@ const router = createHashRouter(
           element: <LandingPage />,
         },
         {
-          path: 'characters/:char',
-          element: <CharacterPage />,
-        },
-        {
-          path: 'characters/:char/:date',
+          path: 'characters/:char/:date?/:index?',
           element: <CharacterPage />,
         },
       ],

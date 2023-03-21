@@ -23,7 +23,7 @@ const UploadModal = ({ loadingCountdown, success, setSuccess, error, setError })
                     <strong>{error.length}</strong> failed:
                   </Text>
                   <List
-                    margin={{ top: 'medium' }}
+                    margin={{ top: 'medium', bottom: 'small' }}
                     data={error}
                     paginate={{ step: 10 }}
                     pad={{ horizontal: 'none', vertical: 'medium' }}
