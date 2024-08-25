@@ -3,7 +3,7 @@
 A web app to display and search inside NWN2 chat logs.
 Logs are storend by IndexedDB on the client side.
 
-Here is the link to the demo: https://nilsklimm.github.io/nwn2-chat-logs/
+Here is the link to the demo: https://headhunter5000.github.io/nwn2-chat-logs/
 
 ## Available Scripts
 
