@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "NWN2 Chat Logs",
+  "name": "An app to upload and browse NWN2 chat logs",
   "icons": [
     {
       "src": "favicon.ico",
