@@ -57,6 +57,7 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
           target={targetRef.current}
           onClickOutside={hide}
           onEsc={hide}
+          stretch={false}
         >
           <Calendar
             size={size}
