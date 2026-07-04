@@ -14,6 +14,7 @@ export const LogItem = ({ char, date, index }: {
       <>
         <MessageStyles />
         <Messages
+          date={date}
           file={log.file}
           messages={log.messages}
           messageIndex={index ? Number(index) : undefined}

@@ -1,13 +1,13 @@
-import { useMemo } from 'react';
 import { DataTable, Text, type ColumnConfig, type PaginationProps } from 'grommet';
+import { useEffect, useMemo, useState } from 'react';
 
+import type { ChatLog, ChatLogMessage } from '../../types/ChatLog';
 import { formatHtmlMessage } from '../../utils/formatHtmlMessage';
-import { getMessageId } from '../../utils/stringUtils';
 import { scrollToTop } from '../../utils/scroll';
+import { getMessageId } from '../../utils/stringUtils';
 import ColoredText from '../common/ColoredText';
 import MessageText from '../common/MessageText';
 import ScrollToMessage from './ScrollToMessage';
-import type { ChatLog, ChatLogMessage } from '../../types/ChatLog';
 
 const PAGINATE = { onClick: () => scrollToTop(true) };
 const STEP_SIZE = 50;
@@ -66,7 +66,7 @@ const getRowProps = (file: string, messageIndex?: number) => {
   return undefined;
 };
 
-const LogMessages = ({ file, messages, messageIndex, dataTestId }: Pick<ChatLog, 'file' | 'messages'> & { messageIndex?: number, dataTestId: string }) => {
+const LogMessages = ({ file, date, messages, messageIndex, dataTestId }: Pick<ChatLog, 'file' | 'date' | 'messages'> & { messageIndex?: number, dataTestId: string }) => {
   const data = useMemo(
     () => applyMessageAdditions(messages),
     [messages],
@@ -77,6 +77,23 @@ const LogMessages = ({ file, messages, messageIndex, dataTestId }: Pick<ChatLog,
     [file, messageIndex],
   );
 
+  const [mKey, setMKey] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    if (typeof messageIndex === 'number' && messageIndex >= 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setMKey(`${date}${messageIndex}-0`);
+      const id1 = setTimeout(() => setMKey(`${date}${messageIndex}-1`), 100);
+      const id2 = setTimeout(() => setMKey(`${date}${messageIndex}-2`), 500);
+      
+      return () => {
+        clearTimeout(id1);
+        clearTimeout(id2);
+      };
+    }
+    setMKey(undefined);
+  }, [date, messageIndex]);
+
   return (
     <>
       <DataTable {...{
@@ -84,7 +101,7 @@ const LogMessages = ({ file, messages, messageIndex, dataTestId }: Pick<ChatLog,
         primaryKey: 'id',
         verticalAlign: { body: 'top' },
         pad: { vertical: 'medium', right: 'medium' },
-        key: messageIndex,
+        key: messageIndex ? mKey || messageIndex : undefined,
         show: messageIndex,
         rowProps,
         paginate: PAGINATE as PaginationProps,
