@@ -1,17 +1,9 @@
 import {
   BRACE_CLOSE,
   BRACE_OPEN,
-  //COLOR_START_TAG,
-  COLOR_END_TAG,
-  COLOR_START_TAG_EMOTE,
-  COLOR_START_TAG_SPEECH,
   HTML_TAGS,
   LINE_BREAK,
-  LINE_BREAK_LAST_ONE,
-  LINE_BREAK_NOT_LAST_ONE,
   STAR,
-  //STAR_SECTION,
-  STAR_NESTED_TAGS,
 } from '../regex/message';
 
 //import colorHash from '../config/colorHash';
@@ -57,19 +49,6 @@ export const formatSearchMessage = (message: string, search: string, maxLength =
 
   return message;
 };
-
-export const formatHtmlMessage = (message: string) => message
-  .replace(LINE_BREAK_LAST_ONE, '')
-  .replace(LINE_BREAK_NOT_LAST_ONE, '<br />')
-  //.replace(STAR_SECTION, '<span class="text-emote">$1</span>')
-  //.replace(COLOR_START_TAG, matched => `<span style="color:${matched}">`)
-  .replace(COLOR_END_TAG, '</span>')
-  .replace(COLOR_START_TAG_SPEECH, '<span class="text-speech">')
-  .replace(COLOR_START_TAG_EMOTE, '<span class="text-emote">')
-  .replace(STAR, '<span class="text-emote">*</span>')
-  .replace(STAR_NESTED_TAGS, '<span class="text-emote">*</span>')
-  .replace(BRACE_OPEN, '<span class="text-ooc">(')
-  .replace(BRACE_CLOSE, ')</span>');
 
 export const formatPlainMessage = (message: string) => message
   .replace(HTML_TAGS, '')
