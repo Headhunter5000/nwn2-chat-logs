@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import { formatHtmlMessage } from './formatHtmlMessage';
 
 const openingOOCSpan = '<span class="text-ooc">';
