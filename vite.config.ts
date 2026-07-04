@@ -6,6 +6,7 @@ import pkg from './package.json';
 
 export default defineConfig({
   plugins: [react()],
+  base: '/nwn2-chat-logs/',
   server: {
     port: 3000,
   },
