@@ -9,6 +9,9 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  preview: {
+    port: 8080,
+  },
   test: {
     globals: true,
     environment: 'jsdom',
