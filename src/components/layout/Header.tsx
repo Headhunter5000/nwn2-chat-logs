@@ -1,7 +1,9 @@
 import { Header, Text } from 'grommet';
+import { lazy } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import Search from '../search/Search';
+
+export const Search = lazy(() => import('../search/Search'));
 
 const StickyHeader = styled(Header)`
   position: sticky;

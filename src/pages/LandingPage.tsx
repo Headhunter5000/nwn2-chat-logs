@@ -1,8 +1,8 @@
-import { useContext } from 'react';
 import { Heading, Paragraph } from 'grommet';
+import { useContext } from 'react';
 
-import { ChatLogsContext } from '../utils/statsContext';
 import Characters from '../components/characters/Characters';
+import { ChatLogsContext } from '../utils/statsContext';
 
 const LandingPageHeading = () => {
   const { stats } = useContext(ChatLogsContext);
