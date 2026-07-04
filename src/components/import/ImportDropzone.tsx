@@ -1,7 +1,7 @@
+import { Box, Text, type BoxProps } from 'grommet';
 import { memo, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled, { css } from 'styled-components';
-import { Box, Text, type BoxProps } from 'grommet';
 
 import importLogFile from '../../utils/importLogFile';
 import ImportModal from './ImportModal';
@@ -43,7 +43,7 @@ const Upload = () => {
         const { result } = reader;
 
         try {
-          await importLogFile({ file: name, text: result });
+          await importLogFile(name, result);
           setSuccess((prev: string[]) => [...prev, name]);
         } catch (err) {
           setError((prev: string[]) => [...prev, name]);

@@ -22,7 +22,7 @@ const ScrollToMessage = ({ index }: { index?: number }) => {
 
       return undefined;
     },
-    [index]
+    [index],
   );
 
   return null;

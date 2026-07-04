@@ -1,8 +1,8 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import db from '../../config/db';
+import type { ChatLog } from '../../types/ChatLog';
 import aggregateStats, { type NameAndDate } from './aggregateStats';
 import { finalFilterLogs, preFilterLogs } from './searchFilters';
-import type { ChatLog } from '../../types/ChatLog';
 
 export const useChatLogStats = () =>
   useLiveQuery(() =>
@@ -15,13 +15,13 @@ export const useChatLogStats = () =>
 export const useChatLogOfCharAndDate = (
   char: string,
   date: string,
-): ChatLog =>
+): ChatLog | undefined =>
   useLiveQuery(
     () => db.chats.where({ char, date }).first(),
     [char, date],
   );
 
-export const useChatLogsOfChar = (char: string) =>
+export const useChatLogsOfChar = (char: string): ChatLog[] | undefined =>
   useLiveQuery(
     () => db.chats.where({ char }).sortBy('date'),
     [char],
@@ -43,7 +43,7 @@ export const useFilteredChatLogs = (
     [search],
   );
 
-export const geChatLogIdByFileName = (
+export const getChatLogIdByFileName = (
   file: string,
 ): Promise<number | undefined> =>
   db.chats

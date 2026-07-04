@@ -1,8 +1,13 @@
-import PropTypes from 'prop-types';
 import { Box, Text } from 'grommet';
 import DeleteButton from './DeleteButton';
 
-export const Character = ({ name, count, withDelete }) => (
+interface CharacterProps {
+  name: string;
+  count: number;
+  withDelete?: boolean
+};
+
+export const Character = ({ name, count, withDelete }: CharacterProps) => (
   <Box direction="row" align="center" justify="between">
     <Box direction="row" align="center" alignSelf="center" gap="small">
       <Text>{name}</Text>
@@ -13,13 +18,3 @@ export const Character = ({ name, count, withDelete }) => (
     {withDelete && <DeleteButton {...{ name }} />}
   </Box>
 );
-
-Character.propTypes = {
-  name: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired,
-  withDelete: PropTypes.bool,
-};
-
-Character.defaultProps = {
-  withDelete: false,
-};

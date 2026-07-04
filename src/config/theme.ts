@@ -1,9 +1,10 @@
 import { deepFreeze } from 'grommet/utils';
 import { css } from 'styled-components';
 
+import type { ThemeType } from 'grommet';
 import { StyledDayContainer } from 'grommet/components/Calendar/StyledCalendar';
 
-const theme = deepFreeze({
+const theme = deepFreeze<ThemeType>({
   global: {
     colors: {
       brand: '#21c',
@@ -112,11 +113,6 @@ const theme = deepFreeze({
           light: 'white',
         },
       },
-    },
-  },
-  menu: {
-    item: {
-      justify: 'between',
     },
   },
   table: {

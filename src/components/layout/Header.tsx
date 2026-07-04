@@ -11,7 +11,7 @@ const StickyHeader = styled(Header)`
   right: 0;
 `;
 
-const AppHeader = (props: { [key: string]: any }) => {
+const AppHeader = (props: { [key: string]: unknown}) => {
   const navigate = useNavigate();
 
   return (

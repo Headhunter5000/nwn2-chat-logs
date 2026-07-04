@@ -1,9 +1,9 @@
+import { Card, CardBody, CardFooter, CardHeader, Nav, Text } from 'grommet';
 import { useContext } from 'react';
 import styled, { css } from 'styled-components';
-import { Card, CardBody, CardFooter, CardHeader, Nav, Text } from 'grommet';
 
-import { ChatLogsContext } from '../../utils/statsContext';
 import { buildCharacterUrl } from '../../utils/navigation';
+import { ChatLogsContext } from '../../utils/statsContext';
 import InternalLink from '../common/InternalLink';
 import ImportDropzone from '../import/ImportDropzone';
 import { Character } from './Character';
@@ -15,10 +15,16 @@ const Flex = styled.div(({ theme }) => css`
   gap: ${theme.global.edgeSize.large};
 `);
 
+interface CharacterListProps {
+  name: string;
+  dates: string[];
+  count: number; 
+}
+
 const CharacterList = () => {
   const { stats } = useContext(ChatLogsContext);
 
-  return stats.map(({ name, dates, count }: { name: string; dates: string[]; count: number;  }) => (
+  return stats.map(({ name, dates, count }: CharacterListProps) => (
     <Card
       height="12em"
       width="12em"

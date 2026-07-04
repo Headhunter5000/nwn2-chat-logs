@@ -8,7 +8,7 @@ export type SearchFilterProps = {
 } & ChatLogMessage;
 
 export const preFilterLogs = (search: string) => ({ messages }: ChatLog) =>  messages.some(
-  ({ plainMessage }) => caseInsensitiveIncludes(plainMessage, search)
+  ({ plainMessage }) => caseInsensitiveIncludes(plainMessage, search),
 );
 
 export const finalFilterLogs = (search: string, limit: number) => (logs: ChatLog[]) => {

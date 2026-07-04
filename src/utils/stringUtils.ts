@@ -16,15 +16,15 @@ import {
 
 //import colorHash from '../config/colorHash';
 
-export const caseInsensitiveIndexOf = (text, search) =>
+export const caseInsensitiveIndexOf = (text: string, search: string) =>
   text.toLowerCase().indexOf(search.toLowerCase());
 
-export const caseInsensitiveIncludes = (text, search) =>
+export const caseInsensitiveIncludes = (text: string, search: string) =>
   caseInsensitiveIndexOf(text, search) !== -1;
 
-export const getMessageId = (file, index) => `${file} / ${String(index).padStart(4, 0)}`;
+export const getMessageId = (file: string, index: number) => `${file} / ${String(index).padStart(4, '0')}`;
 
-export const formatSearchMessage = (message, search, maxLength = 60) => {
+export const formatSearchMessage = (message: string, search: string, maxLength = 60) => {
   const matchIndex = caseInsensitiveIndexOf(message, search);
 
   const searchLength = search.length;
@@ -58,7 +58,7 @@ export const formatSearchMessage = (message, search, maxLength = 60) => {
   return message;
 };
 
-export const formatHtmlMessage = message => message
+export const formatHtmlMessage = (message: string) => message
   .replace(LINE_BREAK_LAST_ONE, '')
   .replace(LINE_BREAK_NOT_LAST_ONE, '<br />')
   //.replace(STAR_SECTION, '<span class="text-emote">$1</span>')
@@ -71,7 +71,7 @@ export const formatHtmlMessage = message => message
   .replace(BRACE_OPEN, '<span class="text-ooc">(')
   .replace(BRACE_CLOSE, ')</span>');
 
-export const formatPlainMessage = message => message
+export const formatPlainMessage = (message: string) => message
   .replace(HTML_TAGS, '')
   .replace(LINE_BREAK, '')
   .replace(STAR, '')

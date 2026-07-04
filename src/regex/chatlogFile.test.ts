@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest';
 import { expectNotToEqualJSON, expectToEqualJSON } from '../utils/testUtils';
 import CHAT_LOG_FILE_PATTERN from './chatlogFile';
 

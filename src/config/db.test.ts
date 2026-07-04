@@ -6,12 +6,13 @@ export const testLog = {
   date: '2021-01-01',
   messages: [
     {
-      id: 1,
+      id: '1',
       time: '00:00',
       user: 'TestUser',
       char: 'TestChar',
       type: 'talk',
       message: 'message',
+      plainMessage: 'message',
     },
   ],
 };
