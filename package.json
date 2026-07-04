@@ -9,7 +9,7 @@
     "test": "vitest",
     "eject": "react-scripts eject",
     "predeploy": "bun run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "engines": {
     "bun": ">=1.0.0",
