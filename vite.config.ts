@@ -2,6 +2,7 @@
 
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vitest/config'; // ← change this
+import pkg from './package.json';
 
 export default defineConfig({
   plugins: [react()],
@@ -13,6 +14,9 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: './src/setupTests.ts',
     include: ['src/**/*.test.{ts,tsx}'],
+  },
+  define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
   },
   // esbuild: {
   //   loader: 'jsx',
