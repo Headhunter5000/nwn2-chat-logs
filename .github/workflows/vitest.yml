@@ -2,7 +2,8 @@ name: Run Tests
 
 on:
   pull_request:
-    branches: [main, master] # Change this to your default branch if different
+    branches: [main]
+  workflow_call: # allows this workflow to be called by other workflows
 
 jobs:
   test:

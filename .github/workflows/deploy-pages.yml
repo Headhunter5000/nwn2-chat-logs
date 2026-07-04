@@ -11,6 +11,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  test:
+    uses: ./.github/workflows/vitest.yml
+
   build:
     name: Build
     runs-on: ubuntu-latest
