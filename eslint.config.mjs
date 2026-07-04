@@ -1,9 +1,9 @@
 import js from '@eslint/js'
-import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -24,7 +24,6 @@ export default defineConfig([
       "comma-dangle": ["error", "always-multiline"],
       "indent": ["error", 2],
       "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
-      "no-undef": ["error", { "typeof": true }],
       "object-curly-spacing": ["error", "always"],
       "quote-props": ["error", "as-needed"],
       "quotes": [2, "single", { "avoidEscape": true }],
