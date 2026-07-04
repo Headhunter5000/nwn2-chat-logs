@@ -1,10 +1,10 @@
+import { Grommet, type ThemeType } from 'grommet';
 import { RouterProvider } from 'react-router';
 import { createGlobalStyle } from 'styled-components';
-import { Grommet, type ThemeType } from 'grommet';
 
-import theme from '../config/theme';
 import router from '../config/router';
-import { ChatLogsProvider } from '../utils/statsContext';
+import theme from '../config/theme';
+import { ChatLogsProvider } from '../utils/statsProvider';
 
 const GlobalStyle = createGlobalStyle`
   body {
