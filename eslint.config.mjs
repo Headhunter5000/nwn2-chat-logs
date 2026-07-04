@@ -20,6 +20,13 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
+      "react-refresh/only-export-components": [
+        "warn",
+        { 
+          allowConstantExport: true,
+          extraHOCs: ["lazy"]
+        }
+      ],
       "arrow-parens": ["error", "as-needed"],
       "comma-dangle": ["error", "always-multiline"],
       "indent": ["error", 2],
