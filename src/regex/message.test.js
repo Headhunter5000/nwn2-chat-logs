@@ -1,3 +1,5 @@
+import { describe, expect, test } from 'vitest'
+
 import {
   HTML_TAGS,
   LINE_BREAK,
