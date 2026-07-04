@@ -1,13 +1,14 @@
 import { Card, CardBody, CardFooter, CardHeader, Nav, Text } from 'grommet';
-import { useContext } from 'react';
+import { lazy, useContext } from 'react';
 import styled, { css } from 'styled-components';
 
 import { buildCharacterUrl } from '../../utils/navigation';
 import { ChatLogsContext } from '../../utils/statsContext';
 import InternalLink from '../common/InternalLink';
-import ImportDropzone from '../import/ImportDropzone';
 import { Character } from './Character';
 import DeleteButton from './DeleteButton';
+
+const ImportDropzone = lazy(() => import('../import/ImportDropzone'));
 
 const Flex = styled.div(({ theme }) => css`
   display: flex;
