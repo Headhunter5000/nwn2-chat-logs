@@ -1,31 +1,43 @@
+/* eslint-disable react-hooks/refs */
+import { Button, Calendar, Drop } from 'grommet';
+import { FormCalendar } from 'grommet-icons';
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Calendar, Drop, Button } from 'grommet';
-import { FormCalendar } from 'grommet-icons';
 
 import { getDateFromISOString, getIsoStringFromDate } from '../../utils/dateUtils';
+import { buildCharacterUrl } from '../../utils/navigation';
 import { ChatLogsContext } from '../../utils/statsContext';
 import CalendarDay from '../common/CalendarDay';
-import { buildCharacterUrl } from '../../utils/navigation';
 
-const createCalendarDay = ({ dates, size, onClick }: { dates: string[], size: string, onClick: Function }) => ({ date: currentDate, ...props }: { date: Date }) => {
-  const isMarked = dates?.find(date => getDateFromISOString(getIsoStringFromDate(currentDate)) === date);
-  return <CalendarDay {...{ ...props, size, isMarked, onClick }} />;
+interface createCalendarDaysProps {
+  dates: string[];
+  size: string;
+  onClick: (e: React.MouseEvent) => void;
+}
+
+interface createCalendarDayProps {
+  date: Date;
+  day: number;
+}
+
+const createCalendarDays = ({ dates, size, onClick }: createCalendarDaysProps) => ({ date: currentDate, day, ...props }: createCalendarDayProps) => {
+  const isMarked = !!dates?.find(date => getDateFromISOString(getIsoStringFromDate(currentDate)) === date);
+  return <CalendarDay {...{ ...props, day, size, isMarked, onClick }} />;
 };
 
 const LogCalendar = ({ char, currentDate, size = 'medium' }: {
   char: string,
   currentDate: string,
-  size: string,
+  size?: string,
 }) => {
   const navigate = useNavigate();
   const { statsByChar } = useContext(ChatLogsContext);
   const [visible, setVisible] = useState(false);
-  const targetRef = useRef(null);
+  const targetRef = useRef<HTMLInputElement | null>(null);
 
   const { dates, firstDate, lastDate } = useMemo(
     () => statsByChar[char] ?? {},
-    [char, statsByChar]
+    [char, statsByChar],
   );
 
   const show = useCallback(() => setVisible(true), []);
@@ -33,12 +45,11 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
 
   return (
     <>
-      <div>
+      <div ref={targetRef}>
         <Button
           label={currentDate}
           icon={<FormCalendar />}
           onClick={show}
-          ref={targetRef}
         />
       </div>
       {visible && targetRef.current && (
@@ -55,10 +66,10 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
             firstDayOfWeek={1}
             bounds={[firstDate, lastDate]}
             date={getIsoStringFromDate(currentDate)}
-            onSelect={date => navigate(buildCharacterUrl(char, getDateFromISOString(date)))}
-            // eslint-disable-next-line react/no-children-prop
-            children={createCalendarDay({ dates, size, onClick: hide })}
-          />
+            onSelect={date => navigate(buildCharacterUrl(char, getDateFromISOString(Array.isArray(date) ? date[0] : date)))}
+          >
+            {createCalendarDays({ dates, size, onClick: hide })}
+          </Calendar>
         </Drop>
       )}
     </>

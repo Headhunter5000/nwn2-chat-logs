@@ -1,21 +1,27 @@
-import PropTypes from 'prop-types';
 import { Box, Button, Layer, Text } from 'grommet';
 import { deleteChatLogsByChar } from '../../utils/dbUtils';
 
-const DeleteModal = ({ name, setLayerVisible }) => (
+interface DeleteModalProps {
+  name: string;
+  setLayerVisible: (visible: boolean) => void;
+}
+
+const DeleteModal = ({ name, setLayerVisible }: DeleteModalProps) => (
   <Layer modal>
     <Box pad="large">
       <Text>
-        Are you sure you want to delete all chat logs of <strong>{name}</strong> ?
+        <span>Are you sure you want to delete all chat logs of</span> <strong>{name}</strong> ?
       </Text>
       <Box direction="row" justify="end" pad={{ top: 'large' }} gap="medium">
         <Button
           label="Cancel"
+          data-testid="delete-modal-cancel"
           onClick={() => setLayerVisible(false)}
         />
         <Button
           label="Confirm"
           color="status-critical"
+          data-testid="delete-modal-confirm"
           onClick={() => {
             setLayerVisible(false);
             deleteChatLogsByChar(name);
@@ -26,10 +32,5 @@ const DeleteModal = ({ name, setLayerVisible }) => (
     </Box>
   </Layer>
 );
-
-DeleteModal.propTypes = {
-  name: PropTypes.string.isRequired,
-  setLayerVisible: PropTypes.func.isRequired,
-};
 
 export default DeleteModal;

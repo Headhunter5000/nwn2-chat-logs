@@ -1,14 +1,14 @@
-import { useMemo, type FC } from 'react';
 import { DataTable, Text } from 'grommet';
+import { useMemo } from 'react';
 
 import { useFilteredChatLogs } from '../../utils/dbUtils';
-import { buildCharacterUrl } from '../../utils/navigation';
-import InternalLink from '../common/InternalLink';
-import ColoredText from '../common/ColoredText';
-import MessageText from '../common/MessageText';
 import type { SearchFilterProps } from '../../utils/dbUtils/searchFilters';
+import { buildCharacterUrl } from '../../utils/navigation';
+import ColoredText from '../common/ColoredText';
+import InternalLink from '../common/InternalLink';
+import MessageText from '../common/MessageText';
 
-const getColumns = (hide: FC) =>  [
+const getColumns = (hide: () => void) =>  [
   {
     property: 'date',
     header: 'Date',
@@ -38,7 +38,7 @@ const getColumns = (hide: FC) =>  [
   },
 ];
 
-const SearchResults = ({ search = '', hide } : { search: string, hide: FC }) => {
+const SearchResults = ({ search = '', hide } : { search: string, hide: () => void }) => {
   const data = useFilteredChatLogs(search, 50);
 
   const columns = useMemo(() => getColumns(hide), [hide]);

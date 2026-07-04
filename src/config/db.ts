@@ -1,5 +1,5 @@
 import Dexie, { type Table } from 'dexie';
-import type { ChatLog } from '../utils/dbUtils';
+import type { ChatLog } from '../types/ChatLog';
 
 class AppDB extends Dexie {
   chats!: Table<ChatLog, number>;

@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Box, Button, Layer, TextInput } from 'grommet';
 import { FormSearch } from 'grommet-icons';
 import debounce from 'lodash.debounce';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import SearchResults from './SearchResults';
 
@@ -17,14 +17,14 @@ const Search = () => {
     () => {
       setInputVisible(true);
     },
-    []
+    [],
   );
 
   const onBlur = useCallback(
     () => {
       setInputVisible(false);
     },
-    []
+    [],
   );
 
   const onChange = useMemo(
@@ -34,7 +34,7 @@ const Search = () => {
         setValue(nextValue);
         setModalVisible(nextValue.length >= MIN_SEARCH_LENGTH);
       }, 100),
-    [setValue]
+    [setValue],
   );
 
   const hide = useCallback(() => setModalVisible(false), []);

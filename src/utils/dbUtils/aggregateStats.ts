@@ -1,4 +1,4 @@
-import type { AggregatedStats } from "../../types/AggregatedStats";
+import type { AggregatedStats } from '../../types/AggregatedStats';
 
 export type NameAndDate = [string, string];
 
@@ -24,7 +24,7 @@ const aggregateStats = (values: NameAndDate[]): AggregatedStats[] =>
         firstDate: dates[0],
         lastDate: dates[count - 1],
         count,
-      })
+      }),
     );
 
 export default aggregateStats;

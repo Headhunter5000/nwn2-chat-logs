@@ -15,7 +15,7 @@ const wrapperRules = [
   },
 ];
 
-export function formatHtmlMessage(input) {
+export function formatHtmlMessage(input: string) {
   const plainInput = input
     .replace(HTML_TAGS, '')
     .replace(LINE_BREAK_LAST_ONE, '')
@@ -69,7 +69,7 @@ export function formatHtmlMessage(input) {
   // Close any remaining open wrappers at the end
   while (openWrappers.length > 0) {
     const lastRule = openWrappers.pop();
-    output += `</${lastRule.tag}>`;
+    if (lastRule) output += `</${lastRule.tag}>`;
   }
 
   return output;

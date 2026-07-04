@@ -1,12 +1,12 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest';
 
 import {
+  BRACE_CLOSE,
+  BRACE_OPEN,
   HTML_TAGS,
   LINE_BREAK,
   LINE_BREAK_LAST_ONE,
   LINE_BREAK_NOT_LAST_ONE,
-  BRACE_OPEN,
-  BRACE_CLOSE,
 } from './message';
 
 describe('HTML_TAGS', () => {

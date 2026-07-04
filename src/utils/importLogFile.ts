@@ -1,17 +1,22 @@
 import CHAT_LOG_PATTERN from '../regex/chatlog';
 import CHAT_LOG_FILE_PATTERN from '../regex/chatlogFile';
-import { addChatLog, geChatLogIdByFileName, updateChatLogById } from './dbUtils';
-import { getMessageId, formatPlainMessage } from './stringUtils';
+import { addChatLog, getChatLogIdByFileName, updateChatLogById } from './dbUtils';
+import { formatPlainMessage, getMessageId } from './stringUtils';
 
-const importLogFile = async ({ file, text }) => {
+const importLogFile = async (file: string, text: unknown) => {
   const match = file.match(CHAT_LOG_FILE_PATTERN);
 
   if (!match) {
     throw new Error('File name has wrong format');
   }
 
-  if (typeof text !== 'string' || !/\[(\d{2}:\d{2})\]/.test(text.substring(0, 7))) {
+  if (typeof text !== 'string') {
     throw new Error('File is not a string');
+  }
+
+  // Ensure the content starts with a timestamp in `[HH:MM]` format.
+  if (!/^\[\d{2}:\d{2}\]/.test(text)) {
+    throw new Error('Missing timestamp');
   }
 
   const [, char, date] = match;
@@ -29,7 +34,7 @@ const importLogFile = async ({ file, text }) => {
       plainMessage: formatPlainMessage(message),
     }));
 
-  const existingId = await geChatLogIdByFileName(file);
+  const existingId = await getChatLogIdByFileName(file);
 
   if (existingId) {
     return await updateChatLogById(existingId, messages);

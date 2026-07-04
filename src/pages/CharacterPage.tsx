@@ -1,19 +1,19 @@
+import { PageHeader } from 'grommet';
+import { FormPreviousLink } from 'grommet-icons';
 import { useContext, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router';
-import { FormPreviousLink } from 'grommet-icons';
-import { PageHeader } from 'grommet';
 
-import { ChatLogsContext } from '../utils/statsContext';
-import { buildCharacterUrl } from '../utils/navigation';
 import InternalLink from '../components/common/InternalLink';
-import type { AggregatedStatsByChar } from '../types/AggregatedStats';
 import LogCalendar from '../components/logs/LogCalendar';
 import LogItem from '../components/logs/LogItem';
+import type { AggregatedStatsByChar } from '../types/AggregatedStats';
+import { buildCharacterUrl } from '../utils/navigation';
+import { ChatLogsContext } from '../utils/statsContext';
 
 const getStatsOfChar = (statsByChar: AggregatedStatsByChar, char: string) => {
   if (char in statsByChar) return statsByChar[char];
   return { lastDate: null, count: 0 };
-}
+};
 
 const CharacterPage = () => {
   const navigate = useNavigate();
@@ -27,11 +27,11 @@ const CharacterPage = () => {
 
   useEffect(() => {
     if (!date && lastDate) {
-      navigate(buildCharacterUrl(char, lastDate), { replace: true });
+      navigate(buildCharacterUrl(char!, lastDate), { replace: true });
     }
   }, [char, date, lastDate, navigate]);
 
-  if (isLoaded && !lastDate) {
+  if (!char || (isLoaded && !lastDate)) {
     throw new Response('Not Found', { status: 404 });
   }
 
@@ -45,7 +45,7 @@ const CharacterPage = () => {
       {date && (
         <>
           <LogCalendar {...{ char, currentDate: date }} />
-          <LogItem {...{ char: char!, date, index }} />
+          <LogItem {...{ char, date, index }} />
         </>
       )}
     </>

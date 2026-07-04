@@ -1,10 +1,15 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from 'grommet';
 import { FormTrash } from 'grommet-icons';
+import { useState } from 'react';
 import DeleteModal from './DeleteModal';
 
-export const DeleteButton = ({ name, onlyIcon, ...rest }) => {
+interface DeleteButtonProps {
+  name: string;
+  onlyIcon?: boolean;
+  [key: string]: unknown;
+}
+
+export const DeleteButton = ({ name, onlyIcon = false, ...rest }: DeleteButtonProps) => {
   const [layerVisible, setLayerVisible] = useState(false);
 
   return (
@@ -24,15 +29,6 @@ export const DeleteButton = ({ name, onlyIcon, ...rest }) => {
       {layerVisible && <DeleteModal {...{ name, setLayerVisible }} />}
     </>
   );
-};
-
-DeleteButton.propTypes = {
-  name: PropTypes.string.isRequired,
-  onlyIcon: PropTypes.bool,
-};
-
-DeleteButton.defaultProps = {
-  onlyIcon: false,
 };
 
 export default DeleteButton;

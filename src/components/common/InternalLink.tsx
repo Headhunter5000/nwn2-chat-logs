@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router';
 import { Anchor, Button } from 'grommet';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
 const UI_TYPES = {
@@ -15,6 +15,7 @@ interface InternalLinkProps {
   className?: string;
   onClick?: (e: React.MouseEvent) => void;
 }
+
 const InternalLink = styled(({ className, to, children, ui, onClick, ...props }: InternalLinkProps) => {
   const navigate = useNavigate();
   const Component = ui ?? UI_TYPES.ANCHOR;

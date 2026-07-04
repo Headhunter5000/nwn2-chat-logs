@@ -1,16 +1,15 @@
 /// <reference types="vitest" />
 
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vitest/config'; // ← change this
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   test: {
-    // Vitest-specific options
-    globals: true,          // allow using `describe`, `it`, `expect` without imports
-    environment: 'jsdom',   // ensures `document` and `window` exist
-    setupFiles: './src/setupTests.ts', // optional, for jest-dom or other setup
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/setupTests.ts',
+    include: ['src/**/*.test.{ts,tsx}'],
   },
   // esbuild: {
   //   loader: 'jsx',
