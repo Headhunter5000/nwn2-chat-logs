@@ -5,6 +5,10 @@ const LogMessageStyles = createGlobalStyle`
     color: #777;
   }
 
+  .message-type-servertell {
+    color: grey;
+  }
+
   .message-type-tell {
     color: blue;
   }
@@ -15,10 +19,22 @@ const LogMessageStyles = createGlobalStyle`
 
   .text-emote {
     color: green;
+    &:not(:empty):before {
+      content: '*';
+    }
+    &:not(:empty):after {
+      content: '*';
+    }
   }
 
   .text-ooc {
     color: purple;
+    &:not(:empty):before {
+      content: '((';
+    }
+    &:not(:empty):after {
+      content: '))';
+    }
   }
 `;
 

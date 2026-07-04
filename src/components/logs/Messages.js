@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { DataTable, Text } from 'grommet';
 
 import MessagePropTypes from '../../config/propTypes/messagePropTypes';
-import { formatHtmlMessage } from '../../utils/stringUtils';
+import { formatHtmlMessage } from '../../utils/formatHtmlMessage';
 import { getMessageId } from '../../utils/stringUtils';
 import { scrollToTop } from '../../utils/scroll';
 import ColoredText from '../common/ColoredText';
