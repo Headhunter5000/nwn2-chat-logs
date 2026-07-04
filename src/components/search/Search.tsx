@@ -1,7 +1,7 @@
 import { Box, Button, Layer, TextInput } from 'grommet';
 import { FormSearch } from 'grommet-icons';
-import debounce from 'lodash.debounce';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { debounce } from 'throttle-debounce';
 
 import SearchResults from './SearchResults';
 
@@ -29,11 +29,14 @@ const Search = () => {
 
   const onChange = useMemo(
     () =>
-      debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-        const nextValue = e.target.value;
-        setValue(nextValue);
-        setModalVisible(nextValue.length >= MIN_SEARCH_LENGTH);
-      }, 100),
+      debounce(
+        100,
+        (e: React.ChangeEvent<HTMLInputElement>) => {
+          const nextValue = e.target.value;
+          setValue(nextValue);
+          setModalVisible(nextValue.length >= MIN_SEARCH_LENGTH);
+        },
+      ),
     [setValue],
   );
 
