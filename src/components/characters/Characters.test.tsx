@@ -17,20 +17,19 @@ vi.mock('../../utils/dbUtils', () => ({
 }));
 
 describe('Characters', () => {
-  it('renders a list of characters', () => {
+  it('renders a list of characters', async () => {
     renderWithProviders(<Characters />);
-    expect(screen.getByTestId('char-menu')).toBeInTheDocument();
+    expect(await screen.findByTestId('char-menu')).toBeInTheDocument();
   });
 
-  it('renders items with correct data from context', () => {
+  it('renders items with correct data from context', async () => {
     renderWithProviders(<Characters />);
-    expect(screen.getByText(/TestChar/)).toBeInTheDocument();
+    expect(await screen.findByText(/TestChar/)).toBeInTheDocument();
     expect(screen.getAllByRole('link').length).toBeGreaterThanOrEqual(3);
   });
 
-  it('renders the ImportDropzone', () => {
+  it('renders the ImportDropzone', async () => {
     renderWithProviders(<Characters />);
-    const dropzoneText = screen.queryByText(/Drag .* or click/);
-    expect(dropzoneText).toBeInTheDocument();
+    expect(await screen.findByText(/Drag .* or click/)).toBeInTheDocument();
   });
 });

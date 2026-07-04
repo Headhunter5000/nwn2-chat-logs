@@ -1,5 +1,5 @@
-import { vi, describe, expect, test } from 'vitest';
 import { screen } from '@testing-library/react';
+import { describe, expect, test, vi } from 'vitest';
 import { renderWithProviders } from '../utils/testUtils';
 import LandingPage from './LandingPage';
 
@@ -27,8 +27,8 @@ vi.mock('../utils/dbUtils', () => ({
 }));
 
 describe('LandingPage', () => {
-  test('renders component', () => {
+  test('renders component', async () => {
     renderWithProviders(<LandingPage />);
-    expect(screen.getByTestId('char-menu')).toBeInTheDocument();
+    expect(await screen.findByTestId('char-menu')).toBeInTheDocument();
   });
 });
