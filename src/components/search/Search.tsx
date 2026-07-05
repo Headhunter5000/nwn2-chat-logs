@@ -11,7 +11,7 @@ const Search = () => {
   const targetRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
   const [inputVisible, setInputVisible] = useState(false);
-  const [modalVisible, setModalVisible] = useState(false);
+  const [layerVisible, setLayerVisible] = useState(false);
 
   const onIconClick = useCallback(
     () => {
@@ -34,13 +34,13 @@ const Search = () => {
         (e: React.ChangeEvent<HTMLInputElement>) => {
           const nextValue = e.target.value;
           setValue(nextValue);
-          setModalVisible(nextValue.length >= MIN_SEARCH_LENGTH);
+          setLayerVisible(nextValue.length >= MIN_SEARCH_LENGTH);
         },
       ),
     [setValue],
   );
 
-  const hide = useCallback(() => setModalVisible(false), []);
+  const hide = useCallback(() => setLayerVisible(false), []);
 
   useEffect(
     () => {
@@ -64,14 +64,14 @@ const Search = () => {
         ) : (
           <Button
             onClick={onIconClick}
-            icon={<FormSearch />}
+            icon={<FormSearch color="text" />}
             label="Search"
             size="small"
             plain
           />
         )}
       </Box>
-      {modalVisible && (
+      {layerVisible && (
         <Layer
           onClickOutside={hide}
           onEsc={hide}
