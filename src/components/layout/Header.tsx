@@ -38,8 +38,10 @@ const AppHeader = (props: { [key: string]: unknown}) => {
 
       <Box direction="row" align="center" gap="large">
         <Search />
-        <InternalLink to="settings"
-          icon={<LuSettings size={20} color="white" />}
+        <InternalLink
+          to="settings"
+          icon={<LuSettings size={20} />}
+          color="text"
         />
       </Box>
     </StickyHeader>

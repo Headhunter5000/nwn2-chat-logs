@@ -29,6 +29,7 @@ vi.mock('../utils/dbUtils', () => ({
 describe('LandingPage', () => {
   test('renders component', async () => {
     renderWithProviders(<LandingPage />);
+    expect(await screen.findByTestId('page-header')).toBeInTheDocument();
     expect(await screen.findByTestId('char-menu')).toBeInTheDocument();
   });
 });

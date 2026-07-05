@@ -1,3 +1,5 @@
-const PageLoader = () => <div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>;
+import { Text } from 'grommet';
+
+const PageLoader = () => <Text margin={{ top: 'large' }}>Loading...</Text>;
 
 export default PageLoader;

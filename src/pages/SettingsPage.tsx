@@ -1,5 +1,6 @@
-import { FormField, Heading, RadioButtonGroup } from 'grommet';
+import { FormField, RadioButtonGroup } from 'grommet';
 import { useContext } from 'react';
+import PageHeader from '../components/common/PageHeader';
 import type { ThemeMode } from '../types/Settings';
 import { SettingsContext } from '../utils/contextProviders/SettingsContext';
 
@@ -11,7 +12,10 @@ const SettingsPage = () => {
   const { themeMode, setThemeMode } =  useContext(SettingsContext);
   return (
     <>
-      <Heading level="3" margin={{ top: 'large' }}>Settings</Heading>
+      <PageHeader
+        title="Settings"
+        hasBackLink
+      />
       <FormField label="Theme">
         <RadioButtonGroup
           name="mode"

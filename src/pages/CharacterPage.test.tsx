@@ -1,5 +1,5 @@
-import { vi, describe, expect, test } from 'vitest';
 import { screen } from '@testing-library/react';
+import { describe, expect, test, vi } from 'vitest';
 
 import { renderWithProviders } from '../utils/testUtils';
 import CharacterPage from './CharacterPage';
@@ -48,6 +48,7 @@ vi.mock('../utils/dbUtils', () => ({
 describe('CharacterPage', () => {
   test('renders component', async () => {
     renderWithProviders(<CharacterPage />);
+    expect(await screen.findByTestId('page-header')).toBeInTheDocument();
     expect(screen.getByTestId(`chat-log-${CHAR}-${LAST_DATE}`)).toBeInTheDocument();
   });
 });
