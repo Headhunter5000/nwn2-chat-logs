@@ -41,12 +41,11 @@
     "dexie": "^3.2.7",
     "dexie-react-hooks": "^1.1.7",
     "grommet": "^2.55.0",
-    "grommet-icons": "^4.14.0",
-    "lodash.debounce": "^4.0.8",
     "prop-types": "^15.8.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-dropzone": "^14.4.1",
+    "react-icons": "^5.7.0",
     "react-router": "^8.1.0",
     "styled-components": "^5.3.11",
     "throttle-debounce": "^5.0.2"

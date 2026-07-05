@@ -1,6 +1,6 @@
 import { Box, Button, Layer, TextInput } from 'grommet';
-import { FormSearch } from 'grommet-icons';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { LuSearch } from 'react-icons/lu';
 import { debounce } from 'throttle-debounce';
 
 import SearchResults from './SearchResults';
@@ -8,26 +8,27 @@ import SearchResults from './SearchResults';
 const MIN_SEARCH_LENGTH = 2;
 
 const Search = () => {
+
   const targetRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
   const [inputVisible, setInputVisible] = useState(false);
   const [layerVisible, setLayerVisible] = useState(false);
 
-  const onIconClick = useCallback(
+  const onButtonClick = useCallback(
     () => {
       setInputVisible(true);
     },
     [],
   );
 
-  const onBlur = useCallback(
+  const onInputBlur = useCallback(
     () => {
-      setInputVisible(false);
+      if (!layerVisible) setInputVisible(false);
     },
-    [],
+    [layerVisible],
   );
 
-  const onChange = useMemo(
+  const onInputChange = useMemo(
     () =>
       debounce(
         100,
@@ -40,7 +41,12 @@ const Search = () => {
     [setValue],
   );
 
-  const hide = useCallback(() => setLayerVisible(false), []);
+  const hide = useCallback((e?: React.MouseEvent) => {
+    if(e && e.target !== targetRef?.current) {
+      setInputVisible(false);
+      setLayerVisible(false);
+    }
+  }, []);
 
   useEffect(
     () => {
@@ -57,14 +63,15 @@ const Search = () => {
         {inputVisible ? (
           <TextInput
             ref={targetRef}
-            onChange={onChange}
-            onBlur={onBlur}
+            onBlur={onInputBlur}
+            onChange={onInputChange}
+            name="search"
             placeholder="Search"
           />
         ) : (
           <Button
-            onClick={onIconClick}
-            icon={<FormSearch color="text" />}
+            onClick={onButtonClick}
+            icon={<LuSearch size={20} />}
             label="Search"
             size="small"
             plain
@@ -73,8 +80,8 @@ const Search = () => {
       </Box>
       {layerVisible && (
         <Layer
-          onClickOutside={hide}
-          onEsc={hide}
+          onClickOutside={e => hide(e)}
+          onEsc={() => hide()}
           modal={false}
           responsive={false}
           margin="large"

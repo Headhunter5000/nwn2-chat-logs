@@ -27,6 +27,7 @@ export default defineConfig([
           extraHOCs: ["lazy"]
         }
       ],
+      "max-len": ["error", { "code": 100 }],
       "arrow-parens": ["error", "as-needed"],
       "comma-dangle": ["error", "always-multiline"],
       "indent": ["error", 2],

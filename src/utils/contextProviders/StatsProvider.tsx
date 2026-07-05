@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useChatLogStats } from './dbUtils';
-import { ChatLogsContext } from './statsContext';
+import { useChatLogStats } from '../dbUtils';
+import { ChatLogsContext } from './StatsContext';
 
 export const ChatLogsProvider = ({ children }: { children? : React.ReactNode} ) => {
   const originalStats = useChatLogStats();
@@ -17,14 +17,12 @@ export const ChatLogsProvider = ({ children }: { children? : React.ReactNode} ) 
     [stats],
   );
 
-  const value = {
-    stats,
-    statsByChar,
-    isLoaded,
-  };
-
   return (
-    <ChatLogsContext.Provider value={value}>
+    <ChatLogsContext.Provider value={{
+      stats,
+      statsByChar,
+      isLoaded,
+    }}>
       {children}
     </ChatLogsContext.Provider>
   );

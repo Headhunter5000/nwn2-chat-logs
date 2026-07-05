@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/refs */
 import { Button, Calendar, Drop } from 'grommet';
-import { FormCalendar } from 'grommet-icons';
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { LuCalendar } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 
+import { ChatLogsContext } from '../../utils/contextProviders/StatsContext';
 import { getDateFromISOString, getIsoStringFromDate } from '../../utils/dateUtils';
 import { buildCharacterUrl } from '../../utils/navigation';
-import { ChatLogsContext } from '../../utils/statsContext';
 import CalendarDay from '../common/CalendarDay';
 
 interface createCalendarDaysProps {
@@ -20,10 +20,13 @@ interface createCalendarDayProps {
   day: number;
 }
 
-const createCalendarDays = ({ dates, size, onClick }: createCalendarDaysProps) => ({ date: currentDate, day, ...props }: createCalendarDayProps) => {
-  const isMarked = !!dates?.find(date => getDateFromISOString(getIsoStringFromDate(currentDate)) === date);
-  return <CalendarDay {...{ ...props, day, size, isMarked, onClick }} />;
-};
+const createCalendarDays = ({ dates, size, onClick }: createCalendarDaysProps) => 
+  ({ date: currentDate, day, ...props }: createCalendarDayProps) => {
+    const isMarked = !!dates?.find(date =>
+      getDateFromISOString(getIsoStringFromDate(currentDate)) === date,
+    );
+    return <CalendarDay {...{ ...props, day, size, isMarked, onClick }} />;
+  };
 
 const LogCalendar = ({ char, currentDate, size = 'medium' }: {
   char: string,
@@ -48,7 +51,7 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
       <div ref={targetRef}>
         <Button
           label={currentDate}
-          icon={<FormCalendar />}
+          icon={<LuCalendar size={20} />}
           onClick={show}
         />
       </div>
@@ -67,7 +70,10 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
             firstDayOfWeek={1}
             bounds={[firstDate, lastDate]}
             date={getIsoStringFromDate(currentDate)}
-            onSelect={date => navigate(buildCharacterUrl(char, getDateFromISOString(Array.isArray(date) ? date[0] : date)))}
+            onSelect={date => navigate(buildCharacterUrl(
+              char,
+              getDateFromISOString(Array.isArray(date) ? date[0] : date),
+            ))}
           >
             {createCalendarDays({ dates, size, onClick: hide })}
           </Calendar>

@@ -1,14 +1,14 @@
 import { PageHeader } from 'grommet';
-import { FormPreviousLink } from 'grommet-icons';
 import { useContext, useEffect, useMemo } from 'react';
+import { LuArrowLeft } from 'react-icons/lu';
 import { useNavigate, useParams } from 'react-router';
 
 import InternalLink from '../components/common/InternalLink';
 import LogCalendar from '../components/logs/LogCalendar';
 import LogItem from '../components/logs/LogItem';
 import type { AggregatedStatsByChar } from '../types/AggregatedStats';
+import { ChatLogsContext } from '../utils/contextProviders/StatsContext';
 import { buildCharacterUrl } from '../utils/navigation';
-import { ChatLogsContext } from '../utils/statsContext';
 
 const getStatsOfChar = (statsByChar: AggregatedStatsByChar, char: string) => {
   if (char in statsByChar) return statsByChar[char];
@@ -40,7 +40,7 @@ const CharacterPage = () => {
       <PageHeader
         title={char}
         subtitle={count ? `${count} logs` : 'Loading...'}
-        parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
+        parent={<InternalLink icon={<LuArrowLeft size={20} />} to="/">back</InternalLink>}
       />
       {date && (
         <>

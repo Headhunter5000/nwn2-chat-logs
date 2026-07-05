@@ -1,7 +1,9 @@
-import { Header, Text } from 'grommet';
+import { Box, Header, Text } from 'grommet';
 import { lazy } from 'react';
+import { LuSettings } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
+import InternalLink from '../common/InternalLink';
 
 export const Search = lazy(() => import('../search/Search'));
 
@@ -34,7 +36,12 @@ const AppHeader = (props: { [key: string]: unknown}) => {
         <Text size="small" as="sup" margin={{ left: 'small' }}>v{__APP_VERSION__}</Text>
       </Text>
 
-      <Search />
+      <Box direction="row" align="center" gap="large">
+        <Search />
+        <InternalLink to="settings"
+          icon={<LuSettings size={20} color="white" />}
+        />
+      </Box>
     </StickyHeader>
   );
 };

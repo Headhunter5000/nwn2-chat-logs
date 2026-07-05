@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { AggregatedStats, AggregatedStatsByChar } from '../types/AggregatedStats';
+import type { AggregatedStats, AggregatedStatsByChar } from '../../types/AggregatedStats';
 
 export interface ChatLogContextProps {
   stats: AggregatedStats[];

@@ -21,9 +21,11 @@ const SearchResults = ({ search = '', hide } : { search: string, hide: () => voi
     return <Text>No results found</Text>;
   }
 
+  const countInfo = `${data.length}${data.length === limit ? '+' : ''}`;
+
   return (
     <>
-      <Text margin={{ bottom: 'large' }}>{data.length}{data.length === limit ? '+' : ''} results</Text>
+      <Text margin={{ bottom: 'large' }}>{countInfo} results</Text>
       <SearchOptions {...{ searchColumn, setSearchColumn, limit, setLimit }} />
       <SearchTable {...{ data, limit, hide }} />
     </>

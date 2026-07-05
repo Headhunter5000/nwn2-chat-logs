@@ -1,4 +1,4 @@
-import type { ChatLog, ChatLogMessage } from '../../types/ChatLog';
+import type { ChatLog, FormattedChatLogMessage } from '../../types/ChatLog';
 import type { SearchColumn } from '../../types/SearchColumn';
 import { caseInsensitiveIncludes, formatCroppedSearchMessage, formatSearchMessage } from '../stringUtils';
 
@@ -6,7 +6,7 @@ export type SearchFilterProps = {
   owner: string,
   date: string,
   messageIndex: number,
-} & ChatLogMessage;
+} & FormattedChatLogMessage;
 
 export const preFilterLogs = (search: string, searchColumn: SearchColumn) => ({ messages }: ChatLog) =>  messages.some(
   ({ [searchColumn]: column }) => typeof column === 'string' && caseInsensitiveIncludes(column, search),
@@ -24,8 +24,8 @@ export const finalFilterLogs = (search: string, searchColumn: SearchColumn, limi
               owner,
               date,
               messageIndex,
-              char: message.char ? formatSearchMessage(message.char, search) : '',
-              message: formatCroppedSearchMessage(message.plainMessage, search),
+              formattedChar: message.char ? formatSearchMessage(message.char, search) : '',
+              formattedMessage: formatCroppedSearchMessage(message.plainMessage, search),
             });
           }
         });

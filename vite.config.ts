@@ -22,16 +22,4 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
   },
-  // esbuild: {
-  //   loader: 'jsx',
-  // },
-  // optimizeDeps: {
-  //   force: true,
-  //   esbuildOptions: {
-  //     loader: {
-  //       '.js': 'jsx',
-  //       '.ts': 'jsx',
-  //     },
-  //   },
-  // },
 });

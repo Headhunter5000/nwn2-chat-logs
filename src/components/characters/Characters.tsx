@@ -2,8 +2,8 @@ import { Card, CardBody, CardFooter, CardHeader, Nav, Text } from 'grommet';
 import { lazy, useContext } from 'react';
 import styled, { css } from 'styled-components';
 
+import { ChatLogsContext } from '../../utils/contextProviders/StatsContext';
 import { buildCharacterUrl } from '../../utils/navigation';
-import { ChatLogsContext } from '../../utils/statsContext';
 import { Date } from '../common/DateTime';
 import InternalLink from '../common/InternalLink';
 import { Character } from './Character';
@@ -30,7 +30,7 @@ const CharacterList = () => {
     <Card
       height="12em"
       width="12em"
-      background="light-1"
+      background="surface"
       key={name}
       data-testid={`char-menu-item-${name}`}
     >
