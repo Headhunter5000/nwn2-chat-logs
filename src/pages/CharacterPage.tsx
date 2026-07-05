@@ -1,9 +1,8 @@
-import { PageHeader } from 'grommet';
+
 import { useContext, useEffect, useMemo } from 'react';
-import { LuArrowLeft } from 'react-icons/lu';
 import { useNavigate, useParams } from 'react-router';
 
-import InternalLink from '../components/common/InternalLink';
+import PageHeader from '../components/common/PageHeader';
 import LogCalendar from '../components/logs/LogCalendar';
 import LogItem from '../components/logs/LogItem';
 import type { AggregatedStatsByChar } from '../types/AggregatedStats';
@@ -40,7 +39,7 @@ const CharacterPage = () => {
       <PageHeader
         title={char}
         subtitle={count ? `${count} logs` : 'Loading...'}
-        parent={<InternalLink icon={<LuArrowLeft size={20} />} to="/">back</InternalLink>}
+        hasBackLink
       />
       {date && (
         <>

@@ -1,20 +1,18 @@
-import { Heading, Paragraph } from 'grommet';
+import { Paragraph } from 'grommet';
 import { useContext } from 'react';
 
 import Characters from '../components/characters/Characters';
+import PageHeader from '../components/common/PageHeader';
 import { ChatLogsContext } from '../utils/contextProviders/StatsContext';
 
 const LandingPageHeading = () => {
   const { stats } = useContext(ChatLogsContext);
 
-  return (
-    <Heading level="3" margin={{ top: 'large' }}>
-      {stats.length > 0
-        ? `You have chat logs of ${stats.length} characters`
-        : 'Import some chat logs'
-      }
-    </Heading>
-  );
+  const title = stats.length > 0
+    ? `You have chat logs of ${stats.length} characters`
+    : 'Import some chat logs';
+
+  return <PageHeader title={title} size="small"  />;
 };
 
 const LandingPage = () => (

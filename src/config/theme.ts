@@ -4,6 +4,14 @@ import { css } from 'styled-components';
 import type { ThemeType } from 'grommet';
 import { StyledDayContainer } from 'grommet/components/Calendar/StyledCalendar';
 
+/* type CSS = TemplateStringsArray | CSSObject;
+
+const normalizeCSS = (
+  theme: ThemeType,
+  lightCss: CSS,
+  darkCss: CSS,
+): CSS => 'dark' in theme && theme.dark ? darkCss : lightCss; */
+
 const theme = deepFreeze<ThemeType>({
   global: {
     colors: {
@@ -14,22 +22,24 @@ const theme = deepFreeze<ThemeType>({
         dark: '#121416',
       },
 
+      border: {
+        light: '#A4A4A4',
+        dark: '#3e444b',
+      },
+      
+      text: {
+        light: '#1C2024',
+        dark: '#ece9e1',
+      },
+
       surface: {
         light: '#eeece8',
         dark: '#1C2024',
       },
 
-      border: '#A4A4A4',
-      
-      // Typography States
-      text: {
-        dark: 'white',
-        light: '#1C2024',
-      },
-
       control: {
-        dark: '#8C6F3D',
         light: '#C5A059',
+        dark: '#8C6F3D',
       },
 
       focus: {
@@ -110,9 +120,9 @@ const theme = deepFreeze<ThemeType>({
     color: 'anchor-default',
     hover: {
       textDecoration: 'underline',
-      extend: (props: { theme: ThemeType }) => `
-      color: ${normalizeColor('anchor-hover', props.theme)};
-    `,
+      extend: (props: { theme: ThemeType }) => css`
+        color: ${normalizeColor('anchor-hover', props.theme)};
+      `,
     },
   },
   button: {
@@ -162,7 +172,7 @@ const theme = deepFreeze<ThemeType>({
     range: {
       background: 'transparent',
     },
-    extend: css`
+    extend: (props: { theme: ThemeType }) => css`
       ${StyledDayContainer} button {
         cursor: default;
         opacity: 1;
@@ -172,9 +182,15 @@ const theme = deepFreeze<ThemeType>({
           pointer-events: none;
         }
 
-        [data-is-marked=true]:hover {
-          cursor: pointer;
-          text-decoration: underline;
+        [data-is-marked=false] {
+          color: ${normalizeColor('text', props.theme)};
+        }
+
+        [data-is-marked=true] {
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
         }
       }
     `,
@@ -183,6 +199,11 @@ const theme = deepFreeze<ThemeType>({
         size: 'small',
         weight: 'bold',
       },
+    },
+  },
+  card: {
+    container: {
+      elevation: 'small',
     },
   },
   checkBoxGroup: {
@@ -217,7 +238,9 @@ const theme = deepFreeze<ThemeType>({
       radius: 'medium',
     },
     container: {
-      extend: (props: { theme: ThemeType }) => `
+      elevation: 'large',
+      extend: (props: { theme: ThemeType }) => css`
+        border: 2px solid ${normalizeColor('border', props.theme)};
         background-color: ${normalizeColor('background', props.theme)};
       `,
     },

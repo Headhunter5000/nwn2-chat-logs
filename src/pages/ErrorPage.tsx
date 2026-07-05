@@ -1,7 +1,6 @@
-import { PageHeader, Paragraph } from 'grommet';
-import { LuArrowLeft } from 'react-icons/lu';
+import { Paragraph } from 'grommet';
 
-import InternalLink from '../components/common/InternalLink';
+import PageHeader from '../components/common/PageHeader';
 import Page from '../components/layout/Page';
 
 const ErrorPage = () => {
@@ -9,9 +8,8 @@ const ErrorPage = () => {
     <Page>
       <PageHeader
         title="404 - Not Found!"
-        parent={<InternalLink icon={<LuArrowLeft size={20} />} to="/">back</InternalLink>}
+        hasBackLink
       />
-
       <Paragraph margin="none">
         This site is still in the early stages of development and things can change quickly.
         If you encounter a problem, first try deleting your chat logs and importing them again.
