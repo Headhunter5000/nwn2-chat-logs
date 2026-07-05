@@ -4,7 +4,7 @@ import type React from 'react';
 import { MemoryRouter } from 'react-router';
 import { expect } from 'vitest';
 import theme from '../config/theme';
-import { ChatLogsProvider } from './statsProvider';
+import { ChatLogsProvider } from './contextProviders/StatsProvider';
 
 // eslint-disable-next-line react-refresh/only-export-components
 const Providers = (props: Record<string, unknown> ) => (

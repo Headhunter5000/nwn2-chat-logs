@@ -1,6 +1,7 @@
 import { Button } from 'grommet';
-import { FormTrash } from 'grommet-icons';
 import { useState } from 'react';
+import { LuTrash2 } from 'react-icons/lu';
+
 import DeleteModal from './DeleteModal';
 
 interface DeleteButtonProps {
@@ -18,7 +19,7 @@ export const DeleteButton = ({ name, onlyIcon = false, ...rest }: DeleteButtonPr
         {...rest}
         a11yTitle="delete"
         label={onlyIcon ? undefined : 'Delete'}
-        icon={<FormTrash color="status-critical" />}
+        icon={<LuTrash2 size={20} color="status-critical" />}
         color="status-critical"
         onClick={e => {
           e.preventDefault();

@@ -1,4 +1,4 @@
-import { Box, RadioButtonGroup, Text } from 'grommet';
+import { Box, FormField, RadioButtonGroup } from 'grommet';
 import type { SearchColumn, SearchLimit } from '../../types/SearchColumn';
 
 const COLUMN_OPTIONS: { value: SearchColumn, label: string}[] = [
@@ -18,31 +18,32 @@ interface SearchOptionsProps {
 }
 
 const SearchOptions = ({ searchColumn, setSearchColumn, limit, setLimit } : SearchOptionsProps) => (
-  <Box direction="row-responsive" gap={{ row: 'medium', column: 'xlarge' }} margin={{ bottom: 'small' }}flex={false}>
-    <Box gap="medium">
-      <Text>Column</Text>
+  <Box
+    direction="row-responsive"
+    gap={{ row: 'medium', column: 'xlarge' }}
+    margin={{ bottom: 'small' }}
+    flex={false}
+  >
+    <FormField label="Column">
       <RadioButtonGroup
         name="searchColumn"
         direction="row"
-        gap="medium"
         margin={{ bottom: 'medium' }}
         options={COLUMN_OPTIONS}
         value={searchColumn}
-        onChange={event => setSearchColumn(event.target.value as SearchColumn)}
+        onChange={e => setSearchColumn(e.target.value as SearchColumn)}
       />
-    </Box>
-    <Box gap="medium">
-      <Text>Limit</Text>
+    </FormField>
+    <FormField label="Limit">
       <RadioButtonGroup
         name="searchColumn"
         direction="row"
-        gap="medium"
         margin={{ bottom: 'medium' }}
         options={LIMIT_OPTIONS}
         value={limit}
-        onChange={event => setLimit(Number(event.target.value) as SearchLimit)}
+        onChange={e => setLimit(Number(e.target.value) as SearchLimit)}
       />
-    </Box>
+    </FormField>
   </Box>
 );
 

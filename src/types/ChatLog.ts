@@ -15,3 +15,12 @@ export interface ChatLog {
   date: string;
   messages: ChatLogMessage[];
 }
+
+export interface FormattedChatLogMessage extends ChatLogMessage {
+  formattedChar?: string;
+  formattedMessage: string;
+}
+
+export interface FormattedChatLog extends ChatLog {
+  messages: FormattedChatLogMessage[];
+}

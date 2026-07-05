@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import { describe, expect, it } from 'vitest';
-import { ChatLogsContext } from './statsContext';
-import { ChatLogsProvider } from './statsProvider';
+import { ChatLogsContext } from './StatsContext';
+import { ChatLogsProvider } from './StatsProvider';
 
 describe('ChatLogsProvider', () => {
   it('should render without error', () => {

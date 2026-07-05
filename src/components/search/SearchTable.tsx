@@ -28,13 +28,15 @@ const getColumns = (hide: () => void) =>  [
     property: 'char',
     header: 'Character',
     size: '15em',
-    render: ({ char }: SearchFilterProps) => <ColoredText>{char}</ColoredText>,
+    render: ({ char, formattedChar }: SearchFilterProps) =>
+      <ColoredText value={char}>{formattedChar}</ColoredText>,
   },
   {
     property: 'plainMessage',
     header: 'Message',
     size: '30em',
-    render: ({ type, message }: SearchFilterProps) => <MessageText {...{ type, message }} />,
+    render: ({ type, formattedMessage: message }: SearchFilterProps) =>
+      <MessageText {...{ type, message }} />,
   },
 ];
 

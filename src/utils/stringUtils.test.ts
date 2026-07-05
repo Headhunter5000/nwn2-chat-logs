@@ -33,6 +33,7 @@ describe('stringUtils', () => {
   });
 
   it('formatCroppedSearchMessage wraps matched text in <strong> and crops the string', () => {
+    // eslint-disable-next-line max-len
     const message = 'Please make sure to run the test string through the validator function before deploying it live now.';
     const rendered = formatCroppedSearchMessage(message, 'test string', 30);
     expect(rendered).toBe('&hellip; run the <strong>test string</strong> through t&hellip;');

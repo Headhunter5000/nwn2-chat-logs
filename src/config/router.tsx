@@ -5,7 +5,7 @@ import PageLoader from '../components/common/PageLoader';
 import Page from '../components/layout/Page';
 import ErrorPage from '../pages/ErrorPage';
 
-import { CharacterPage, LandingPage } from '../pages';
+import { CharacterPage, LandingPage, SettingsPage } from '../pages';
 
 const router = createHashRouter([
   {
@@ -22,6 +22,10 @@ const router = createHashRouter([
       {
         path: '/',
         element: <LandingPage />,
+      },
+      {
+        path: '/settings',
+        element: <SettingsPage />,
       },
       {
         path: 'characters/:char/:date?/:index?',

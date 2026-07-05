@@ -1,5 +1,5 @@
 import { PageHeader, Paragraph } from 'grommet';
-import { FormPreviousLink } from 'grommet-icons';
+import { LuArrowLeft } from 'react-icons/lu';
 
 import InternalLink from '../components/common/InternalLink';
 import Page from '../components/layout/Page';
@@ -9,7 +9,7 @@ const ErrorPage = () => {
     <Page>
       <PageHeader
         title="404 - Not Found!"
-        parent={<InternalLink icon={<FormPreviousLink />} to="/">back</InternalLink>}
+        parent={<InternalLink icon={<LuArrowLeft size={20} />} to="/">back</InternalLink>}
       />
 
       <Paragraph margin="none">

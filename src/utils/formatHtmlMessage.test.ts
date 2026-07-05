@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { describe, expect, test } from 'vitest';
 import { formatHtmlMessage } from './formatHtmlMessage';
 
@@ -17,13 +18,17 @@ describe('formatHtmlMessage', () => {
     test('should handle basic OOC message wrapper', () => {
       const input = 'Hello ((this is out of character)) world';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`Hello ${openingOOCSpan}this is out of character${closingSpan} world`);
+      expect(result).toBe(
+        `Hello ${openingOOCSpan}this is out of character${closingSpan} world`,
+      );
     });
 
     test('should handle basic emote message wrapper', () => {
       const input = 'She said *smiles warmly* at him';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`She said ${openingEmoteSpan}smiles warmly${closingSpan} at him`);
+      expect(result).toBe(
+        `She said ${openingEmoteSpan}smiles warmly${closingSpan} at him`,
+      );
     });
   });
 
@@ -31,19 +36,26 @@ describe('formatHtmlMessage', () => {
     test('should handle multiple OOC wrappers', () => {
       const input = '((OOC1)) text ((OOC2))';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}OOC1${closingSpan} text ${openingOOCSpan}OOC2${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}OOC1${closingSpan} text ${openingOOCSpan}OOC2${closingSpan}`,
+      );
     });
 
     test('should handle multiple emote wrappers', () => {
       const input = '*emote1* text *emote2*';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingEmoteSpan}emote1${closingSpan} text ${openingEmoteSpan}emote2${closingSpan}`);
+      expect(result).toBe(
+        `${openingEmoteSpan}emote1${closingSpan} text ${openingEmoteSpan}emote2${closingSpan}`,
+      );
     });
 
     test('should handle mixed wrapper types', () => {
       const input = '((OOC1)) text *emote1* more ((OOC2)) and *emote2*';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}OOC1${closingSpan} text ${openingEmoteSpan}emote1${closingSpan} more ${openingOOCSpan}OOC2${closingSpan} and ${openingEmoteSpan}emote2${closingSpan}`);
+      expect(result).toBe(
+         
+        `${openingOOCSpan}OOC1${closingSpan} text ${openingEmoteSpan}emote1${closingSpan} more ${openingOOCSpan}OOC2${closingSpan} and ${openingEmoteSpan}emote2${closingSpan}`,
+      );
     });
   });
 
@@ -51,19 +63,25 @@ describe('formatHtmlMessage', () => {
     test('should close unclosed OOC wrapper at end of string', () => {
       const input = 'Hello ((this is unclosed';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`Hello ${openingOOCSpan}this is unclosed${closingSpan}`);
+      expect(result).toBe(
+        `Hello ${openingOOCSpan}this is unclosed${closingSpan}`,
+      );
     });
 
     test('should close unclosed emote wrapper at end of string', () => {
       const input = 'She *smiles at everyone';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`She ${openingEmoteSpan}smiles at everyone${closingSpan}`);
+      expect(result).toBe(
+        `She ${openingEmoteSpan}smiles at everyone${closingSpan}`,
+      );
     });
 
     test('should close multiple unclosed wrappers', () => {
       const input = 'Text ((ooc *emote unclosed';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`Text ${openingOOCSpan}ooc ${openingEmoteSpan}emote unclosed${closingSpan}${closingSpan}`);
+      expect(result).toBe(
+        `Text ${openingOOCSpan}ooc ${openingEmoteSpan}emote unclosed${closingSpan}${closingSpan}`,
+      );
     });
   });
 
@@ -83,7 +101,9 @@ describe('formatHtmlMessage', () => {
     test('should handle multiple empty wrappers', () => {
       const input = '(()) and ** and (())';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}${closingSpan} and ${openingEmoteSpan}${closingSpan} and ${openingOOCSpan}${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}${closingSpan} and ${openingEmoteSpan}${closingSpan} and ${openingOOCSpan}${closingSpan}`,
+      );
     });
   });
 
@@ -91,13 +111,17 @@ describe('formatHtmlMessage', () => {
     test('should handle adjacent OOC and emote wrappers', () => {
       const input = '((OOC))*emote*';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}OOC${closingSpan}${openingEmoteSpan}emote${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}OOC${closingSpan}${openingEmoteSpan}emote${closingSpan}`,
+      );
     });
 
     test('should handle adjacent same type wrappers', () => {
       const input = '((first))((second))';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}first${closingSpan}${openingOOCSpan}second${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}first${closingSpan}${openingOOCSpan}second${closingSpan}`,
+      );
     });
   });
 
@@ -123,13 +147,17 @@ describe('formatHtmlMessage', () => {
     test('should handle wrappers with special characters', () => {
       const input = '((!@#$%)) *&*';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}!@#$%${closingSpan} ${openingEmoteSpan}&${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}!@#$%${closingSpan} ${openingEmoteSpan}&${closingSpan}`,
+      );
     });
 
     test('should handle wrappers with newlines', () => {
       const input = 'Text ((line1\nline2)) more';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`Text ${openingOOCSpan}line1<br />line2${closingSpan} more`);
+      expect(result).toBe(
+        `Text ${openingOOCSpan}line1<br />line2${closingSpan} more`,
+      );
     });
   });
 
@@ -137,13 +165,17 @@ describe('formatHtmlMessage', () => {
     test('should handle overlapping wrappers gracefully', () => {
       const input = '((start *middle)) end*';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}start ${openingEmoteSpan}middle${closingSpan}${closingSpan} end${openingEmoteSpan}${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}start ${openingEmoteSpan}middle${closingSpan}${closingSpan} end${openingEmoteSpan}${closingSpan}`,
+      );
     });
 
     test('should handle nested wrappers gracefully', () => {
       const input = '((start *middle* end))';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}start ${openingEmoteSpan}middle${closingSpan} end${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}start ${openingEmoteSpan}middle${closingSpan} end${closingSpan}`,
+      );
     });
 
     // NEW: three-way interleaving where a cascading close consumes an
@@ -153,7 +185,9 @@ describe('formatHtmlMessage', () => {
     test('should absorb a stranded closer as literal text after a lower-rule cascade close', () => {
       const input = '((a *b)) c* d))';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingOOCSpan}a ${openingEmoteSpan}b${closingSpan}${closingSpan} c${openingEmoteSpan} d))${closingSpan}`);
+      expect(result).toBe(
+        `${openingOOCSpan}a ${openingEmoteSpan}b${closingSpan}${closingSpan} c${openingEmoteSpan} d))${closingSpan}`,
+      );
     });
   });
 
@@ -164,7 +198,9 @@ describe('formatHtmlMessage', () => {
     test('should treat second matching delimiter as a close, not a nested open', () => {
       const input = '*emote1 *emote2* still emote1*';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingEmoteSpan}emote1 ${closingSpan}emote2${openingEmoteSpan} still emote1${closingSpan}`);
+      expect(result).toBe(
+        `${openingEmoteSpan}emote1 ${closingSpan}emote2${openingEmoteSpan} still emote1${closingSpan}`,
+      );
     });
   });
 
@@ -175,13 +211,17 @@ describe('formatHtmlMessage', () => {
     test('should handle three consecutive asterisks', () => {
       const input = 'Text *** more';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`Text ${openingEmoteSpan}${closingSpan}${openingEmoteSpan} more${closingSpan}`);
+      expect(result).toBe(
+        `Text ${openingEmoteSpan}${closingSpan}${openingEmoteSpan} more${closingSpan}`,
+      );
     });
 
     test('should handle four consecutive asterisks', () => {
       const input = 'Text **** more';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`Text ${openingEmoteSpan}${closingSpan}${openingEmoteSpan}${closingSpan} more`);
+      expect(result).toBe(
+        `Text ${openingEmoteSpan}${closingSpan}${openingEmoteSpan}${closingSpan} more`,
+      );
     });
   });
 
@@ -190,15 +230,19 @@ describe('formatHtmlMessage', () => {
   // has no quotes). Existing HTML-stripping test only covers <p>/</p>.
   describe('Color tag handling', () => {
     test('should strip color tags and apply wrapper classes independent of original color', () => {
-      const input = '<color=white>*</color><color=lightgreen>waves</color><color=white>*</color>';
+      const input =
+        '<color=white>*</color><color=lightgreen>waves</color><color=white>*</color>';
       const result = formatHtmlMessage(input);
       expect(result).toBe(`${openingEmoteSpan}waves${closingSpan}`);
     });
 
     test('should strip color tags spanning across a wrapper boundary', () => {
-      const input = '<color=white>Guten Abend *</color><color=lightgreen>zu den Wachen</color><color=white>*</color>';
+      const input =
+        '<color=white>Guten Abend *</color><color=lightgreen>zu den Wachen</color><color=white>*</color>';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`Guten Abend ${openingEmoteSpan}zu den Wachen${closingSpan}`);
+      expect(result).toBe(
+        `Guten Abend ${openingEmoteSpan}zu den Wachen${closingSpan}`,
+      );
     });
 
     test('should not leak literal color attribute text', () => {
@@ -215,7 +259,9 @@ describe('formatHtmlMessage', () => {
     test('should preserve emoji correctly inside an emote wrapper', () => {
       const input = 'She *waves 👋 warmly* at him';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`She ${openingEmoteSpan}waves 👋 warmly${closingSpan} at him`);
+      expect(result).toBe(
+        `She ${openingEmoteSpan}waves 👋 warmly${closingSpan} at him`,
+      );
     });
 
     test('should preserve emoji immediately adjacent to a delimiter', () => {
@@ -227,7 +273,9 @@ describe('formatHtmlMessage', () => {
     test('should preserve umlauts and eszett inside wrappers', () => {
       const input = '*lässt den Blick schweifen, äußerst müde*';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingEmoteSpan}lässt den Blick schweifen, äußerst müde${closingSpan}`);
+      expect(result).toBe(
+        `${openingEmoteSpan}lässt den Blick schweifen, äußerst müde${closingSpan}`,
+      );
     });
   });
 
@@ -237,9 +285,12 @@ describe('formatHtmlMessage', () => {
   // since this is real production input shape rather than synthetic.
   describe('Real log line regression cases', () => {
     test('should format a real NWN2 log-style emote line', () => {
-      const input = '<color=white>*</color><color=lightgreen>Prüft den Wegweiser</color><color=white>*</color>';
+      const input =
+        '<color=white>*</color><color=lightgreen>Prüft den Wegweiser</color><color=white>*</color>';
       const result = formatHtmlMessage(input);
-      expect(result).toBe(`${openingEmoteSpan}Prüft den Wegweiser${closingSpan}`);
+      expect(result).toBe(
+        `${openingEmoteSpan}Prüft den Wegweiser${closingSpan}`,
+      );
     });
 
     test('should format a real NWN2 log-style OOC line with nested italics tag', () => {

@@ -35,14 +35,14 @@ const logs: MockChatLog[] = [
 ];
 
 describe('preFilterLogs', () => {
-  it('preFilterLogs will filter case-insensitive', () => {
+  it('filter case-insensitive', () => {
     const hasMatch = preFilterLogs('world', 'plainMessage')(logs[0] as ChatLog);
     expect(hasMatch).toBe(true);
     const noMatch = preFilterLogs('missing', 'plainMessage')(logs[0] as ChatLog);
     expect(noMatch).toBe(false);
   });
 
-  it('preFilterLogs will filter based on char', () => {
+  it('filter based on char', () => {
     const hasMatch = preFilterLogs('weber', 'char')(logs[0] as ChatLog);
     expect(hasMatch).toBe(true);
     const noMatch = preFilterLogs('Ken', 'char')(logs[0] as ChatLog);
@@ -51,7 +51,7 @@ describe('preFilterLogs', () => {
 });
 
 describe('finalFilterLogs', () => {
-  it('finalFilterLogs returns filtered messages with owner, date, messageIndex and formatted message', () => {
+  it('returns filtered messages with owner, date, messageIndex and formatted message', () => {
     const result = finalFilterLogs('hello', 'plainMessage', 50)(logs as ChatLog[]);
     expect(result).toHaveLength(2);
     expect(result[0]).toMatchObject({
@@ -60,7 +60,6 @@ describe('finalFilterLogs', () => {
       char: 'Lukas Weber',
       date: '2023-01-01',
       plainMessage: 'Hello World',
-      message: '<strong>Hello</strong> World',
     });
     expect(result[1]).toMatchObject({
       messageIndex: 1,
@@ -68,20 +67,18 @@ describe('finalFilterLogs', () => {
       char: 'Noah Richter',
       date: '2023-02-01',
       plainMessage: 'Yo, hello again',
-      message: 'Yo, <strong>hello</strong> again',
     });
   });
 
-  it('finalFilterLogs will filter based on char', () => {
+  it('filter based on char', () => {
     const result = finalFilterLogs('Hanna', 'char', 10)(logs as ChatLog[]);
     expect(result).toHaveLength(1);
     expect(result[0]).toMatchObject({
       messageIndex: 0,
       owner: 'Bob Olsen',
-      char: '<strong>Hanna</strong> Koch',
+      char: 'Hanna Koch',
       date: '2023-02-01',
       plainMessage: 'hi there',
-      message: 'hi there',
     });
   });
 
