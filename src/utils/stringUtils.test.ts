@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import {
   caseInsensitiveIncludes,
   caseInsensitiveIndexOf,
+  formatCroppedSearchMessage,
   formatPlainMessage,
   formatSearchMessage,
   getMessageId,
@@ -27,8 +28,14 @@ describe('stringUtils', () => {
 
   it('formatSearchMessage wraps matched text in <strong>', () => {
     const message = 'This is a test string';
-    const rendered = formatSearchMessage(message, 'test');
-    expect(rendered).toContain('<strong>test</strong>');
+    const rendered = formatSearchMessage(message, 'test string');
+    expect(rendered).toBe('This is a <strong>test string</strong>');
+  });
+
+  it('formatCroppedSearchMessage wraps matched text in <strong> and crops the string', () => {
+    const message = 'Please make sure to run the test string through the validator function before deploying it live now.';
+    const rendered = formatCroppedSearchMessage(message, 'test string', 30);
+    expect(rendered).toBe('&hellip; run the <strong>test string</strong> through t&hellip;');
   });
 
   it('formatPlainMessage removes html tags and special markers', () => {

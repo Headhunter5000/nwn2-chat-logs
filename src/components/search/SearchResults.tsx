@@ -1,72 +1,32 @@
-import { DataTable, Text } from 'grommet';
-import { useMemo } from 'react';
+import { useState } from 'react';
+import type { SearchColumn, SearchLimit } from '../../types/SearchColumn';
+import SearchOptions from './SearchOptions';
+import SearchTable from './SearchTable';
+
+import { Text } from 'grommet';
 
 import { useFilteredChatLogs } from '../../utils/dbUtils';
-import type { SearchFilterProps } from '../../utils/dbUtils/searchFilters';
-import { buildCharacterUrl } from '../../utils/navigation';
-import ColoredText from '../common/ColoredText';
-import InternalLink from '../common/InternalLink';
-import MessageText from '../common/MessageText';
-
-const getColumns = (hide: () => void) =>  [
-  {
-    property: 'date',
-    header: 'Date',
-    size: '7em',
-    render: ({ owner, date, messageIndex }: SearchFilterProps) => (
-      <Text>
-        <InternalLink
-          to={buildCharacterUrl(owner, date, messageIndex)}
-          onClick={hide}
-        >
-          {date}
-        </InternalLink>
-      </Text>
-    ),
-  },
-  {
-    property: 'char',
-    header: 'Character',
-    size: '15em',
-    render: ({ char }: SearchFilterProps) => <ColoredText>{char}</ColoredText>,
-  },
-  {
-    property: 'plainMessage',
-    header: 'Message',
-    size: '30em',
-    render: ({ type, message }: SearchFilterProps) => <MessageText {...{ type, message }} />,
-  },
-];
 
 const SearchResults = ({ search = '', hide } : { search: string, hide: () => void }) => {
-  const data = useFilteredChatLogs(search, 50);
+  const [searchColumn, setSearchColumn] = useState<SearchColumn>('plainMessage');
+  const [limit, setLimit] = useState<SearchLimit>(50);
 
-  const columns = useMemo(() => getColumns(hide), [hide]);
+  const data = useFilteredChatLogs(search, searchColumn, limit);
 
   if (!data) {
     return <Text>Loading...</Text>;
   }
 
-  if (data?.length === 0) {
+  if (data.length === 0) {
     return <Text>No results found</Text>;
   }
 
   return (
-    <DataTable {...{
-      primaryKey: 'id',
-      verticalAlign: { body: 'top' },
-      pad: {
-        header: {
-          vertical: 'none', right: 'medium',
-        },
-        body: {
-          vertical: 'medium', right: 'medium',
-        },
-      },
-      size: '25.5em',
-      columns,
-      data,
-    }} />
+    <>
+      <Text margin={{ bottom: 'large' }}>{data.length}{data.length === limit ? '+' : ''} results</Text>
+      <SearchOptions {...{ searchColumn, setSearchColumn, limit, setLimit }} />
+      <SearchTable {...{ data, limit, hide }} />
+    </>
   );
 };
 

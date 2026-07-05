@@ -1,6 +1,7 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import db from '../../config/db';
 import type { ChatLog } from '../../types/ChatLog';
+import type { SearchColumn } from '../../types/SearchColumn';
 import aggregateStats, { type NameAndDate } from './aggregateStats';
 import { finalFilterLogs, preFilterLogs } from './searchFilters';
 
@@ -29,6 +30,7 @@ export const useChatLogsOfChar = (char: string): ChatLog[] | undefined =>
 
 export const useFilteredChatLogs = (
   search: string,
+  searchColumn: SearchColumn,
   limit: number,
 ) =>
   useLiveQuery(
@@ -36,11 +38,11 @@ export const useFilteredChatLogs = (
       db.chats
         .orderBy('date')
         .reverse()
-        .filter(preFilterLogs(search))
-        .limit(20)
+        .filter(preFilterLogs(search, searchColumn))
+        .limit(Math.floor(limit / 2))
         .toArray()
-        .then(finalFilterLogs(search, limit)),
-    [search],
+        .then(finalFilterLogs(search, searchColumn, limit)),
+    [search, searchColumn, limit],
   );
 
 export const getChatLogIdByFileName = (

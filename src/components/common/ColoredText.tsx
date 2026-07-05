@@ -8,7 +8,9 @@ interface ColoredTextProps {
 const ColoredText = ({ children, ...rest }: ColoredTextProps) => {
   if (typeof children === 'string') {
     const color = colorHash.hex(children);
-    return <Text truncate {...{ ...rest, color }}>{children}</Text>;
+    return <Text truncate {...{ ...rest, color }}><span
+      dangerouslySetInnerHTML={{ __html: children }}
+    /></Text>;
   }
 
   return null;

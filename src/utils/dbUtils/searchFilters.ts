@@ -1,5 +1,6 @@
 import type { ChatLog, ChatLogMessage } from '../../types/ChatLog';
-import { caseInsensitiveIncludes, formatSearchMessage } from '../stringUtils';
+import type { SearchColumn } from '../../types/SearchColumn';
+import { caseInsensitiveIncludes, formatCroppedSearchMessage, formatSearchMessage } from '../stringUtils';
 
 export type SearchFilterProps = {
   owner: string,
@@ -7,23 +8,24 @@ export type SearchFilterProps = {
   messageIndex: number,
 } & ChatLogMessage;
 
-export const preFilterLogs = (search: string) => ({ messages }: ChatLog) =>  messages.some(
-  ({ plainMessage }) => caseInsensitiveIncludes(plainMessage, search),
+export const preFilterLogs = (search: string, searchColumn: SearchColumn) => ({ messages }: ChatLog) =>  messages.some(
+  ({ [searchColumn]: column }) => typeof column === 'string' && caseInsensitiveIncludes(column, search),
 );
 
-export const finalFilterLogs = (search: string, limit: number) => (logs: ChatLog[]) => {
+export const finalFilterLogs = (search: string, searchColumn: SearchColumn, limit: number) => (logs: ChatLog[]) => {
   const filteredLogs = logs
     .reduce((acc, { char: owner, date, messages }) => {
       messages
-        .forEach(({ plainMessage, ...rest }, messageIndex) => {
-          if (caseInsensitiveIncludes(plainMessage, search)) {
+        .forEach((message, messageIndex) => {
+          const column = message[searchColumn];
+          if (typeof column === 'string' && caseInsensitiveIncludes(column, search)) {
             return acc.push({
-              ...rest,
+              ...message,
               owner,
               date,
               messageIndex,
-              plainMessage,
-              message: formatSearchMessage(plainMessage, search),
+              char: message.char ? formatSearchMessage(message.char, search) : '',
+              message: formatCroppedSearchMessage(message.plainMessage, search),
             });
           }
         });

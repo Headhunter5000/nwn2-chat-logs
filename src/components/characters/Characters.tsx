@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 
 import { buildCharacterUrl } from '../../utils/navigation';
 import { ChatLogsContext } from '../../utils/statsContext';
+import { Date } from '../common/DateTime';
 import InternalLink from '../common/InternalLink';
 import { Character } from './Character';
 import DeleteButton from './DeleteButton';
@@ -39,9 +40,9 @@ const CharacterList = () => {
       <CardBody pad="medium">
         <Text size="small" margin={{ bottom: 'small' }}>Latest logs:</Text>
         <Nav gap="small">
-          {dates.slice(-3).map(date => (
+          {dates.slice(-4).map(date => (
             <InternalLink to={buildCharacterUrl(name, date)} key={date}>
-              {date}
+              <Date date={date} />
             </InternalLink>
           ))}
         </Nav>

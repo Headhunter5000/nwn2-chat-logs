@@ -16,7 +16,23 @@ export const caseInsensitiveIncludes = (text: string, search: string) =>
 
 export const getMessageId = (file: string, index: number) => `${file} / ${String(index).padStart(4, '0')}`;
 
-export const formatSearchMessage = (message: string, search: string, maxLength = 60) => {
+export const formatSearchMessage = (message: string, search: string) => {
+  const matchIndex = caseInsensitiveIndexOf(message, search);
+
+  if (matchIndex !== -1) {
+    const searchLength = search.length;
+
+    const beforeStr = message.substring(0, matchIndex);
+    const matchStr = message.substring(matchIndex, matchIndex + searchLength);
+    const afterStr = message.substring(matchIndex + searchLength);
+
+    return `${beforeStr}<strong>${matchStr}</strong>${afterStr}`;
+  }
+
+  return message;
+};
+
+export const formatCroppedSearchMessage = (message: string, search: string, maxLength = 60) => {
   const matchIndex = caseInsensitiveIndexOf(message, search);
 
   const searchLength = search.length;
