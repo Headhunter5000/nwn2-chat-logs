@@ -17,6 +17,7 @@ export const DeleteButton = ({ name, onlyIcon = false, ...rest }: DeleteButtonPr
     <>
       <Button
         {...rest}
+        data-testid="char-delete"
         a11yTitle="delete"
         label={onlyIcon ? undefined : 'Delete'}
         icon={<LuTrash2 size={20} color="status-critical" />}
