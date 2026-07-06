@@ -39,7 +39,7 @@ const CharacterPage = () => {
       <PageHeader
         title={char}
         subtitle={count ? `${count} logs` : 'Loading...'}
-        hasBackLink
+        backLink="/"
       />
       {date && (
         <>

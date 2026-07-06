@@ -26,7 +26,8 @@ const SettingsPage = () => {
     <>
       <PageHeader
         title="Settings"
-        hasBackLink
+        subtitle={`v${__APP_VERSION__}`}
+        backLink
       />
       <Box gap="large">
         <FormField label="Theme">

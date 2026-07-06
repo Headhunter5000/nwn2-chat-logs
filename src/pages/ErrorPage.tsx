@@ -8,7 +8,7 @@ const ErrorPage = () => {
     <Page>
       <PageHeader
         title="404 - Not Found!"
-        hasBackLink
+        backLink
       />
       <Paragraph margin="none">
         This site is still in the early stages of development and things can change quickly.

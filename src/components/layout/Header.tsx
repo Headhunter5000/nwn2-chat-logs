@@ -32,8 +32,7 @@ const AppHeader = (props: { [key: string]: unknown}) => {
         style={{ cursor: 'pointer' }}
         onClick={() => navigate('/')}
       >
-        <span>NWN2 Chat Logs</span>
-        <Text size="small" as="sup" margin={{ left: 'small' }}>v{__APP_VERSION__}</Text>
+        NWN2 Chat Logs
       </Text>
 
       <Box direction="row" align="center" gap="large">
