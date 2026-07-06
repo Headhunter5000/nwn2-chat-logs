@@ -18,13 +18,13 @@ const theme = deepFreeze<ThemeType>({
       brand: '#8C6F3D',
 
       background: {
-        light: '#eceae4',
+        light: '#ece8e3',
         dark: '#121416',
       },
 
       border: {
         light: '#A4A4A4',
-        dark: '#3e444b',
+        dark: '#4a5158',
       },
       
       text: {
@@ -33,7 +33,7 @@ const theme = deepFreeze<ThemeType>({
       },
 
       surface: {
-        light: '#dad6d0',
+        light: '#d6d1c8',
         dark: '#1C2024',
       },
 

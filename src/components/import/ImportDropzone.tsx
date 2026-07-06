@@ -3,6 +3,7 @@ import { memo, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import styled, { css } from 'styled-components';
 
+import { normalizeColor } from 'grommet/utils';
 import importLogFile from '../../utils/importLogFile';
 import ImportModal from './ImportModal';
 
@@ -13,13 +14,13 @@ const DropzoneBox = styled(Box).attrs({
   height: '12em',
   pad: 'large',
   margin: { bottom: 'large' },
-})<BoxProps & { $isDragActive?: boolean }>(({ $isDragActive }) => css`
-  border: 2px dashed #ccc;
+})<BoxProps & { $isDragActive?: boolean }>(({ theme, $isDragActive }) => css`
+  border: 2px dashed ${normalizeColor('border', theme)};
   border-radius: 6px;
   cursor: pointer;
 
   ${$isDragActive && css`
-    border-color: ${({ theme }) => theme.global.colors.brand};
+    border-color: ${normalizeColor('brand', theme)};
   `}
 `);
 
