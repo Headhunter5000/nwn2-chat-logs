@@ -37,8 +37,6 @@ const PageHeader = ({ title, subtitle, level, size, backLink = false }: PageHead
         )
         : undefined
       }
-      margin="none"
-      pad={{ top: 'large', bottom: 'medium' }}
       data-testid="page-header"
     />
   );

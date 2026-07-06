@@ -264,6 +264,17 @@ const theme = deepFreeze<ThemeType>({
       `,
     },
   },
+  pageHeader: {
+    pad: { top: 'large', bottom: 'large' },
+    size: {
+      small: {
+        pad:  { top: 'large', bottom: 'medium' },
+      },
+      large: {
+        pad:  { top: 'large', bottom: 'xlarge' },
+      },
+    },
+  },
   radioButton: {
     border: {
       color: 'transparent-border',
