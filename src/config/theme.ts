@@ -15,51 +15,51 @@ const normalizeCSS = (
 const theme = deepFreeze<ThemeType>({
   global: {
     colors: {
-      brand: '#8C6F3D',
+      brand: 'hsl(30, 33%, 43%)',
 
       background: {
-        light: '#ece8e3',
-        dark: '#121416',
+        light: 'hsl(40, 12%, 95%)',
+        dark: 'hsl(210, 10%, 10%)',
       },
 
       border: {
-        light: '#A4A4A4',
-        dark: '#4a5158',
+        light: 'hsl(0, 0%, 65%)',
+        dark: 'hsl(227, 13%, 31%)',
       },
       
       text: {
-        light: '#1C2024',
-        dark: '#ece9e1',
+        light: 'hsl(219, 43%, 17%)',
+        dark: 'hsl(40, 14%, 89%)',
       },
 
       surface: {
-        light: '#d6d1c8',
-        dark: '#1C2024',
+        light: 'hsl(43, 17%, 83%)',
+        dark: 'hsl(219, 43%, 17%)',
       },
 
       control: {
-        light: '#8C6F3D',
-        dark: '#C5A059',
+        light: 'hsl(30, 33%, 43%)',
+        dark: 'hsl(36, 61%, 54%)',
       },
 
       focus: {
-        light: '#1C2024',
-        dark: '#ebebe7',
+        light: 'hsl(219, 43%, 17%)',
+        dark: 'hsl(240, 10%, 88%)',
       },
 
       active: {
-        light: '#1C2024',
-        dark: '#ebebe7',
+        light: 'hsl(219, 43%, 17%)',
+        dark: 'hsl(240, 10%, 88%)',
       },
 
       'anchor-default': {
-        light: '#8C6F3D',
-        dark: '#C5A059',
+        light: 'hsl(30, 33%, 43%)',
+        dark: 'hsl(36, 61%, 54%)',
       },
       
       'anchor-hover': {
-        light: '#523D1F',
-        dark: '#E3DCC4',
+        light: 'hsl(24, 51%, 39%)',
+        dark: 'hsl(90, 37%, 81%)',
       },
     },
     elevation: {
