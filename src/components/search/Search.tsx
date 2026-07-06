@@ -1,14 +1,16 @@
-import { Box, Button, Layer, TextInput } from 'grommet';
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Box, Button, Grommet, Layer, TextInput } from 'grommet';
+import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { LuSearch } from 'react-icons/lu';
 import { debounce } from 'throttle-debounce';
 
+import theme from '../../config/theme';
+import { SettingsContext } from '../../utils/contextProviders/SettingsContext';
 import SearchResults from './SearchResults';
 
 const MIN_SEARCH_LENGTH = 2;
 
 const Search = () => {
-
+  const { themeMode } = useContext(SettingsContext);
   const targetRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
   const [inputVisible, setInputVisible] = useState(false);
@@ -79,17 +81,19 @@ const Search = () => {
         )}
       </Box>
       {layerVisible && (
-        <Layer
-          onClickOutside={e => hide(e)}
-          onEsc={() => hide()}
-          modal={false}
-          responsive={false}
-          margin="large"
-        >
-          <Box pad="large" style={{ maxHeight: 'calc(100vh - 6em)', overflow: 'hidden' }}>
-            <SearchResults {...{ search: value.trim(), hide }} />
-          </Box>
-        </Layer>
+        <Grommet theme={theme} themeMode={themeMode/*themeMode === 'dark' ? 'light': 'dark'*/}>
+          <Layer
+            onClickOutside={e => hide(e)}
+            onEsc={() => hide()}
+            modal={false}
+            responsive={false}
+            margin="large"
+          >
+            <Box pad="large" style={{ maxHeight: 'calc(100vh - 6em)', overflow: 'hidden' }}>
+              <SearchResults {...{ search: value.trim(), hide }} />
+            </Box>
+          </Layer>
+        </Grommet>
       )}
     </>
   );

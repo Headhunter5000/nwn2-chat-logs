@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/refs */
-import { Button, Calendar, Drop } from 'grommet';
+import { Box, Button, Calendar, Drop } from 'grommet';
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
 import { LuCalendar } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
@@ -48,13 +48,13 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
 
   return (
     <>
-      <div ref={targetRef}>
+      <Box ref={targetRef} alignSelf="start">
         <Button
           label={currentDate}
           icon={<LuCalendar size={20} />}
           onClick={show}
         />
-      </div>
+      </Box>
       {visible && targetRef.current && (
         <Drop
           target={targetRef.current}

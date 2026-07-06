@@ -13,7 +13,7 @@ const ColoredText = ({ children, value, ...rest }: ColoredTextProps) => {
   const theme: ThemeType = useContext(ThemeContext);
   const dark = 'dark' in theme && theme.dark;
 
-  if (typeof children !== 'string') return null;
+  if (typeof children !== 'string') return <Text>&ndash;</Text>;
 
   const colorHash = dark ? darkColorHash : lightColorHash;
   const color = colorizeNames ? colorHash.hex(value ?? children) : undefined;

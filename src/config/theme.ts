@@ -1,83 +1,90 @@
-import { deepFreeze, normalizeColor } from 'grommet/utils';
+import { deepFreeze } from 'grommet/utils';
 import { css } from 'styled-components';
 
 import type { ThemeType } from 'grommet';
 import { StyledDayContainer } from 'grommet/components/Calendar/StyledCalendar';
-
-/* type CSS = TemplateStringsArray | CSSObject;
-
-const normalizeCSS = (
-  theme: ThemeType,
-  lightCss: CSS,
-  darkCss: CSS,
-): CSS => 'dark' in theme && theme.dark ? darkCss : lightCss; */
+import {
+  chooseByTheme,
+  getColor,
+  getThemeProp,
+  transparentBlack,
+  transparentWhite,
+} from '../utils/themeUtils';
+import themeColors from './themeColors';
 
 const theme = deepFreeze<ThemeType>({
   global: {
     colors: {
-      brand: 'hsl(30, 33%, 43%)',
+      ...themeColors,
+
+      brand: 'gold-700',
 
       background: {
-        light: 'hsl(40, 12%, 95%)',
-        dark: 'hsl(210, 10%, 10%)',
+        light: 'sand-100',
+        dark: 'slate-900',
       },
 
       border: {
-        light: 'hsl(0, 0%, 65%)',
-        dark: 'hsl(227, 13%, 31%)',
+        light: 'gray-400',
+        dark: 'slate-700',
       },
-      
+  
       text: {
-        light: 'hsl(219, 43%, 17%)',
-        dark: 'hsl(40, 14%, 89%)',
+        light: 'slate-800',
+        dark: 'gold-100',
       },
 
       surface: {
-        light: 'hsl(43, 17%, 83%)',
-        dark: 'hsl(219, 43%, 17%)',
+        light: 'sand-300',
+        dark: 'slate-800',
       },
 
       control: {
-        light: 'hsl(30, 33%, 43%)',
-        dark: 'hsl(36, 61%, 54%)',
+        light: 'gold-700',
+        dark: 'gold-500',
       },
 
       focus: {
-        light: 'hsl(219, 43%, 17%)',
-        dark: 'hsl(240, 10%, 88%)',
+        light: 'slate-800',
+        dark: 'sand-100',
       },
 
       active: {
-        light: 'hsl(219, 43%, 17%)',
-        dark: 'hsl(240, 10%, 88%)',
+        light: 'slate-800',
+        dark: 'sand-100',
       },
 
       'anchor-default': {
-        light: 'hsl(30, 33%, 43%)',
-        dark: 'hsl(36, 61%, 54%)',
+        light: 'gold-700',
+        dark: 'gold-500',
       },
-      
+  
       'anchor-hover': {
-        light: 'hsl(24, 51%, 39%)',
-        dark: 'hsl(90, 37%, 81%)',
+        light: 'gold-900',
+        dark: 'gold-200',
+      },
+
+      'transparent-border': {
+        light: transparentBlack(25),
+        dark: transparentWhite(45),
       },
     },
     elevation: {
       light: {
         none: 'none',
-        xsmall: '0px 1px 2px rgba(0, 0, 0, 0.20)',
-        small: '0px 2px 4px rgba(0, 0, 0, 0.20)',
-        medium: '0px 4px 8px rgba(0, 0, 0, 0.20)',
-        large: '0px 8px 16px rgba(0, 0, 0, 0.20)',
-        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.20)',
+        xsmall: `0px 1px 2px ${transparentBlack(25)}`,
+        small: `0px 2px 4px ${transparentBlack(25)}`,
+        medium: `0px 4px 8px ${transparentBlack(25)}`,
+        large: `0px 8px 16px ${transparentBlack(25)}`,
+        xlarge: `0px 12px 24px ${transparentBlack(25)}`,
       },
       dark: {
         none: 'none',
-        xsmall: '0px 1px 2px rgba(0, 0, 0, 0.40)',
-        small: '0px 2px 4px rgba(0, 0, 0, 0.40)',
-        medium: '0px 4px 8px rgba(0, 0, 0, 0.40)',
-        large: '0px 8px 16px rgba(0, 0, 0, 0.40)',
-        xlarge: '0px 12px 24px rgba(0, 0, 0, 0.40)',
+        xsmall: `0px 1px 2px ${transparentBlack(40)}`,
+        small: `0px 2px 4px ${transparentBlack(40)}`,
+        medium: `0px 4px 8px ${transparentBlack(40)}`,
+        large: `0px 8px 16px ${transparentBlack(40)}`,
+        xlarge: `0px 12px 24px ${transparentBlack(40)}`,
       },
     },
     focus: {
@@ -120,8 +127,8 @@ const theme = deepFreeze<ThemeType>({
     color: 'anchor-default',
     hover: {
       textDecoration: 'underline',
-      extend: (props: { theme: ThemeType }) => css`
-        color: ${normalizeColor('anchor-hover', props.theme)};
+      extend: css`
+        color: ${getColor('anchor-hover')};
       `,
     },
   },
@@ -165,28 +172,37 @@ const theme = deepFreeze<ThemeType>({
   },
   calendar: {
     day: {
+      hover: {
+        background: 'gold-500',
+      },
+      selected: {
+        background: 'gold-500',
+      },
       extend: css`
         opacity: 0.7;
       `,
     },
-    range: {
-      background: 'transparent',
-    },
-    extend: (props: { theme: ThemeType }) => css`
+    extend: css`
       ${StyledDayContainer} button {
         cursor: default;
         opacity: 1;
         background: transparent;
 
         [data-is-selected=true] {
+          border-radius: ${getThemeProp('global.borderSize.large')};
+          background-color: ${getColor('brand')};
+          color: ${getColor('white')};
           pointer-events: none;
         }
 
         [data-is-marked=false] {
-          color: ${normalizeColor('text', props.theme)};
+          color: ${getColor('text')};
+          opacity: 0.4;
         }
 
-        [data-is-marked=true] {
+        [data-is-marked=true][data-is-selected=false] {
+          color: ${getColor('control')};
+          font-weight: 500;
           &:hover {
             cursor: pointer;
             text-decoration: underline;
@@ -204,6 +220,11 @@ const theme = deepFreeze<ThemeType>({
   card: {
     container: {
       elevation: 'small',
+    },
+  },
+  checkBox: {
+    border: {
+      color: 'transparent-border',
     },
   },
   checkBoxGroup: {
@@ -231,18 +252,24 @@ const theme = deepFreeze<ThemeType>({
     },
   },
   layer: {
-    background: {
+    /* background: {
       dark: true,
-    },
+    }, */
     border: {
       radius: 'medium',
     },
     container: {
-      elevation: 'large',
-      extend: (props: { theme: ThemeType }) => css`
-        border: 2px solid ${normalizeColor('border', props.theme)};
-        background-color: ${normalizeColor('background', props.theme)};
+      elevation: 'medium',
+      extend: css`
+        border: 2px solid ${getColor('border')};
+        /* ${chooseByTheme(transparentBlack(30), transparentWhite(50))}; */
+        /* background-color: ${getColor('background')}; */
       `,
+    },
+  },
+  radioButton: {
+    border: {
+      color: 'transparent-border',
     },
   },
   radioButtonGroup: {
