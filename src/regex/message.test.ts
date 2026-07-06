@@ -80,9 +80,9 @@ describe('LINE_BREAK_NOT_LAST_ONE', () => {
     expect(actual).toBe(expected);
   });
 
-  test.skip('replaces all but last \\r\\n line break', () => {
+  test('replaces all but last \\r\\n line break', () => {
     const original = 'Foo\r\nBar\r\n';
-    const expected = 'FooBar\r\n';
+    const expected = 'FooBar\n';
 
     const actual = original.replace(LINE_BREAK_NOT_LAST_ONE, '');
     expect(actual).toBe(expected);

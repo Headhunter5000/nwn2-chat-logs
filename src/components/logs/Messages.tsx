@@ -17,7 +17,8 @@ const COLUMNS = [
     property: 'time',
     header: 'Time',
     size: 'xsmall',
-    render: ({ time, index }: { time: string; index: number }) => <Text id={`message-${index}`}>{time}</Text>,
+    render: ({ time, index }: { time: string; index: number }) =>
+      <Text id={`message-${index}`}>{time}</Text>,
   },
   {
     property: 'user',
@@ -41,7 +42,8 @@ const COLUMNS = [
     header: 'Message',
     size: '60%',
     search: true,
-    render: ({ type, message }: { type: string; message: string }) => <MessageText {...{ type, message }} />,
+    render: ({ type, message }: { type: string; message: string }) =>
+      <MessageText {...{ type, message }} />,
   },
 ];
 
@@ -66,7 +68,11 @@ const getRowProps = (file: string, messageIndex?: number) => {
   return undefined;
 };
 
-const LogMessages = ({ file, date, messages, messageIndex, dataTestId }: Pick<ChatLog, 'file' | 'date' | 'messages'> & { messageIndex?: number, dataTestId: string }) => {
+type LogMessagesProps =
+  Pick<ChatLog, 'file' | 'date' | 'messages'> &
+  { messageIndex?: number, dataTestId: string }
+
+const LogMessages = ({ file, date, messages, messageIndex, dataTestId }: LogMessagesProps) => {
   const data = useMemo(
     () => applyMessageAdditions(messages),
     [messages],

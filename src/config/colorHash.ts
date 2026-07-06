@@ -1,8 +1,11 @@
 import ColorHash from 'color-hash';
 
-const colorHash = new ColorHash({
-  saturation: [0.65, 0.75, 0.85], // Schöne, kräftige Sättigung
-  lightness: [0.35, 0.5],
+export const lightColorHash = new ColorHash({
+  saturation: [0.6, 0.8, 1.0],
+  lightness: [0.32, 0.36, 0.4],
 });
 
-export default colorHash;
+export const darkColorHash = new ColorHash({
+  saturation: [0.5, 0.6, 0.7],
+  lightness: [0.52, 0.56, 0.6],
+});

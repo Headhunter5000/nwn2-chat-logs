@@ -1,5 +1,7 @@
-import { Text } from 'grommet';
-import colorHash from '../../config/colorHash';
+import { Text, ThemeContext, type ThemeType } from 'grommet';
+import { useContext } from 'react';
+import { darkColorHash, lightColorHash } from '../../config/colorHash';
+import { SettingsContext } from '../../utils/contextProviders/SettingsContext';
 
 interface ColoredTextProps {
   children?: string;
@@ -7,14 +9,20 @@ interface ColoredTextProps {
 }
 
 const ColoredText = ({ children, value, ...rest }: ColoredTextProps) => {
-  if (typeof children === 'string') {
-    const color = colorHash.hex(value ?? children);
-    return <Text truncate {...{ ...rest, color }}><span
-      dangerouslySetInnerHTML={{ __html: children }}
-    /></Text>;
-  }
+  const { colorizeNames } =  useContext(SettingsContext);
+  const theme: ThemeType = useContext(ThemeContext);
+  const dark = 'dark' in theme && theme.dark;
 
-  return null;
+  if (typeof children !== 'string') return null;
+
+  const colorHash = dark ? darkColorHash : lightColorHash;
+  const color = colorizeNames ? colorHash.hex(value ?? children) : undefined;
+
+  return (
+    <Text truncate {...{ ...rest, color }}><span
+      dangerouslySetInnerHTML={{ __html: children }}
+    /></Text>
+  );
 };
 
 export default ColoredText;
