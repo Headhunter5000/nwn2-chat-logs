@@ -1,7 +1,7 @@
 import ColorHash from 'color-hash';
 
 export const lightColorHash = new ColorHash({
-  saturation: [0.6, 0.8, 1.0],
+  saturation: [0.8, 0.9, 1.0],
   lightness: [0.32, 0.36, 0.4],
 });
 

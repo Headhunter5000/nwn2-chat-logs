@@ -72,19 +72,19 @@ const theme = deepFreeze<ThemeType>({
     elevation: {
       light: {
         none: 'none',
-        xsmall: `0px 1px 2px ${transparentBlack(25)}`,
-        small: `0px 2px 4px ${transparentBlack(25)}`,
-        medium: `0px 4px 8px ${transparentBlack(25)}`,
-        large: `0px 8px 16px ${transparentBlack(25)}`,
-        xlarge: `0px 12px 24px ${transparentBlack(25)}`,
+        xsmall: `0px 2px 3px ${transparentBlack(18)}`,
+        small: `0px 3px 4px ${transparentBlack(22)}`,
+        medium: `0px 4px 8px ${transparentBlack(26)}`,
+        large: `0px 6px 12px ${transparentBlack(30)}`,
+        xlarge: `0px 8px 16px ${transparentBlack(34)}`,
       },
       dark: {
         none: 'none',
-        xsmall: `0px 1px 2px ${transparentBlack(40)}`,
-        small: `0px 2px 4px ${transparentBlack(40)}`,
+        xsmall: `0px 2px 3px ${transparentBlack(32)}`,
+        small: `0px 3px 4px ${transparentBlack(36)}`,
         medium: `0px 4px 8px ${transparentBlack(40)}`,
-        large: `0px 8px 16px ${transparentBlack(40)}`,
-        xlarge: `0px 12px 24px ${transparentBlack(40)}`,
+        large: `0px 6px 12px ${transparentBlack(44)}`,
+        xlarge: `0px 8px 16px ${transparentBlack(48)}`,
       },
     },
     focus: {
@@ -252,9 +252,6 @@ const theme = deepFreeze<ThemeType>({
     },
   },
   layer: {
-    /* background: {
-      dark: true,
-    }, */
     border: {
       radius: 'medium',
     },
