@@ -259,8 +259,8 @@ const theme = deepFreeze<ThemeType>({
       elevation: 'medium',
       extend: css`
         border: 2px solid ${getColor('border')};
-        /* ${chooseByTheme(transparentBlack(30), transparentWhite(50))}; */
-        /* background-color: ${getColor('background')}; */
+        //background-color: ${chooseByTheme(transparentWhite(80), transparentBlack(80))};
+        //backdrop-filter: blur(5px);
       `,
     },
   },

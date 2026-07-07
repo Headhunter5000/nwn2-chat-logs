@@ -1,5 +1,5 @@
-import { Box, Header, Text } from 'grommet';
-import { lazy } from 'react';
+import { Box, Header, ResponsiveContext, Text } from 'grommet';
+import { lazy, useContext } from 'react';
 import { LuSettings } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
@@ -16,6 +16,7 @@ const StickyHeader = styled(Header)`
 `;
 
 const AppHeader = (props: { [key: string]: unknown}) => {
+  const size = useContext(ResponsiveContext);
   const navigate = useNavigate();
 
   return (
@@ -28,14 +29,14 @@ const AppHeader = (props: { [key: string]: unknown}) => {
       {...props}
     >
       <Text
-        size="large"
-        style={{ cursor: 'pointer' }}
+        size={size === 'small' ? 'medium' : 'large'}
+        style={{ cursor: 'pointer', whiteSpace: 'nowrap' }}
         onClick={() => navigate('/')}
       >
         NWN2 Chat Logs
       </Text>
 
-      <Box direction="row" align="center" gap="large">
+      <Box direction="row" align="center" gap="medium">
         <Search />
         <InternalLink
           to="settings"

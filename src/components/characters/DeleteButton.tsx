@@ -21,7 +21,6 @@ export const DeleteButton = ({ name, onlyIcon = false, ...rest }: DeleteButtonPr
         a11yTitle="delete"
         label={onlyIcon ? undefined : 'Delete'}
         icon={<LuTrash2 size={20} color="status-critical" />}
-        color="status-critical"
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
