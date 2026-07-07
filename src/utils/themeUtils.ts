@@ -1,8 +1,6 @@
 import type { ThemeType } from 'grommet';
 import { normalizeColor } from 'grommet/utils';
 import type { CSSObject } from 'styled-components';
-import type { ThemeMode } from '../types/Settings';
-import { generateGrainImg, mixGrainImgWithColor } from './backgroundGrain';
 
 type CSS = TemplateStringsArray | CSSObject | string | number;
 
@@ -40,30 +38,3 @@ export const transparentWhite = (opacity: number) =>
 
 export const transparentBlack = (opacity: number) =>
   `hsla(0, 0%, 0%, ${Math.max(0, Math.min(100, opacity)) / 100})`;
-
-export const DEFAULT_BACKGROUND_GRAIN =
-  generateGrainImg({ size: 240, scale: 1, contrast: 4 });
-
-export const getGrainyColorImage = (name: string, modeOverride?: ThemeMode | undefined) =>
-  (props: { theme: ThemeType }) => {
-    const isDark = modeOverride ?? getIsDarkTheme(props);
-    const bgColor = getColor(name)(props);
-
-    // Dark config
-    if (isDark) {
-      return mixGrainImgWithColor({
-        img: DEFAULT_BACKGROUND_GRAIN,
-        bgColor,
-        grainColor: 'white',
-        intensity: 0.06,
-      });
-    }
-
-    // Light config
-    return mixGrainImgWithColor({
-      img: DEFAULT_BACKGROUND_GRAIN,
-      bgColor,
-      grainColor: 'black',
-      intensity: 0.2,
-    });
-  };
