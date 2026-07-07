@@ -8,10 +8,17 @@ import theme from '../config/theme';
 import { SettingsContext } from '../utils/contextProviders/SettingsContext';
 import { SettingsProvider } from '../utils/contextProviders/SettingsProvicer';
 import { ChatLogsProvider } from '../utils/contextProviders/StatsProvider';
+import { getGrainyColorImage } from '../utils/themeUtils';
 
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
+  }
+
+  #app-root {
+    background-image: url("${getGrainyColorImage('background')}");
+    background-attachment: local;
+    background-repeat: repeat;
   }
 `;
 
