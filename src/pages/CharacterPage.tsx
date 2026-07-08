@@ -2,6 +2,7 @@
 import { useContext, useEffect, useMemo } from 'react';
 import { useNavigate, useParams } from 'react-router';
 
+import { ResponsiveContext } from 'grommet';
 import PageHeader from '../components/common/PageHeader';
 import LogCalendar from '../components/logs/LogCalendar';
 import LogItem from '../components/logs/LogItem';
@@ -15,6 +16,7 @@ const getStatsOfChar = (statsByChar: AggregatedStatsByChar, char: string) => {
 };
 
 const CharacterPage = () => {
+  const size = useContext(ResponsiveContext);
   const navigate = useNavigate();
   const { char, date, index } = useParams<{ char: string, date?: string, index?: string }>();
   const { statsByChar, isLoaded } = useContext(ChatLogsContext);
@@ -34,6 +36,8 @@ const CharacterPage = () => {
     throw new Response('Not Found', { status: 404 });
   }
 
+  const calendarSize = size === 'small' ? 'small' : 'medium';
+
   return (
     <>
       <PageHeader
@@ -43,7 +47,7 @@ const CharacterPage = () => {
       />
       {date && (
         <>
-          <LogCalendar {...{ char, currentDate: date }} />
+          <LogCalendar {...{ char, currentDate: date, size: calendarSize }} />
           <LogItem {...{ char, date, index }} />
         </>
       )}

@@ -1,6 +1,6 @@
 import { Box, Header, ResponsiveContext, Text } from 'grommet';
+import { Settings } from 'lucide-react';
 import { lazy, useContext } from 'react';
-import { LuSettings } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import InternalLink from '../common/InternalLink';
@@ -40,7 +40,7 @@ const AppHeader = (props: { [key: string]: unknown}) => {
         <Search />
         <InternalLink
           to="settings"
-          icon={<LuSettings size={20} />}
+          icon={<Settings size={20} />}
           color="text"
         />
       </Box>

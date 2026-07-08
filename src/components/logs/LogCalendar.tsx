@@ -1,7 +1,7 @@
-/* eslint-disable react-hooks/refs */
+
 import { Box, Button, Calendar, Drop } from 'grommet';
+import { Calendar as LuCalendar } from 'lucide-react';
 import { useCallback, useContext, useMemo, useRef, useState } from 'react';
-import { LuCalendar } from 'react-icons/lu';
 import { useNavigate } from 'react-router';
 
 import { ChatLogsContext } from '../../utils/contextProviders/StatsContext';
@@ -20,7 +20,7 @@ interface createCalendarDayProps {
   day: number;
 }
 
-const createCalendarDays = ({ dates, size, onClick }: createCalendarDaysProps) => 
+const createCalendarDays = ({ dates, size, onClick }: createCalendarDaysProps) =>
   ({ date: currentDate, day, ...props }: createCalendarDayProps) => {
     const isMarked = !!dates?.find(date =>
       getDateFromISOString(getIsoStringFromDate(currentDate)) === date,

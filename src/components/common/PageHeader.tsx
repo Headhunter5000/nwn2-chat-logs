@@ -2,7 +2,7 @@ import {
   PageHeader as GrommetPageHeader,
   type PageHeaderExtendedProps,
 } from 'grommet';
-import { LuArrowLeft } from 'react-icons/lu';
+import { ArrowLeft } from 'lucide-react';
 import InternalLink from './InternalLink';
 
 interface PageHeaderProps extends Pick<
@@ -32,7 +32,7 @@ const PageHeader = ({ title, subtitle, level, size, backLink = false }: PageHead
         ? (
           <InternalLink
             {...config}
-            icon={<LuArrowLeft size={20} />}
+            icon={<ArrowLeft size={20} />}
           >back</InternalLink>
         )
         : undefined

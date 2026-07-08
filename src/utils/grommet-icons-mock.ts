@@ -1,76 +1,146 @@
+import {
+  ChevronDown as LuChevronDown,
+  ChevronLeft as LuChevronLeft,
+  ChevronRight as LuChevronRight,
+  ChevronUp as LuChevronUp,
+  Minus as LuMinus,
+  Plus as LuPlus,
+  Search as LuSearch,
+  Settings as LuSettings,
+  Split as LuSplit,
+  Timer as LuTimer,
+  X as LuX,
+  type LucideIcon,
+} from 'lucide-react';
 import { createElement } from 'react';
-import type { IconType } from 'react-icons';
-import * as Lu from 'react-icons/lu';
 
-const create = (icon: IconType) => () => createElement(icon);
+type IconSize = 'small' | 'medium' | 'large' | number;
 
-export const Search = create(Lu.LuSearch);
-export const AssistListening = create(Lu.LuVolume2);
-export const Previous = create(Lu.LuChevronLeft);
-export const Next = create(Lu.LuChevronRight);
-export const FormPrevious = create(Lu.LuChevronLeft);
-export const FormNext = create(Lu.LuChevronRight);
-export const FormDown = create(Lu.LuChevronDown);
-export const FormUp = create(Lu.LuChevronUp);
-export const Close = create(Lu.LuX);
-export const FormClose = create(Lu.LuX);
+const ICON_SIZES = {
+  small: 24,
+  medium: 32,
+  large: 48,
+} as const;
 
-export const Actions = create(Lu.LuMoveHorizontal);
-export const ClosedCaption = create(Lu.LuTv);
-export const Expand = create(Lu.LuMaximize2);
-export const Pause = create(Lu.LuPause);
+const create = (icon: LucideIcon) => ({ size }: { size: IconSize }) => {
+  const sizeValue =
+  //typeof size === 'number' ? size :
+      typeof size === 'string' && size in ICON_SIZES
+        ? ICON_SIZES[size]
+        : ICON_SIZES.small;
+  console.log({ size, sizeValue });
+  return createElement(icon, { size: sizeValue });
+};
+
+// Ein Eintrag pro tatsächlich benötigtem Icon.
+// Mehrfach verwendete Icons (z.B. mehrere Chevrons, TriangleAlert etc.)
+// tauchen hier nur EINMAL auf.
+const icons = {
+  chevronDown: create(LuChevronDown),
+  chevronLeft: create(LuChevronLeft),
+  chevronRight: create(LuChevronRight),
+  chevronUp: create(LuChevronUp),
+  //list: create(LuList),
+  //lock: create(LuLock),
+  //maximize2: create(LuMaximize2),
+  //menu: create(LuMenu),
+  minus: create(LuMinus),
+  //moveHorizontal: create(LuMoveHorizontal),
+  //octagonAlert: create(LuOctagonAlert),
+  //pause: create(LuPause),
+  //pin: create(LuPin),
+  //play: create(LuPlay),
+  plus: create(LuPlus),
+  search: create(LuSearch),
+  settings: create(LuSettings),
+  //smile: create(LuSmile),
+  split: create(LuSplit),
+  //squareCheck: create(LuSquareCheck),
+  //squareCheckBig: create(LuSquareCheckBig),
+  //star: create(LuStar),
+  //thumbsDown: create(LuThumbsDown),
+  //thumbsUp: create(LuThumbsUp),
+  timer: create(LuTimer),
+  //trendingDown: create(LuTrendingDown),
+  //trendingUp: create(LuTrendingUp),
+  //triangleAlert: create(LuTriangleAlert),
+  //tv: create(LuTv),
+  //volume: create(LuVolume),
+  //volume1: create(LuVolume1),
+  //volume2: create(LuVolume2),
+  x: create(LuX),
+} as const;
+
 export const Blank = () => null;
 
-export const Alert = create(Lu.LuTriangleAlert);
-export const Ascending = create(Lu.LuTrendingUp);
-export const Checkmark = create(Lu.LuSquareCheck);
-export const ChevronDown = create(Lu.LuChevronDown);
-export const ChevronLeft = create(Lu.LuChevronLeft);
-export const ChevronRight = create(Lu.LuChevronRight);
-export const ChevronUp = create(Lu.LuChevronUp);
-export const Configure = create(Lu.LuSettings);
-export const Descending = create(Lu.LuTrendingDown);
-export const Down = create(Lu.LuChevronDown);
-export const FormCalendar = create(Lu.LuTimer);
-export const FormCheckmark = create(Lu.LuSquareCheck);
-export const FormFolder = create(Lu.LuList);
-export const FormSearch = create(Lu.LuSearch);
-export const Menu = create(Lu.LuMenu);
-export const Play = create(Lu.LuPlay);
-export const StatusCritical = create(Lu.LuOctagonAlert);
-export const StatusGood = create(Lu.LuSquareCheckBig);
-export const StatusUnknown = create(Lu.LuSmile);
-export const StatusWarning = create(Lu.LuTriangleAlert);
-export const Up = create(Lu.LuChevronUp);
+// Alle öffentlichen Exports sind reine Aliase auf obige Icons.
+// Identische Icons zeigen dadurch garantiert auf dieselbe Komponente.
+export const Search = icons.search;
+export const AssistListening = Blank; //icons.volume2;
+export const Previous = icons.chevronLeft;
+export const Next = icons.chevronRight;
+export const FormPrevious = icons.chevronLeft;
+export const FormNext = icons.chevronRight;
+export const FormDown = icons.chevronDown;
+export const FormUp = icons.chevronUp;
+export const Close = icons.x;
+export const FormClose = icons.x;
 
-export const CircleInformation = create(Lu.LuSmile);
-export const Calendar = create(Lu.LuTimer);
+export const Actions = Blank; //icons.moveHorizontal;
+export const ClosedCaption = Blank; //icons.tv;
+export const Expand = Blank; //icons.maximize2;
+export const Pause = Blank; //icons.pause;
 
-export const FormPin = create(Lu.LuPin);
-export const StatusCriticalSmall = create(Lu.LuOctagonAlert);
-export const StatusGoodSmall = create(Lu.LuSquareCheckBig);
-export const StatusWarningSmall = create(Lu.LuTriangleAlert);
-export const StatusUnknownSmall = create(Lu.LuSmile);
+export const Alert = Blank; //icons.triangleAlert;
+export const Ascending = Blank; //icons.trendingUp;
+export const Checkmark = Blank; //icons.squareCheck;
+export const ChevronDown = icons.chevronDown;
+export const ChevronLeft = icons.chevronLeft;
+export const ChevronRight = icons.chevronRight;
+export const ChevronUp = icons.chevronUp;
+export const Configure = icons.settings;
+export const Descending = Blank; //icons.trendingDown;
+export const Down = icons.chevronDown;
+export const FormCalendar = icons.timer;
+export const FormCheckmark = Blank; //icons.squareCheck;
+export const FormFolder = Blank; //icons.list;
+export const FormSearch = icons.search;
+export const Menu = Blank; //icons.menu;
+export const Play = Blank; //icons.play;
+export const StatusCritical = Blank; //icons.octagonAlert;
+export const StatusGood = Blank; //icons.squareCheckBig;
+export const StatusUnknown = Blank; //icons.smile;
+export const StatusWarning = Blank; //icons.triangleAlert;
+export const Up = icons.chevronUp;
 
-export const Subtract = create(Lu.LuMinus);
-export const Volume = create(Lu.LuVolume);
-export const VolumeLow = create(Lu.LuVolume1);
-export const Filter = create(Lu.LuSearch);
-export const Descend = create(Lu.LuTrendingDown);
-export const Ascend = create(Lu.LuTrendingUp);
+export const CircleInformation = Blank; //icons.smile;
+export const Calendar = icons.timer;
 
-export const Splits = create(Lu.LuSplit);
-export const Lock = create(Lu.LuLock);
-export const CircleAlert = create(Lu.LuTriangleAlert);
-export const Star = create(Lu.LuStar);
-export const StarOutline = create(Lu.LuStar);
+export const FormPin = Blank; //icons.pin;
+export const StatusCriticalSmall = Blank; //icons.octagonAlert;
+export const StatusGoodSmall = Blank; //icons.squareCheckBig;
+export const StatusWarningSmall = Blank; //icons.triangleAlert;
+export const StatusUnknownSmall = Blank; //icons.smile;
 
-export const Like = create(Lu.LuThumbsUp);
-export const LikeFill = create(Lu.LuThumbsUp);
-export const Dislike = create(Lu.LuThumbsDown);
-export const DislikeFill = create(Lu.LuThumbsDown);
-export const Copy = create(Lu.LuSearch);
+export const Subtract = Blank; //icons.minus;
+export const Volume = Blank; //icons.volume;
+export const VolumeLow = Blank; //icons.volume1;
+export const Filter = Blank; //icons.search;
+export const Descend = Blank; //icons.trendingDown;
+export const Ascend = Blank; //icons.trendingUp;
 
-export const Add = create(Lu.LuPlus);
+export const Splits = Blank; //icons.split;
+export const Lock = Blank; //icons.lock;
+export const CircleAlert = Blank; //icons.triangleAlert;
+export const Star = Blank; //icons.star;
+export const StarOutline = Blank; //icons.star;
+
+export const Like = Blank; //icons.thumbsUp;
+export const LikeFill = Blank; //icons.thumbsUp;
+export const Dislike = Blank; //icons.thumbsDown;
+export const DislikeFill = Blank; //icons.thumbsDown;
+export const Copy = Blank; //icons.search;
+
+export const Add = icons.plus;
 
 export const base = {};

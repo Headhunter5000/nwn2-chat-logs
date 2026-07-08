@@ -6,7 +6,6 @@ import { StyledDayContainer } from 'grommet/components/Calendar/StyledCalendar';
 import {
   chooseByTheme,
   getColor,
-  getThemeProp,
   transparentBlack,
   transparentWhite,
 } from '../utils/themeUtils';
@@ -28,7 +27,7 @@ const theme = deepFreeze<ThemeType>({
         light: 'gray-400',
         dark: 'slate-700',
       },
-  
+
       text: {
         light: 'slate-800',
         dark: 'sand-100',
@@ -58,7 +57,7 @@ const theme = deepFreeze<ThemeType>({
         light: 'gold-700',
         dark: 'gold-500',
       },
-  
+
       'anchor-hover': {
         light: 'gold-900',
         dark: 'gold-200',
@@ -115,6 +114,7 @@ const theme = deepFreeze<ThemeType>({
       },
       weight: 400,
     },
+
   },
   accordion: {
     hover: {
@@ -171,20 +171,14 @@ const theme = deepFreeze<ThemeType>({
     },
   },
   calendar: {
-    /* small: {
-      title: {
-        size: 'small',
-        weight: 'bold',
-      },
-    }, */
     small: {
-      daySize: '32px', // Setzt Breite & Höhe für <Calendar size="small" />
+      daySize: '48px',
     },
     medium: {
-      daySize: '54px', // Setzt Breite & Höhe für <Calendar size="medium" /> (Default)
+      daySize: '54px',
     },
     large: {
-      daySize: '96px', // Setzt Breite & Höhe für <Calendar size="large" />
+      daySize: '96px',
     },
     day: {
       hover: {
@@ -198,13 +192,14 @@ const theme = deepFreeze<ThemeType>({
       `,
     },
     extend: css`
+      width: auto;
       ${StyledDayContainer} button {
         cursor: default;
         opacity: 1;
         background: transparent;
 
         [data-is-selected=true] {
-          border-radius: ${getThemeProp('global.borderSize.large')};
+          border-radius: 33%;
           background-color: ${getColor('brand')};
           color: ${getColor('white')};
           pointer-events: none;

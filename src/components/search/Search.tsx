@@ -1,6 +1,6 @@
 import { Box, Button, Grommet, Layer, TextInput } from 'grommet';
+import { Search as LuSearch } from 'lucide-react';
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import { LuSearch } from 'react-icons/lu';
 import { debounce } from 'throttle-debounce';
 
 import theme from '../../config/theme';

@@ -12,6 +12,7 @@ concurrency:
 
 jobs:
   test:
+    name: 'Test'
     uses: ./.github/workflows/vitest.yml
 
   build:

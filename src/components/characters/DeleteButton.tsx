@@ -1,6 +1,6 @@
 import { Button } from 'grommet';
+import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { LuTrash2 } from 'react-icons/lu';
 
 import DeleteModal from './DeleteModal';
 
@@ -20,7 +20,7 @@ export const DeleteButton = ({ name, onlyIcon = false, ...rest }: DeleteButtonPr
         data-testid="char-delete"
         a11yTitle="delete"
         label={onlyIcon ? undefined : 'Delete'}
-        icon={<LuTrash2 size={20} color="status-critical" />}
+        icon={<Trash2 size={20} />}
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
