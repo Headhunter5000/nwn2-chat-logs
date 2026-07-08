@@ -1,0 +1,1 @@
+var t=({date:t})=>(t=>new Date(t).toLocaleDateString(void 0,{year:"numeric",month:"2-digit",day:"2-digit"}))(t);export{t};
