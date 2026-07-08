@@ -107,14 +107,15 @@ const LogMessages = ({ file, date, messages, messageIndex, dataTestId }: LogMess
         primaryKey: 'id',
         verticalAlign: { body: 'top' },
         pad: { vertical: 'medium', right: 'medium' },
-        key: messageIndex ? mKey || messageIndex : undefined,
         show: messageIndex,
         rowProps,
         paginate: PAGINATE as PaginationProps,
         step: STEP_SIZE,
         columns: COLUMNS as ColumnConfig<ChatLogMessage>[],
         data,
-      }} />
+      }}
+      key={messageIndex ? mKey || messageIndex : undefined}
+      />
       <ScrollToMessage index={messageIndex} />
     </>
   );

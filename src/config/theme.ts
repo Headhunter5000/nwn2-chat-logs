@@ -31,7 +31,7 @@ const theme = deepFreeze<ThemeType>({
   
       text: {
         light: 'slate-800',
-        dark: 'gold-100',
+        dark: 'sand-100',
       },
 
       surface: {
@@ -171,6 +171,21 @@ const theme = deepFreeze<ThemeType>({
     },
   },
   calendar: {
+    /* small: {
+      title: {
+        size: 'small',
+        weight: 'bold',
+      },
+    }, */
+    small: {
+      daySize: '32px', // Setzt Breite & Höhe für <Calendar size="small" />
+    },
+    medium: {
+      daySize: '54px', // Setzt Breite & Höhe für <Calendar size="medium" /> (Default)
+    },
+    large: {
+      daySize: '96px', // Setzt Breite & Höhe für <Calendar size="large" />
+    },
     day: {
       hover: {
         background: 'gold-500',
@@ -210,12 +225,6 @@ const theme = deepFreeze<ThemeType>({
         }
       }
     `,
-    small: {
-      title: {
-        size: 'small',
-        weight: 'bold',
-      },
-    },
   },
   card: {
     container: {

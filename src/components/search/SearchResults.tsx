@@ -1,9 +1,8 @@
+import { Text } from 'grommet';
 import { useState } from 'react';
 import type { SearchColumn, SearchLimit } from '../../types/SearchColumn';
 import SearchOptions from './SearchOptions';
 import SearchTable from './SearchTable';
-
-import { Text } from 'grommet';
 
 import { useFilteredChatLogs } from '../../utils/dbUtils';
 

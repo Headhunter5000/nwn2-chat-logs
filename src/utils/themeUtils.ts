@@ -11,7 +11,7 @@ export const chooseByTheme = (lightCss: CSS, darkCss: CSS) =>
   (props: { theme: ThemeType }): CSS =>
     getIsDarkTheme(props) ? darkCss : lightCss;
 
-export const getThemeProp = (name: string) => 
+export const getThemeProp = (name: string, fallback?: string | number) => 
   (props: { theme: ThemeType }): string | number | undefined => {
     const nameSegments = name.split('.');
 
@@ -25,6 +25,8 @@ export const getThemeProp = (name: string) =>
     if (typeof prop === 'string' || typeof prop === 'number') {
       return prop;
     }
+
+    if (fallback) return fallback;
 
     return undefined;
   };

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { describe, expect, it, vi } from 'vitest';
 import * as dbUtils from './dbUtils';
 import importLogFile from './importLogFile';

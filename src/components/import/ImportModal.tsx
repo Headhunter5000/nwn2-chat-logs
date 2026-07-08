@@ -1,5 +1,5 @@
-import React from 'react';
 import { Box, Button, Layer, List, Text } from 'grommet';
+import React from 'react';
 
 interface UploadModal {
   loadingCountdown: number;

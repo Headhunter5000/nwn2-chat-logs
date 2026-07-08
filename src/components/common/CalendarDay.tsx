@@ -1,11 +1,13 @@
+import type { CalendarProps, ThemeType } from 'grommet';
 import styled, { css } from 'styled-components';
+import { getThemeProp } from '../../utils/themeUtils';
 
 const preventClick = (e: React.MouseEvent) => {
   e.preventDefault();
   e.stopPropagation();
 };
 
-interface CalendarDayProps  {
+interface CalendarDayProps {
   day: number;
   size?: string;
   isSelected?: boolean;
@@ -13,6 +15,8 @@ interface CalendarDayProps  {
   className?: string;
   onClick: (e: React.MouseEvent) => void
 };
+
+type CalenderStyleProps = Pick<CalendarProps, 'size'> & { theme: ThemeType };
 
 const CalendarDay = styled(({
   className,
@@ -30,12 +34,16 @@ const CalendarDay = styled(({
       data-is-selected={isSelected}
       data-is-marked={isMarked}
     >{day}</div>);
-})(({ theme, size = 'medium' }) => css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: ${theme.calendar?.[size]?.daySize};
-  height: ${theme.calendar?.[size]?.daySize};
-`);
+})(({ theme, size = 'medium' }: CalenderStyleProps) => {
+  const daySize = getThemeProp(`calendar.${size}.daySize`)({ theme });
+
+  return css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: ${daySize};
+    height: ${daySize};
+  `;
+});
 
 export default CalendarDay;

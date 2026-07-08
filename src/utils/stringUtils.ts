@@ -14,7 +14,8 @@ export const caseInsensitiveIndexOf = (text: string, search: string) =>
 export const caseInsensitiveIncludes = (text: string, search: string) =>
   caseInsensitiveIndexOf(text, search) !== -1;
 
-export const getMessageId = (file: string, index: number) => `${file} / ${String(index).padStart(4, '0')}`;
+export const getMessageId = (file: string, index: number) =>
+  `${file} / ${String(index).padStart(4, '0')}`;
 
 export const formatSearchMessage = (message: string, search: string) => {
   const matchIndex = caseInsensitiveIndexOf(message, search);

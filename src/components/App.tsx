@@ -1,4 +1,4 @@
- 
+
 import { Grommet } from 'grommet';
 import { RouterProvider } from 'react-router';
 
@@ -11,7 +11,7 @@ import { ChatLogsProvider } from '../utils/contextProviders/StatsProvider';
 import GlobalStyle from './layout/GlobalStyle';
 
 const ThemedContainer = () => {
-  const { themeMode } =  useContext(SettingsContext);
+  const { themeMode } = useContext(SettingsContext);
   return (
     <Grommet
       theme={theme}
@@ -25,7 +25,7 @@ const ThemedContainer = () => {
   );
 };
 
-const App = () =>  (
+const App = () => (
   <ChatLogsProvider>
     <SettingsProvider>
       <ThemedContainer />

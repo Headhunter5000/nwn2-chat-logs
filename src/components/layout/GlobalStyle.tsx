@@ -11,7 +11,7 @@ const BG_LIGHT = mixGrainImgWithColor({
   img: DEFAULT_BACKGROUND_GRAIN,
   bgColor: themeColors['sand-100'],
   grainColor: 'black',
-  intensity: 0.17,
+  intensity: 0.16,
 });
 
 const BG_DARK = mixGrainImgWithColor({

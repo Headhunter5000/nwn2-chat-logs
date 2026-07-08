@@ -1,6 +1,6 @@
 import { useLiveQuery } from 'dexie-react-hooks';
 import db from '../../config/db';
-import type { ChatLog } from '../../types/ChatLog';
+import type { ChatLog, ChatLogMessage } from '../../types/ChatLog';
 import type { SearchColumn } from '../../types/SearchColumn';
 import aggregateStats, { type NameAndDate } from './aggregateStats';
 import { finalFilterLogs, preFilterLogs } from './searchFilters';
@@ -68,7 +68,7 @@ export const addChatLog = ({
 
 export const updateChatLogById = (
   id: number,
-  messages: unknown[],
+  messages: ChatLogMessage[],
 ): Promise<number> =>
   db.chats.update(id, { messages });
 

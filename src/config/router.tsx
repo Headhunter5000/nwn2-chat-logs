@@ -5,7 +5,7 @@ import PageLoader from '../components/common/PageLoader';
 import Page from '../components/layout/Page';
 import ErrorPage from '../pages/ErrorPage';
 
-import { CharacterPage, LandingPage, SettingsPage } from '../pages';
+import { CharacterPage, ColorPalletePage, LandingPage, SettingsPage } from '../pages';
 
 const router = createHashRouter([
   {
@@ -24,13 +24,18 @@ const router = createHashRouter([
         element: <LandingPage />,
       },
       {
-        path: '/settings',
-        element: <SettingsPage />,
-      },
-      {
         path: 'characters/:char/:date?/:index?',
         element: <CharacterPage />,
       },
+      {
+        path: '/settings',
+        element: <SettingsPage />,
+      },
+      ...(import.meta.env.DEV ? [{
+        path: '/colors',
+        element: <ColorPalletePage />,
+        
+      }] : []),
     ],
   },
 ]);
