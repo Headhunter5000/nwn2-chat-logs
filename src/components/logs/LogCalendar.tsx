@@ -1,7 +1,7 @@
 
 import { Box, Button, Calendar, Drop } from 'grommet';
 import { Calendar as LuCalendar } from 'lucide-react';
-import { useCallback, useContext, useMemo, useRef, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { ChatLogsContext } from '../../utils/contextProviders/StatsContext';
@@ -36,7 +36,7 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
   const navigate = useNavigate();
   const { statsByChar } = useContext(ChatLogsContext);
   const [visible, setVisible] = useState(false);
-  const targetRef = useRef<HTMLInputElement | null>(null);
+  const [target, setTarget] = useState<HTMLDivElement | null>(null);
 
   const { dates, firstDate, lastDate } = useMemo(
     () => statsByChar[char] ?? {},
@@ -48,16 +48,16 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
 
   return (
     <>
-      <Box ref={targetRef} alignSelf="start">
+      <Box ref={setTarget} alignSelf="start">
         <Button
           label={currentDate}
           icon={<LuCalendar size={20} />}
           onClick={show}
         />
       </Box>
-      {visible && targetRef.current && (
+      {visible && target && (
         <Drop
-          target={targetRef.current}
+          target={target}
           onClickOutside={hide}
           onEsc={hide}
           stretch={false}

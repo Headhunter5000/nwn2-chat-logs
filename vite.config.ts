@@ -13,7 +13,7 @@ export default defineConfig({
     alias: [
       {
         find: /^grommet-icons(\/.*)?$/,
-        replacement: path.resolve(__dirname, './src/utils/grommet-icons-mock.ts'),
+        replacement: path.resolve(__dirname, './src/utils/grommetIconsMock.ts'),
       },
     ],
   },
