@@ -34,7 +34,7 @@ export const Search = lazy(() => import('../search/Search'));
 
 const gradient2 = (props: { theme: ThemeType }) => {
   const brandColor = getColor('brand')(props);
-  const brandColor50 = convertHslToHsla(brandColor, 35);
+  const brandColor50 = convertHslToHsla(brandColor, 30);
 
   return css`
     background-image:
