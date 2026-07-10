@@ -1,9 +1,9 @@
-import { Box, Header, ResponsiveContext, Text, type ThemeType } from 'grommet';
+import { Box, Header, ResponsiveContext, Text } from 'grommet';
 import { Settings } from 'lucide-react';
 import { lazy, useContext } from 'react';
 import { useNavigate } from 'react-router';
-import styled, { css } from 'styled-components';
-import { convertHslToHsla, getColor, transparentBlack, transparentWhite } from '../../utils/themeUtils';
+import styled from 'styled-components';
+import { transparentBlack } from '../../utils/themeUtils';
 import InternalLink from '../common/InternalLink';
 
 export const Search = lazy(() => import('../search/Search'));
@@ -32,7 +32,7 @@ export const Search = lazy(() => import('../search/Search'));
     );
 `; */
 
-const gradient2 = (props: { theme: ThemeType }) => {
+/* const gradient2 = (props: { theme: ThemeType }) => {
   const brandColor = getColor('brand')(props);
   const brandColor50 = convertHslToHsla(brandColor, 30);
 
@@ -55,7 +55,7 @@ const gradient2 = (props: { theme: ThemeType }) => {
     background-size: auto, auto 33.33%;
     background-repeat: no-repeat, repeat-y;
   `;
-};
+}; */
 
 const StickyHeader = styled(Header)`
   user-select: none;
@@ -65,7 +65,10 @@ const StickyHeader = styled(Header)`
   top: 0;
   left: 0;
   right: 0;
-  ${gradient2}
+
+  & > * {
+    filter: drop-shadow(0 2px .5px ${transparentBlack(15)});
+  }
 `;
 
 const AppHeader = (props: { [key: string]: unknown}) => {
