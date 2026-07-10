@@ -46,7 +46,7 @@ const gradient2 = (props: { theme: ThemeType }) => {
       linear-gradient(
         180deg,
         transparent 0%,
-        ${transparentWhite(12)} 33.33%,
+        ${transparentWhite(11)} 33.33%,
         transparent 50%,
         ${transparentBlack(9)} 66.67%,
         transparent 100%
