@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import styled, { css } from 'styled-components';
 
 import { normalizeColor } from 'grommet/utils';
+import { useTranslation } from 'react-i18next';
 import importLogFile from '../../utils/importLogFile';
 import ImportModal from './ImportModal';
 
@@ -25,6 +26,7 @@ const DropzoneBox = styled(Box).attrs({
 `);
 
 const Upload = () => {
+  const { t } = useTranslation();
   const [success, setSuccess] = useState<string[]>([]);
   const [error, setError] = useState<string[]>([]);
   const [loadingCountdown, setLoadingCountdown] = useState<number>(0);
@@ -69,9 +71,11 @@ const Upload = () => {
     <>
       <DropzoneBox {...getRootProps()} $isDragActive={isDragActive}>
         <input {...getInputProps()} />
-        {isDragActive
-          ? <Text>Drop files here&hellip;</Text>
-          : <Text>Drag &apos;n&apos; drop or click to import one or multiple files</Text>}
+        <Text data-testid="import-dropzone">
+          {isDragActive
+            ? t('component.dropzone.hint_hovered')
+            : t('component.dropzone.hint_default')}
+        </Text>
       </DropzoneBox>
       <ImportModal {...{
         loadingCountdown,

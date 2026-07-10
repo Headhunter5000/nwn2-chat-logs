@@ -64,7 +64,7 @@ const theme = deepFreeze<ThemeType>({
       },
 
       'transparent-border': {
-        light: transparentBlack(25),
+        light: transparentBlack(30),
         dark: transparentWhite(45),
       },
     },
@@ -114,7 +114,6 @@ const theme = deepFreeze<ThemeType>({
       },
       weight: 400,
     },
-
   },
   accordion: {
     hover: {
@@ -237,6 +236,15 @@ const theme = deepFreeze<ThemeType>({
     },
   },
   dataTable: {
+    body: {
+      extend: css`
+        th button {
+          &:hover {
+            background: none;
+          }
+        }
+      `,
+    },
     pinned: {
       header: {
         background: {

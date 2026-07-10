@@ -1,0 +1,58 @@
+common:
+  back: Back
+  cancel: Cancel
+  char: &char Character
+  confirm: Confirm
+  date: Date
+  language: Language
+  loading: Loading…
+  message: &message Message
+  no: No
+  search: Search
+  time: Time
+  type: Type
+  user: User
+  yes: Yes
+language:
+  en: English
+  de: German
+component:
+  char_card:
+    latest_logs: Latest logs
+  dropzone:
+    hint_default: Drag 'n' drop or click to import one or multiple files
+    hint_hovered: Drop files here…
+  delete_modal:
+    disclaimer: Are you sure you want to delete all chat logs of <strong>{{name}}</strong> ?
+  search:
+    results: "{{ count }}{{ suffix }} Results"
+    no_results: No results found
+    option:
+      column:
+        label: Column
+        value:
+          char: *char
+          message: *message
+      limit:
+        label: Limit
+page:
+  landing:
+    has_logs:
+      heading_one: You have chat logs of one characters
+      heading_other: You have chat logs of {{count}} characters
+      text: Click on one of dates to see individual logs or use the global search in the header.
+    no_logs:
+      heading: Import your chat logs
+      text: Chat logs are stored locally in your browser.<br />No files are transferred to any server.
+  character:
+    logs_count: "{{ count }} Logs"
+  settings:
+    heading: Settings
+    option:
+      theme:
+        label: Theme
+        value:
+          light: Hell
+          dark: Dark
+      colorize_names:
+        label: Colorize names

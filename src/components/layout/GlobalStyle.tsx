@@ -45,7 +45,7 @@ const GlobalStyleWrapper = () => {
           grain,
           bgColor: themeColors['sand-100'],
           grainColor: 'black',
-          intensity: 0.19,
+          intensity: 0.18,
         }),
       );
 
@@ -54,7 +54,7 @@ const GlobalStyleWrapper = () => {
           grain,
           bgColor: themeColors['slate-900'],
           grainColor: 'white',
-          intensity: 0.08,
+          intensity: 0.07,
         }),
       );
 

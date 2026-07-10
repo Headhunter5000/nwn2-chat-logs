@@ -5,11 +5,11 @@ import type { AggregatedStats, AggregatedStatsByChar } from '../../types/Aggrega
 export interface ChatLogContextProps {
   stats: AggregatedStats[];
   statsByChar: AggregatedStatsByChar;
-  isLoaded: boolean;
+  isLoading: boolean;
 }
 
 export const ChatLogsContext = createContext<ChatLogContextProps>({
   stats: [],
   statsByChar: {},
-  isLoaded: false,
+  isLoading: false,
 });

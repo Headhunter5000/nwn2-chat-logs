@@ -1,0 +1,58 @@
+common:
+  back: Zurück
+  cancel: Abbrechen
+  char: &char Charakter
+  confirm: Bestätigen
+  date: Datum
+  language: Sprache
+  loading: Lädt…
+  message: &message Nachricht
+  no: Nein
+  search: Suchen
+  time: Zeit
+  type: Typ
+  user: User
+  yes: Ja
+language:
+  en: Englisch
+  de: Deutsch
+component:
+  char_card:
+    latest_logs: Neuste Logs
+  dropzone:
+    hint_default: Per Drag & Drop oder Klick eine oder mehrere Dateien importieren
+    hint_hovered: Dateien hier hin ziehen…
+  delete_modal:
+    disclaimer: Möchtest du wirklich alle Chat Logs von <strong>{{name}}</strong> löschen?
+  search:
+    results: "{{ count }}{{ suffix }} Treffer"
+    no_results: Keine Treffer
+    option:
+      column:
+        label: Suchspalte
+        value:
+          char: *char
+          message: *message
+      limit:
+        label: Limit
+page:
+  landing:
+    has_logs:
+      heading_one: Du hast Chat Logs von einem Charakter
+      heading_other: Du hast Chat Logs von {{count}} Charakteren
+      text: Klicke auf eines der Daten, um die einzelnen Logs zu sehen, oder nutze die globale Suche in der Kopfzeile.
+    no_logs:
+      heading: Importiere deine Chat Logs
+      text: Chat Logs werden lokal in deinem Browser gespeichert.<br />Es werden keine Dateien an einen Server übertragen.
+  character:
+    logs_count: "{{ count }} Logs"
+  settings:
+    heading: Einstellungen
+    option:
+      theme:
+        label: Theme
+        value:
+          light: Hell
+          dark: Dunkel
+      colorize_names:
+        label: Namen einfärben

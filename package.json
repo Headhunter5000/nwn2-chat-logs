@@ -29,14 +29,18 @@
     ]
   },
   "dependencies": {
+    "@rollup/plugin-yaml": "^5.0.0",
     "color-hash": "^2.0.2",
     "dexie": "^4.4.4",
     "dexie-react-hooks": "^4.4.0",
     "grommet": "^2.55.0",
+    "i18next": "^26.3.3",
+    "i18next-browser-languagedetector": "^8.2.1",
     "lucide-react": "^1.23.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-dropzone": "^14.4.1",
+    "react-i18next": "^17.0.8",
     "react-router": "^8.1.0",
     "styled-components": "^6.1.11",
     "throttle-debounce": "^5.0.2"
@@ -50,7 +54,6 @@
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "@types/styled-components": "^5.1.36",
     "@types/throttle-debounce": "^5.0.2",
     "@vitejs/plugin-react": "^6.0.3",
     "eslint": "^10.6.0",

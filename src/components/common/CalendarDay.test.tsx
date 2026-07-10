@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { screen } from '@testing-library/react';
 import { describe, expect, test } from 'vitest';
 import { renderWithProviders } from '../../utils/testUtils';

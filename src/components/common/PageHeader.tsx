@@ -3,6 +3,7 @@ import {
   type PageHeaderExtendedProps,
 } from 'grommet';
 import { ArrowLeft } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import InternalLink from './InternalLink';
 
 interface PageHeaderProps extends Pick<
@@ -12,7 +13,14 @@ PageHeaderExtendedProps,
     backLink?: boolean | string;
 };
 
-const PageHeader = ({ title, subtitle, level, size, backLink = false }: PageHeaderProps) => {
+const PageHeader = ({
+  title,
+  subtitle,
+  level,
+  size,
+  backLink = false,
+}: PageHeaderProps) => {
+  const { t } = useTranslation();
   const isBackLinkString = typeof backLink === 'string';
 
   const config = isBackLinkString ? {
@@ -33,7 +41,9 @@ const PageHeader = ({ title, subtitle, level, size, backLink = false }: PageHead
           <InternalLink
             {...config}
             icon={<ArrowLeft size={20} />}
-          >back</InternalLink>
+          >
+            {t('common.back')}
+          </InternalLink>
         )
         : undefined
       }

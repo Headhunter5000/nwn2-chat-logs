@@ -1,6 +1,7 @@
 import { DataTable, Text } from 'grommet';
 import { useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import type { SearchFilterProps } from '../../utils/dbUtils/searchFilters';
 import { buildCharacterUrl } from '../../utils/navigation';
 import ColoredText from '../common/ColoredText';
@@ -8,10 +9,10 @@ import { Date } from '../common/DateTime';
 import InternalLink from '../common/InternalLink';
 import MessageText from '../common/MessageText';
 
-const getColumns = (hide: () => void) =>  [
+const getColumns = (t : (i18nKey: string) => string, hide: () => void) =>  [
   {
     property: 'date',
-    header: 'Date',
+    header: t('common.date'),
     size: '7em',
     render: ({ owner, date, messageIndex }: SearchFilterProps) => (
       <Text>
@@ -26,14 +27,14 @@ const getColumns = (hide: () => void) =>  [
   },
   {
     property: 'char',
-    header: 'Character',
+    header: t('common.char'),
     size: '15em',
     render: ({ char, formattedChar }: SearchFilterProps) =>
       <ColoredText value={char}>{formattedChar}</ColoredText>,
   },
   {
     property: 'plainMessage',
-    header: 'Message',
+    header: t('common.message'),
     size: '30em',
     render: ({ type, formattedMessage: message }: SearchFilterProps) =>
       <MessageText {...{ type, message }} />,
@@ -41,7 +42,8 @@ const getColumns = (hide: () => void) =>  [
 ];
 
 const SearchTable = ({ data, hide } : { data: SearchFilterProps[], hide: () => void }) => {
-  const columns = useMemo(() => getColumns(hide), [hide]);
+  const { t } = useTranslation();
+  const columns = useMemo(() => getColumns(t, hide), [t, hide]);
 
   return (
     <DataTable {...{
