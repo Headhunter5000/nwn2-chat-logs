@@ -4,7 +4,7 @@ import themeColors from '../../config/themeColors';
 import {
   encodeToBase64,
   generateGrainImg,
-  mixGrainImgWithColor,
+  mixImgWithColor,
 } from '../../utils/backgroundGrain';
 import { chooseByTheme } from '../../utils/themeUtils';
 
@@ -41,7 +41,7 @@ const GlobalStyleWrapper = () => {
       const grain = generateGrainImg({ size: 240, scale: 1, contrast: 5 });
 
       const bgLight = encodeToBase64(
-        mixGrainImgWithColor({
+        mixImgWithColor({
           grain,
           bgColor: themeColors['sand-100'],
           grainColor: 'black',
@@ -50,7 +50,7 @@ const GlobalStyleWrapper = () => {
       );
 
       const bgDark = encodeToBase64(
-        mixGrainImgWithColor({
+        mixImgWithColor({
           grain,
           bgColor: themeColors['slate-900'],
           grainColor: 'white',

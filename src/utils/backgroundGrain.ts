@@ -3,7 +3,6 @@ type RawImageData = {
   size: number;
 };
 
-// 1. Erzeugt nur das Korn-Muster als rohe Pixel-Daten (keine DataURL)
 export const generateGrainImg = (props: {
   opacity?: number;
   size?: number;
@@ -42,8 +41,7 @@ export const generateGrainImg = (props: {
   return { data, size };
 };
 
-// 2. Mischt das Korn mit Hintergrund-/Kornfarbe, gibt ebenfalls nur rohe Pixel-Daten zurück
-export const mixGrainImgWithColor = ({
+export const mixImgWithColor = ({
   grain,
   bgColor,
   grainColor,
@@ -86,7 +84,6 @@ export const mixGrainImgWithColor = ({
   return { data, size };
 };
 
-// 3. Encodiert beliebige rohe Pixel-Daten (aus 1. oder 2.) in eine Base64-DataURL
 export const encodeToBase64 = (
   raw: RawImageData,
   mimeType: 'image/png' | 'image/jpeg' = 'image/png',
