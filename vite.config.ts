@@ -1,12 +1,13 @@
 /// <reference types="vitest" />
 
+import yaml from '@rollup/plugin-yaml';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vitest/config'; // ← change this
 import pkg from './package.json';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), yaml()],
   base: '/nwn2-chat-logs/',
   logLevel: 'info',
   resolve: {

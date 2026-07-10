@@ -2,7 +2,7 @@ import { useChatLogOfCharAndDate } from '../../utils/dbUtils';
 import MessageStyles from './MessageStyles';
 import Messages from './Messages';
 
-export const LogItem = ({ char, date, index }: {
+export const LogLoader = ({ char, date, index }: {
   char: string;
   date: string;
   index?: string;
@@ -27,4 +27,4 @@ export const LogItem = ({ char, date, index }: {
   return null;
 };
 
-export default LogItem;
+export default LogLoader;

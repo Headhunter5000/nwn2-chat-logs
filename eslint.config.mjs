@@ -23,12 +23,12 @@ export default defineConfig([
     rules: {
       'react-refresh/only-export-components': [
         'warn',
-        { 
+        {
           allowConstantExport: true,
           extraHOCs: ['lazy'],
         },
       ],
-      'max-len': ['error', { code: 100 }],
+      'max-len': ['error', { code: 120 }],
       'arrow-parens': ['error', 'as-needed'],
       'comma-dangle': ['error', 'always-multiline'],
       indent: ['error', 2],

@@ -3,6 +3,7 @@ import { Search as LuSearch } from 'lucide-react';
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { debounce } from 'throttle-debounce';
 
+import { useTranslation } from 'react-i18next';
 import theme from '../../config/theme';
 import { SettingsContext } from '../../utils/contextProviders/SettingsContext';
 import SearchResults from './SearchResults';
@@ -10,6 +11,7 @@ import SearchResults from './SearchResults';
 const MIN_SEARCH_LENGTH = 2;
 
 const Search = () => {
+  const { t } = useTranslation();
   const { themeMode } = useContext(SettingsContext);
   const targetRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
@@ -74,7 +76,7 @@ const Search = () => {
           <Button
             onClick={onButtonClick}
             icon={<LuSearch size={20} />}
-            label="Search"
+            label={t('common.search')}
             size="small"
             plain
           />

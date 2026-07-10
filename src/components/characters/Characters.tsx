@@ -2,8 +2,8 @@ import { Box } from 'grommet';
 import { lazy, useContext } from 'react';
 
 import { ChatLogsContext } from '../../utils/contextProviders/StatsContext';
-import CharacterCard from './CharacterCard';
 
+const CharacterCard = lazy(() => import('./CharacterCard'));
 const ImportDropzone = lazy(() => import('../import/ImportDropzone'));
 
 const Characters = () => {

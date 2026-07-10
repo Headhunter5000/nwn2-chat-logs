@@ -35,6 +35,6 @@ describe('Characters', () => {
 
   it('renders the ImportDropzone', async () => {
     renderWithProviders(<Characters />);
-    expect(await screen.findByText(/Drag .* or click/)).toBeInTheDocument();
+    expect(await screen.findByTestId('import-dropzone')).toBeInTheDocument();
   });
 });

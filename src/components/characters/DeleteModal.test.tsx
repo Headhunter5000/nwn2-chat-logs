@@ -1,17 +1,19 @@
-/* eslint-disable max-len */
+
 // @vitest-environment jsdom
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { deleteChatLogsByChar } from '../../utils/dbUtils';
 import DeleteModal from './DeleteModal';
 
-vi.mock('../../utils/dbUtils', () => ({
-  deleteChatLogsByChar: vi.fn(),
-}));
+// import '../../config/i18n';
 
 vi.mock('grommet', async () => ({
   ...(await vi.importActual('grommet')),
   Layer: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+}));
+
+vi.mock('../../utils/dbUtils', () => ({
+  deleteChatLogsByChar: vi.fn(),
 }));
 
 describe('DeleteModal', () => {
@@ -24,8 +26,7 @@ describe('DeleteModal', () => {
 
   it('renders correctly with the given character name', () => {
     render(<DeleteModal name={name} setLayerVisible={mockSetLayerVisible} />);
-    expect(screen.getByText('Are you sure you want to delete all chat logs of')).toBeInTheDocument();
-    expect(screen.getByText(name)).toBeInTheDocument();
+    expect(screen.getByTestId('delete-modal-disclaimer')).toHaveAttribute('data-charname', name);
 
   });
 

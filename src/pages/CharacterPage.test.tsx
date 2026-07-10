@@ -9,7 +9,7 @@ const LAST_DATE = '2021-01-03';
 
 const CHARS = [
   {
-    name: 'TestChar',
+    name: CHAR,
     dates: ['2021-01-01', '2021-01-02', '2021-01-03'],
     firstDate: '2021-01-01',
     lastDate: '2021-01-03',

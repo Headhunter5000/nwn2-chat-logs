@@ -1,10 +1,11 @@
 import { Text } from 'grommet';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 const DelayedText = styled(Text)`
   opacity: 0;
   /* Name | Dauer | Timing-Function | Delay | Fill-Mode */
-  animation: fadeIn 0.3s ease-in-out 2s forwards;
+  animation: fadeIn 300ms ease-in-out 300ms forwards;
 
   @keyframes fadeIn {
     to {
@@ -13,7 +14,13 @@ const DelayedText = styled(Text)`
   }
 `;
 
-const PageLoader = () =>
-  <DelayedText margin={{ top: 'large' }}>Loading...</DelayedText>;
+const PageLoader = () => {
+  const { t } = useTranslation();
+  return (
+    <DelayedText margin={{ top: 'large' }}>
+      {t('common.loading')}
+    </DelayedText>
+  );
+};
 
 export default PageLoader;

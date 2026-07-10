@@ -1,29 +1,37 @@
 import { Paragraph } from 'grommet';
 import { useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Characters from '../components/characters/Characters';
+import FormattedTrans from '../components/common/FormattedTrans';
 import PageHeader from '../components/common/PageHeader';
+import PageLoader from '../components/common/PageLoader';
 import { ChatLogsContext } from '../utils/contextProviders/StatsContext';
 
-const LandingPageHeading = () => {
-  const { stats } = useContext(ChatLogsContext);
+const LandingPage = () => {
+  const { t } = useTranslation();
+  const { stats, isLoading } = useContext(ChatLogsContext);
+  const statsCount = stats.length;
 
-  const title = stats.length > 0
-    ? `You have chat logs of ${stats.length} characters`
-    : 'Import some chat logs';
+  const heading = statsCount > 0
+    ? t('page.landing.has_logs.heading', { count: statsCount })
+    : t('page.landing.no_logs.heading');
 
-  return <PageHeader title={title} size="small"  />;
+  const text = statsCount > 0
+    ? t('page.landing.has_logs.text')
+    : <FormattedTrans i18nKey="page.landing.no_logs.text" />;
+
+  if (isLoading) return <PageLoader />;
+
+  return (
+    <>
+      <PageHeader title={heading} size="small"  />
+      <Paragraph margin={{ top: 'none', bottom: 'large' }} style={{ maxWidth: '30em' }}>
+        {text}
+      </Paragraph>
+      <Characters />
+    </>
+  );
 };
-
-const LandingPage = () => (
-  <>
-    <LandingPageHeading />
-    <Paragraph margin={{ top: 'none', bottom: 'large' }}>
-        Chat logs are stored locally in browser memory.<br />
-        No files are transferred to any server.
-    </Paragraph>
-    <Characters />
-  </>
-);
 
 export default LandingPage;

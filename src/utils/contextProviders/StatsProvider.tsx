@@ -5,7 +5,7 @@ import { ChatLogsContext } from './StatsContext';
 export const ChatLogsProvider = ({ children }: { children? : React.ReactNode} ) => {
   const originalStats = useChatLogStats();
 
-  const isLoaded = originalStats !== undefined;
+  const isLoading = originalStats === undefined;
 
   const stats = useMemo(
     () => originalStats ?? [],
@@ -21,7 +21,7 @@ export const ChatLogsProvider = ({ children }: { children? : React.ReactNode} ) 
     <ChatLogsContext.Provider value={{
       stats,
       statsByChar,
-      isLoaded,
+      isLoading,
     }}>
       {children}
     </ChatLogsContext.Provider>

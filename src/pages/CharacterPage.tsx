@@ -1,11 +1,12 @@
 
+import { ResponsiveContext } from 'grommet';
 import { useContext, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 
-import { ResponsiveContext } from 'grommet';
 import PageHeader from '../components/common/PageHeader';
 import LogCalendar from '../components/logs/LogCalendar';
-import LogItem from '../components/logs/LogItem';
+import LogLoader from '../components/logs/LogLoader';
 import type { AggregatedStatsByChar } from '../types/AggregatedStats';
 import { ChatLogsContext } from '../utils/contextProviders/StatsContext';
 import { buildCharacterUrl } from '../utils/navigation';
@@ -16,10 +17,11 @@ const getStatsOfChar = (statsByChar: AggregatedStatsByChar, char: string) => {
 };
 
 const CharacterPage = () => {
+  const { t } = useTranslation();
   const size = useContext(ResponsiveContext);
   const navigate = useNavigate();
   const { char, date, index } = useParams<{ char: string, date?: string, index?: string }>();
-  const { statsByChar, isLoaded } = useContext(ChatLogsContext);
+  const { statsByChar, isLoading } = useContext(ChatLogsContext);
 
   const { lastDate, count } = useMemo(
     () => getStatsOfChar(statsByChar, char!),
@@ -32,7 +34,7 @@ const CharacterPage = () => {
     }
   }, [char, date, lastDate, navigate]);
 
-  if (!char || (isLoaded && !lastDate)) {
+  if (!char || (!isLoading && !lastDate)) {
     throw new Response('Not Found', { status: 404 });
   }
 
@@ -42,13 +44,16 @@ const CharacterPage = () => {
     <>
       <PageHeader
         title={char}
-        subtitle={count ? `${count} logs` : 'Loading...'}
+        subtitle={count
+          ? t('page.character.logs_count', { count })
+          : t('common.loading')
+        }
         backLink="/"
       />
       {date && (
         <>
           <LogCalendar {...{ char, currentDate: date, size: calendarSize }} />
-          <LogItem {...{ char, date, index }} />
+          <LogLoader {...{ char, date, index }} />
         </>
       )}
     </>
