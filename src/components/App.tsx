@@ -8,6 +8,7 @@ import theme from '../config/theme';
 import { SettingsContext } from '../utils/contextProviders/SettingsContext';
 import { SettingsProvider } from '../utils/contextProviders/SettingsProvicer';
 import { ChatLogsProvider } from '../utils/contextProviders/StatsProvider';
+import BackgroundTexture from './layout/BackgroundTexture';
 import GlobalStyle from './layout/GlobalStyle';
 
 const ThemedContainer = () => {
@@ -20,6 +21,7 @@ const ThemedContainer = () => {
       full
     >
       <GlobalStyle />
+      <BackgroundTexture />
       <RouterProvider router={router} />
     </Grommet>
   );

@@ -4,7 +4,6 @@ import { css } from 'styled-components';
 import type { ThemeType } from 'grommet';
 import { StyledDayContainer } from 'grommet/components/Calendar/StyledCalendar';
 import {
-  chooseByTheme,
   getColor,
   transparentBlack,
   transparentWhite,
@@ -271,8 +270,6 @@ const theme = deepFreeze<ThemeType>({
       elevation: 'medium',
       extend: css`
         border: 2px solid ${getColor('border')};
-        //background-color: ${chooseByTheme(transparentWhite(80), transparentBlack(80))};
-        //backdrop-filter: blur(5px);
       `,
     },
   },
@@ -285,6 +282,9 @@ const theme = deepFreeze<ThemeType>({
       large: {
         pad:  { top: 'large', bottom: 'xlarge' },
       },
+    },
+    parent: {
+      pad: { bottom: 'small' },
     },
   },
   radioButton: {

@@ -1,81 +1,62 @@
-import { useEffect, useState } from 'react';
 import { createGlobalStyle } from 'styled-components';
-import themeColors from '../../config/themeColors';
-import {
-  encodeToBase64,
-  generateGrainImg,
-  mixImgWithColor,
-} from '../../utils/backgroundGrain';
-import { chooseByTheme } from '../../utils/themeUtils';
 
-type GlobalStyleProps = {
-  bgLight: string;
-  bgDark: string;
-};
+/* const gradient1 = css`
+  background-image:
+    linear-gradient(
+      180deg,
+      transparent 7%,
+      #fff5 8%,
+      #fff5 9%,
+      transparent 10%,
+      transparent 15%,
+      #0005 16%,
+      #0005 17%,
+      #00000013 18%,
+      transparent 50%,
+      #ffffff13 82%,
+      #fff5 83%,
+      #fff5 84%,
+      transparent 85%,
+      transparent 90%,
+      #0005 91%,
+      #0005 92%,
+      transparent 93%
+    );
+`; */
 
-const GlobalStyle = createGlobalStyle<GlobalStyleProps>`
+/* const gradient2 = (props: { theme: ThemeType }) => {
+  const brandColor = getColor('brand')(props);
+  const brandColor50 = convertHslToHsla(brandColor, 30);
+
+  return css`
+    background-image:
+      linear-gradient(90deg,
+        ${brandColor50} 20%,
+        transparent 50%,
+        ${brandColor50} 80%
+      ),
+      linear-gradient(
+        180deg,
+        transparent 0%,
+        ${transparentWhite(11)} 33.33%,
+        transparent 50%,
+        ${transparentBlack(9)} 66.67%,
+        transparent 100%
+      );
+
+    background-size: auto, auto 33.33%;
+    background-repeat: no-repeat, repeat-y;
+  `;
+}; */
+
+const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
   }
 
   #app-root {
-    background-image: url("${props => chooseByTheme(props.bgLight, props.bgDark)}");
-    background-attachment: local;
-    background-repeat: repeat;
+    overflow-y: scroll;
   }
 `;
 
-const GlobalStyleWrapper = () => {
-  const [grainImages, setGrainImages] = useState<GlobalStyleProps>({
-    bgLight: '',
-    bgDark: '',
-  });
-
-  useEffect(() => {
-    // requestIdleCallback moves the workload to a time where the browser is idling
-    // Fallback to setTimeout  for Browsers not supporting requestIdleCallback.
-    const schedule =
-      window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 1));
-
-    const handle = schedule(() => {
-      const grain = generateGrainImg({ size: 240, scale: 1, contrast: 5 });
-
-      const bgLight = encodeToBase64(
-        mixImgWithColor({
-          grain,
-          bgColor: themeColors['sand-100'],
-          grainColor: 'black',
-          intensity: 0.18,
-        }),
-      );
-
-      const bgDark = encodeToBase64(
-        mixImgWithColor({
-          grain,
-          bgColor: themeColors['slate-900'],
-          grainColor: 'white',
-          intensity: 0.07,
-        }),
-      );
-
-      setGrainImages({ bgLight, bgDark });
-    });
-
-    return () => {
-      if (window.cancelIdleCallback) {
-        window.cancelIdleCallback(handle as number);
-      } else {
-        clearTimeout(handle as number);
-      }
-    };
-  }, []);
-
-  return (
-    <GlobalStyle
-      bgLight={grainImages.bgLight}
-      bgDark={grainImages.bgDark}
-    />
-  );
-};
-
-export default GlobalStyleWrapper;
+export default GlobalStyle;
