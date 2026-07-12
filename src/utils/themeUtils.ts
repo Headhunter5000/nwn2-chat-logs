@@ -41,7 +41,7 @@ export const transparentWhite = (opacity: number) =>
 export const transparentBlack = (opacity: number) =>
   `hsla(0, 0%, 0%, ${Math.max(0, Math.min(100, opacity)) / 100})`;
 
-export const convertHslToHsla = (hslString: string, opacity: number = 1) => {
+export const convertHslToHsla = (hslString: string, opacity: number = 100) => {
   // Extrahiert alle Zahlen aus dem String
   const matches = hslString.match(/\d+(\.\d+)?/g);
 

@@ -3,7 +3,7 @@ import { Card, CardBody, CardFooter, CardHeader, Nav, Text } from 'grommet';
 import { useTranslation } from 'react-i18next';
 import type { AggregatedStats } from '../../types/AggregatedStats';
 import { buildCharacterUrl } from '../../utils/navigation';
-import { Date } from '../common/DateTime';
+import { Date } from '../common/Date';
 import InternalLink from '../common/InternalLink';
 import DeleteButton from '../delete/DeleteButton';
 import { Character } from './Character';

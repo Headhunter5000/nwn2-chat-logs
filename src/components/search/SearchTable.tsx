@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import type { SearchFilterProps } from '../../utils/dbUtils/searchFilters';
 import { buildCharacterUrl } from '../../utils/navigation';
 import ColoredText from '../common/ColoredText';
-import { Date } from '../common/DateTime';
+import { Date } from '../common/Date';
 import InternalLink from '../common/InternalLink';
 import MessageText from '../common/MessageText';
 
