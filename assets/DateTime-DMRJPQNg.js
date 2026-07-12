@@ -1,1 +1,0 @@
-import{t}from"./dateUtils-CcGgG_Js.js";var a=({date:a})=>t(a);export{a as t};

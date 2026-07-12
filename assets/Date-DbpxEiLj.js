@@ -1,0 +1,1 @@
+import{t}from"./dateUtils-CcGgG_Js.js";var a=({date:a,locales:e="de-DE"})=>t(a,e);export{a as t};
