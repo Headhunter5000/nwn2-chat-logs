@@ -34,12 +34,12 @@ describe('dateUtils', () => {
     describe('formatDate', () => {
       it('formats a Date object to a local date string', () => {
         const date = new Date(2025, 11, 25);
-        expect(formatDate(date)).toEqual('25.12.2025');
+        expect(formatDate(date, 'de-DE')).toEqual('25.12.2025');
       });
 
       it('formats an ISO string to a local date string', () => {
         const iso = '2025-12-18T10:30:00Z';
-        expect(formatDate(iso)).toEqual('18.12.2025');
+        expect(formatDate(iso, 'de-DE')).toEqual('18.12.2025');
       });
     });
   });
