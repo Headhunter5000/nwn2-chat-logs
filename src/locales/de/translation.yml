@@ -14,9 +14,6 @@ common:
   type: Typ
   user: User
   yes: Ja
-language:
-  en: Englisch
-  de: Deutsch
 component:
   char_card:
     latest_logs: Neuste Logs
