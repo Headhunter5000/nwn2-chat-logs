@@ -1,6 +1,7 @@
-import { Box, Header, ResponsiveContext, Text } from 'grommet';
+import { Box, Button, Header, ResponsiveContext, Text } from 'grommet';
 import { Settings } from 'lucide-react';
 import { lazy, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import InternalLink from '../common/InternalLink';
@@ -18,6 +19,7 @@ const StickyHeader = styled(Header)`
 `;
 
 const AppHeader = (props: { [key: string]: unknown}) => {
+  const { t } = useTranslation();
   const size = useContext(ResponsiveContext);
   const navigate = useNavigate();
 
@@ -39,13 +41,16 @@ const AppHeader = (props: { [key: string]: unknown}) => {
         NWN2 Chat Logs
       </Text>
 
-      <Box direction="row" align="center" gap="medium">
+      <Box direction="row" align="center" gap={size === 'small' ? 'medium' : 'large'}>
         <Search />
         <InternalLink
           to="settings"
+          ui={Button}
           icon={<Settings size={20} />}
-          color="text"
-        />
+          plain
+        >
+          {size === 'small' ? undefined : t('page.settings.heading')}
+        </InternalLink>
       </Box>
     </StickyHeader>
   );

@@ -2,6 +2,7 @@ common:
   back: Back
   cancel: Cancel
   char: &char Character
+  close: Close
   confirm: Confirm
   date: Date
   language: Language

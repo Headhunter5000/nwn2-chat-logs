@@ -5,7 +5,7 @@ import { useCallback, useContext, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { ChatLogsContext } from '../../utils/contextProviders/StatsContext';
-import { getDateFromISOString, getIsoStringFromDate } from '../../utils/dateUtils';
+import { formatDate, getDateFromISOString, getIsoStringFromDate } from '../../utils/dateUtils';
 import { buildCharacterUrl } from '../../utils/navigation';
 import CalendarDay from '../common/CalendarDay';
 
@@ -50,7 +50,7 @@ const LogCalendar = ({ char, currentDate, size = 'medium' }: {
     <>
       <Box ref={setTarget} alignSelf="start">
         <Button
-          label={currentDate}
+          label={formatDate(currentDate)}
           icon={<LuCalendar size={20} />}
           onClick={show}
         />

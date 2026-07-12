@@ -5,8 +5,8 @@ import type { AggregatedStats } from '../../types/AggregatedStats';
 import { buildCharacterUrl } from '../../utils/navigation';
 import { Date } from '../common/DateTime';
 import InternalLink from '../common/InternalLink';
+import DeleteButton from '../delete/DeleteButton';
 import { Character } from './Character';
-import DeleteButton from './DeleteButton';
 
 const CharacterCard = (
   { name, dates, count }:

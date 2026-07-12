@@ -1,5 +1,6 @@
 import { Box, Button, Layer, List, Text } from 'grommet';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface UploadModal {
   loadingCountdown: number;
@@ -9,13 +10,15 @@ interface UploadModal {
   setError: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const UploadModal: React.FC<UploadModal> = ({
+const UploadModal = ({
   loadingCountdown,
   success,
   setSuccess,
   error,
   setError,
-}) => {
+}: UploadModal) => {
+  const { t } = useTranslation();
+
   if (loadingCountdown > 0 || success.length > 0 || error.length > 0) {
     return (
       <Layer modal>
@@ -43,7 +46,7 @@ const UploadModal: React.FC<UploadModal> = ({
               )}
 
               <Button
-                label="Close"
+                label={t('common.close')}
                 margin={{ top: 'medium' }}
                 onClick={() => {
                   setSuccess([]);

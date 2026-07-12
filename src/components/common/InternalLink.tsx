@@ -3,16 +3,12 @@ import type { ColorType } from 'grommet/utils';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 
-const UI_TYPES = {
-  ANCHOR: Anchor,
-  BUTTON: Button,
-};
-
 interface InternalLinkProps {
   to: string;
-  ui?: typeof UI_TYPES.ANCHOR | typeof UI_TYPES.BUTTON;
+  ui?: typeof Anchor | typeof Button;
   color?: ColorType,
   icon?: React.ReactNode;
+  plain?: boolean;
   children?: React.ReactNode;
   className?: string;
   onClick?: (e: React.MouseEvent) => void;
@@ -27,7 +23,7 @@ const InternalLink = styled(({
   ...props
 }: InternalLinkProps) => {
   const navigate = useNavigate();
-  const Component = ui ?? UI_TYPES.ANCHOR;
+  const Component = ui ?? Anchor;
 
   return (
     <Component

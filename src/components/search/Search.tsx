@@ -1,4 +1,4 @@
-import { Box, Button, Grommet, Layer, TextInput } from 'grommet';
+import { Box, Button, Grommet, Layer, ResponsiveContext, TextInput } from 'grommet';
 import { Search as LuSearch } from 'lucide-react';
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { debounce } from 'throttle-debounce';
@@ -12,6 +12,7 @@ const MIN_SEARCH_LENGTH = 2;
 
 const Search = () => {
   const { t } = useTranslation();
+  const size = useContext(ResponsiveContext);
   const { themeMode } = useContext(SettingsContext);
   const targetRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
@@ -70,14 +71,13 @@ const Search = () => {
             onBlur={onInputBlur}
             onChange={onInputChange}
             name="search"
-            placeholder="Search"
+            placeholder={t('common.search')}
           />
         ) : (
           <Button
             onClick={onButtonClick}
             icon={<LuSearch size={20} />}
-            label={t('common.search')}
-            size="small"
+            label={size === 'small' ? undefined : t('common.search')}
             plain
           />
         )}
