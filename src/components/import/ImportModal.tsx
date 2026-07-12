@@ -1,6 +1,9 @@
-import { Box, Button, Layer, List, Text } from 'grommet';
+import { Box, Button, Layer, Text } from 'grommet';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+import CHAT_LOG_FILE_PATTERN from '../../regex/chatlogFile';
+import CollapsibleResults from '../common/CollapsibleResults';
 
 interface UploadModal {
   loadingCountdown: number;
@@ -9,6 +12,15 @@ interface UploadModal {
   error: string[];
   setError: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
+interface ErrorGroups {
+  errorFileName: string[];
+  errorContent: string[];
+}
+
+const WideLayer = styled(Layer)`
+  width: min(25em, 100%);
+`;
 
 const UploadModal = ({
   loadingCountdown,
@@ -19,31 +31,36 @@ const UploadModal = ({
 }: UploadModal) => {
   const { t } = useTranslation();
 
+  const { errorContent, errorFileName } = error.reduce<ErrorGroups>((acc, file) =>{
+    if (file.match(CHAT_LOG_FILE_PATTERN)) acc.errorContent.push(file);
+    acc.errorFileName.push(file);
+    return acc;
+  }, { errorFileName: [], errorContent: [] });
+
   if (loadingCountdown > 0 || success.length > 0 || error.length > 0) {
     return (
-      <Layer modal>
+      <WideLayer modal>
         <Box pad="large">
           {loadingCountdown > 0 ? (
             <Text>Processing {loadingCountdown} files</Text>
           ) : (
             <>
-              <Text>
-                <strong>{success.length}</strong> successful
-              </Text>
+              <CollapsibleResults
+                label={<><strong>{success.length}</strong>&nbsp;successful</>}
+                results={success}
+              />
 
-              {error.length > 0 && (
-                <>
-                  <Text margin={{ top: 'medium' }} color="blood-500">
-                    <strong>{error.length}</strong> failed:
-                  </Text>
-                  <List
-                    margin={{ top: 'medium', bottom: 'small' }}
-                    data={error}
-                    paginate={{ step: 10 }}
-                    pad={{ horizontal: 'none', vertical: 'medium' }}
-                  />
-                </>
-              )}
+              <CollapsibleResults
+                label={<><strong>{errorContent.length}</strong>&nbsp;failed (incompatible content)</>}
+                results={errorContent}
+                color={'blood-500'}
+              />
+
+              <CollapsibleResults
+                label={<><strong>{errorFileName.length}</strong>&nbsp;failed (wrong file type)</>}
+                results={errorFileName}
+                color={'blood-500'}
+              />
 
               <Button
                 label={t('common.close')}
@@ -57,7 +74,7 @@ const UploadModal = ({
             </>
           )}
         </Box>
-      </Layer>
+      </WideLayer>
     );
   }
 
