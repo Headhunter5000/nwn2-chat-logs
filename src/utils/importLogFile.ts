@@ -24,7 +24,7 @@ const importLogFile = async (file: string, text: unknown) => {
   CHAT_LOG_PATTERN.lastIndex = 0;
 
   const messages = [...text.matchAll(CHAT_LOG_PATTERN)]
-    .map(([, time, user, char, type, message], index) => ({
+    .map(([, time, user, char, type, message = ''], index) => ({
       id: getMessageId(file, index),
       time,
       user,

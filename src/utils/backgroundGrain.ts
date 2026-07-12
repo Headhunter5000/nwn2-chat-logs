@@ -58,7 +58,7 @@ export const mixImgWithColor = ({
   const colorCanvas = document.createElement('canvas');
   colorCanvas.width = 1;
   colorCanvas.height = 1;
-  const colorCtx = colorCanvas.getContext('2d');
+  const colorCtx = colorCanvas.getContext('2d', { willReadFrequently: true });
   if (!colorCtx) return { data: new Uint8ClampedArray(), size };
 
   colorCtx.fillStyle = bgColor;
