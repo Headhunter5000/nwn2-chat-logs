@@ -1,0 +1,1 @@
+var t=(t,a,e)=>`/characters/${t}${a?`/${a}`:""}${a&&e?`/${e}`:""}`,a=t=>t?.split("T")[0],e=t=>new Date(t).toISOString(),i=(t,a)=>new Date(t).toLocaleDateString(a,{year:"numeric",month:"2-digit",day:"2-digit"});export{t as i,a as n,e as r,i as t};

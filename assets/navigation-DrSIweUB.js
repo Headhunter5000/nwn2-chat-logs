@@ -1,1 +1,0 @@
-var $=($,a,r)=>`/characters/${$}${a?`/${a}`:""}${a&&r?`/${r}`:""}`;export{$ as t};
