@@ -24,7 +24,7 @@ const DeleteModal = ({ name, setLayerVisible }: DeleteModalProps) => {
           />
           <Button
             label={t('common.confirm')}
-            color="status-critical"
+            color="blood-500"
             data-testid="delete-modal-confirm"
             onClick={() => {
               setLayerVisible(false);

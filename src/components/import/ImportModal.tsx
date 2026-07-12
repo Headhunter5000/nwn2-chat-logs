@@ -30,7 +30,7 @@ const UploadModal: React.FC<UploadModal> = ({
 
               {error.length > 0 && (
                 <>
-                  <Text margin={{ top: 'medium' }} color="status-error">
+                  <Text margin={{ top: 'medium' }} color="blood-500">
                     <strong>{error.length}</strong> failed:
                   </Text>
                   <List

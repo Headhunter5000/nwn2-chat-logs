@@ -38,7 +38,7 @@ const theme = deepFreeze<ThemeType>({
       },
 
       control: {
-        light: 'gold-700',
+        light: 'gold-600',
         dark: 'gold-500',
       },
 
@@ -58,8 +58,8 @@ const theme = deepFreeze<ThemeType>({
       },
 
       'anchor-hover': {
-        light: 'gold-900',
-        dark: 'gold-200',
+        light: 'gold-800',
+        dark: 'gold-400',
       },
 
       'transparent-border': {
@@ -123,10 +123,14 @@ const theme = deepFreeze<ThemeType>({
   },
   anchor: {
     color: 'anchor-default',
+    fontWeight: 500,
     hover: {
       textDecoration: 'underline',
       extend: css`
         color: ${getColor('anchor-hover')};
+        :not(#app-header) svg * {
+          stroke: currentColor;
+        }
       `,
     },
   },
