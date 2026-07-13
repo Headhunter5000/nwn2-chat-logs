@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import CHAT_LOG_FILE_PATTERN from '../../regex/chatlogFile';
 import CollapsibleResults from '../common/CollapsibleResults';
+import FormattedTrans from '../common/FormattedTrans';
 
 interface UploadModal {
   loadingCountdown: number;
@@ -42,22 +43,36 @@ const UploadModal = ({
       <WideLayer modal>
         <Box pad="large">
           {loadingCountdown > 0 ? (
-            <Text>Processing {loadingCountdown} files</Text>
+            <Text>
+              <FormattedTrans
+                i18nKey="component.import_modal.processing_files"
+                values={{ count: loadingCountdown }}
+              />
+            </Text>
           ) : (
             <>
               <CollapsibleResults
-                label={<><strong>{success.length}</strong>&nbsp;successful</>}
+                label={<FormattedTrans
+                  i18nKey="component.import_modal.successful"
+                  values={{ count: success.length }}
+                />}
                 results={success}
               />
 
               <CollapsibleResults
-                label={<><strong>{errorContent.length}</strong>&nbsp;failed (incompatible content)</>}
+                label={<FormattedTrans
+                  i18nKey="component.import_modal.failed_incompatible_content"
+                  values={{ count: success.length }}
+                />}
                 results={errorContent}
                 color={'blood-500'}
               />
 
               <CollapsibleResults
-                label={<><strong>{errorFileName.length}</strong>&nbsp;failed (wrong file type)</>}
+                label={<FormattedTrans
+                  i18nKey="component.import_modal.failed_wrong_file_Type"
+                  values={{ count: success.length }}
+                />}
                 results={errorFileName}
                 color={'blood-500'}
               />

@@ -25,6 +25,7 @@ const FormattedTrans = ({
     strong: <strong />,
     i: <i />,
     em: <em />,
+    nbsp: <>&nbsp;</>,
     a: <LinkTo to={to} />,
   };
 

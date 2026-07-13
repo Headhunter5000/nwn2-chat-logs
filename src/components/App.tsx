@@ -2,7 +2,8 @@
 import { Grommet } from 'grommet';
 import { RouterProvider } from 'react-router';
 
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import router from '../config/router';
 import theme from '../config/theme';
 import { SettingsContext } from '../utils/contextProviders/SettingsContext';
@@ -12,7 +13,13 @@ import BackgroundTexture from './layout/BackgroundTexture';
 import GlobalStyle from './layout/GlobalStyle';
 
 const ThemedContainer = () => {
+  const { i18n } = useTranslation();
   const { themeMode } = useContext(SettingsContext);
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.language;
+  }, [i18n.language]);
+
   return (
     <Grommet
       theme={theme}

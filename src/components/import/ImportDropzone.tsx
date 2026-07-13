@@ -73,8 +73,8 @@ const Upload = () => {
         <input {...getInputProps()} />
         <Text data-testid="import-dropzone">
           {isDragActive
-            ? t('component.dropzone.hint_hovered')
-            : t('component.dropzone.hint_default')}
+            ? t('component.import_dropzone.hint_hovered')
+            : t('component.import_dropzone.hint_default')}
         </Text>
       </DropzoneBox>
       <ImportModal {...{

@@ -1,5 +1,5 @@
-import { Button, Collapsible, List } from 'grommet';
-import { Minus, Plus } from 'lucide-react';
+import { Box, Button, Collapsible, List } from 'grommet';
+import { ChevronDown, ChevronRight } from 'lucide-react';
 import { useState, type ReactNode } from 'react';
 
 const CollapsibleResults = ({ label, results, color } :  { label: ReactNode, results: string[], color?: string }) => {
@@ -10,19 +10,21 @@ const CollapsibleResults = ({ label, results, color } :  { label: ReactNode, res
       <>
         <Button
           onClick={() => setOpen(!open)}
-          icon={open ? <Minus /> : <Plus />}
+          icon={open ? <ChevronDown /> : <ChevronRight />}
           alignSelf='start'
           label={label}
           color={color}
           plain
         />
         <Collapsible open={open}>
-          <List
-            margin={{ top: 'medium', bottom: 'small' }}
-            data={results}
-            paginate={{ step: 10 }}
-            pad={{ horizontal: 'none', vertical: 'medium' }}
-          />
+          <Box overflow={{ vertical: 'auto' }}>
+            <List
+              margin={{ top: 'medium', bottom: 'small' }}
+              data={results}
+              paginate={{ step: 10 }}
+              pad={{ horizontal: 'none', vertical: 'medium' }}
+            />
+          </Box>
         </Collapsible>
       </>
     );

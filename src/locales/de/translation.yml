@@ -17,13 +17,18 @@ common:
 component:
   char_card:
     latest_logs: Neuste Logs
-  dropzone:
+  import_dropzone:
     hint_default: Per Drag & Drop oder Klick eine oder mehrere Dateien importieren
     hint_hovered: Dateien hier hin ziehen…
+  import_modal:
+    processing_files: Bearbeite <strong>{{count}}</strong> Dateien
+    successful: <strong>{{count}}</strong><nbsp />erfolgreich
+    failed_incompatible_content: <strong>{{count}}</strong><nbsp />fehlgeschlagen (inkompatibler Inhalt)
+    failed_wrong_file_Type: <strong>{{count}}</strong><nbsp />fehlgeschlagen (falscher Dateityp)
   delete_modal:
     disclaimer: Möchtest du wirklich alle Chat Logs von <strong>{{name}}</strong> löschen?
   search:
-    results: "{{ count }}{{ suffix }} Treffer"
+    results: "{{count}}{{suffix}} Treffer"
     no_results: Keine Treffer
     option:
       column:
@@ -43,7 +48,7 @@ page:
       heading: Importiere deine Chat Logs
       text: Chat Logs werden lokal in deinem Browser gespeichert.<br />Es werden keine Dateien an einen Server übertragen.
   character:
-    logs_count: "{{ count }} Logs"
+    logs_count: "{{count}} Logs"
   settings:
     heading: Einstellungen
     option:

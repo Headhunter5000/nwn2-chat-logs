@@ -17,13 +17,18 @@ common:
 component:
   char_card:
     latest_logs: Derniers logs
-  dropzone:
+  import_dropzone:
     hint_default: Glissez-déposez ou cliquez pour importer un ou plusieurs fichiers
     hint_hovered: Déposez les fichiers ici…
+  import_modal:
+    processing_files: Traitement de <strong>{{count}}</strong> fichiers
+    successful: <strong>{{count}}</strong><nbsp />réussi(s)
+    failed_incompatible_content: <strong>{{count}}</strong><nbsp />échoué (contenu incompatible)
+    failed_wrong_file_Type: <strong>{{count}}</strong><nbsp />échoué (type de fichier incorrect)
   delete_modal:
     disclaimer: Êtes-vous sûr de vouloir supprimer tous les chat logs de <strong>{{name}}</strong> ?
   search:
-    results: "{{ count }}{{ suffix }} résultats"
+    results: "{{count}}{{suffix}} résultats"
     no_results: Aucun résultat trouvé
     option:
       column:
@@ -43,7 +48,7 @@ page:
       heading: Importez vos chat logs
       text: Les chat logs sont stockés localement dans votre navigateur.<br />Aucun fichier n'est transféré vers un serveur.
   character:
-    logs_count: "{{ count }} logs"
+    logs_count: "{{count}} logs"
   settings:
     heading: Paramètres
     option:
