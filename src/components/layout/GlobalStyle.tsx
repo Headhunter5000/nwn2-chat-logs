@@ -57,6 +57,10 @@ const GlobalStyle = createGlobalStyle`
   #app-root {
     overflow-y: scroll;
   }
+
+  .nowrap {
+    white-space: nowrap;
+  }
 `;
 
 export default GlobalStyle;

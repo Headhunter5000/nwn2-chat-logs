@@ -46,8 +46,9 @@ page:
       text: Klicke auf eines der Daten, um die einzelnen Logs zu sehen, oder nutze die globale Suche in der Kopfzeile.
     no_logs:
       heading: Importiere deine Chat Logs
-      text: Chat Logs werden lokal in deinem Browser gespeichert.<br />Es werden keine Dateien an einen Server übertragen.
-  character:
+      text1: "Diese App ist mit Chat Log Dateien kompatibel, welche die NWN2 Client Extension unter folgendem Pfad anlegt:"
+      text2: <nobr><i>C:\Users\Dein_User\Documents\Neverwinter Nights 2\Logs</i></nobr>
+      text3: Hochgeladene Chat Logs werden lokal in deinem Browser gespeichert. Dabei werden keine Dateien an einen Server übertragen.
     logs_count: "{{count}} Logs"
   settings:
     heading: Einstellungen

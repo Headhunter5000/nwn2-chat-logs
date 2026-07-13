@@ -291,6 +291,19 @@ const theme = deepFreeze<ThemeType>({
       pad: { bottom: 'small' },
     },
   },
+  paragraph: {
+    extend: css`
+      &, & + & {
+        margin: 0;
+      }
+      &:has(+ &) {
+        margin-bottom: 16px;
+      }
+      &:not(:has(+ &)) {
+        margin-bottom: 24px;
+      }
+    `,
+  },
   radioButton: {
     border: {
       color: 'transparent-border',

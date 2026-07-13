@@ -7,7 +7,6 @@ const browserLang = navigator.language;
 const OPTIONS: { value: string, label: string }[] = [
   { value: 'en', label: 'English' },
   { value: 'de', label: 'Deutsch' },
-  { value: 'fr', label: 'Français' },
 ];
 
 export const LanguageField = () => {
