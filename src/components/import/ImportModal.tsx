@@ -41,7 +41,7 @@ const UploadModal = ({
   if (loadingCountdown > 0 || success.length > 0 || error.length > 0) {
     return (
       <WideLayer modal>
-        <Box pad="large">
+        <Box pad="large" gap={{ row: 'small' }}>
           {loadingCountdown > 0 ? (
             <Text>
               <FormattedTrans
@@ -79,7 +79,7 @@ const UploadModal = ({
 
               <Button
                 label={t('common.close')}
-                margin={{ top: 'medium' }}
+                margin={{ top: 'small' }}
                 onClick={() => {
                   setSuccess([]);
                   setError([]);

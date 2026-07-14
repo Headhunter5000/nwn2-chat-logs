@@ -49,6 +49,9 @@ const SearchTable = ({ data, hide } : { data: SearchFilterProps[], hide: () => v
     <DataTable {...{
       primaryKey: 'id',
       verticalAlign: { body: 'top' },
+      margin: {
+        top: 'medium',
+      },
       pad: {
         header: {
           vertical: 'none', right: 'medium',

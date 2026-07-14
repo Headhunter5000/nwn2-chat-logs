@@ -26,15 +26,13 @@ const SearchOptions = ({ searchColumn, setSearchColumn, limit, setLimit } : Sear
   return (
     <Box
       direction="row-responsive"
-      gap={{ row: 'medium', column: 'xlarge' }}
-      margin={{ bottom: 'small' }}
+      gap={{ row: 'large', column: 'xlarge' }}
       flex={false}
     >
       <FormField label={t('component.search.option.column.label')}>
         <RadioButtonGroup
           name="searchColumn"
           direction="row"
-          margin={{ bottom: 'medium' }}
           options={columnOptions}
           value={searchColumn}
           onChange={e => setSearchColumn(e.target.value as SearchColumn)}
@@ -44,7 +42,6 @@ const SearchOptions = ({ searchColumn, setSearchColumn, limit, setLimit } : Sear
         <RadioButtonGroup
           name="searchColumn"
           direction="row"
-          margin={{ bottom: 'medium' }}
           options={LIMIT_OPTIONS}
           value={limit}
           onChange={e => setLimit(Number(e.target.value) as SearchLimit)}

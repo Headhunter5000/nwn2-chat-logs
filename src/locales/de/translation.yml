@@ -28,8 +28,8 @@ component:
   delete_modal:
     disclaimer: Möchtest du wirklich alle Chat Logs von <strong>{{name}}</strong> löschen?
   search:
-    results: "{{count}}{{suffix}} Treffer"
-    no_results: Keine Treffer
+    results: "<strong>{{count}}{{suffix}}</strong> Treffer"
+    results_zero: <strong>Keine</strong> Treffer
     option:
       column:
         label: Suchspalte

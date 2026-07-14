@@ -259,8 +259,9 @@ const theme = deepFreeze<ThemeType>({
   },
   formField: {
     border: false,
+    margin: 'none',
     label: {
-      margin: '0',
+      margin: 'none',
     },
     content: {
       margin: { top: 'medium' },
@@ -290,19 +291,6 @@ const theme = deepFreeze<ThemeType>({
     parent: {
       pad: { bottom: 'small' },
     },
-  },
-  paragraph: {
-    extend: css`
-      &, & + & {
-        margin: 0;
-      }
-      &:has(+ &) {
-        margin-bottom: 16px;
-      }
-      &:not(:has(+ &)) {
-        margin-bottom: 24px;
-      }
-    `,
   },
   radioButton: {
     border: {

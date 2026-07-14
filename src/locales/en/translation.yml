@@ -28,8 +28,9 @@ component:
   delete_modal:
     disclaimer: Are you sure you want to delete all chat logs of <strong>{{name}}</strong> ?
   search:
-    results: "{{count}}{{suffix}} Results"
-    no_results: No results found
+    results: <strong>{{count}}{{suffix}}</strong> Results
+    results_one: <strong>1</strong> Result
+    results_zero: <strong>No</strong> results found
     option:
       column:
         label: Column
@@ -41,7 +42,7 @@ component:
 page:
   landing:
     has_logs:
-      heading_one: You have chat logs of one characters
+      heading_one: You have chat logs of one character
       heading_other: You have chat logs of {{count}} characters
       text: Click on one of dates to see individual logs or use the global search in the header.
     no_logs:

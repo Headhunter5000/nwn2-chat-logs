@@ -4,8 +4,18 @@ import { useTranslation } from 'react-i18next';
 
 import type { SearchColumn, SearchLimit } from '../../types/SearchColumn';
 import { useFilteredChatLogs } from '../../utils/dbUtils';
+import FormattedTrans from '../common/FormattedTrans';
 import SearchOptions from './SearchOptions';
 import SearchTable from './SearchTable';
+
+const SearchResultsCount = ({ count, limit }: { count: number, limit: number }) => {
+  const suffix = count === limit ? '+' : '';
+  return (
+    <Text margin={{ top: 'large' }}>
+      <FormattedTrans i18nKey="component.search.results" values={{ count, suffix }} />
+    </Text>
+  );
+};
 
 const SearchResults = ({ search = '', hide } : { search: string, hide: () => void }) => {
   const { t } = useTranslation();
@@ -18,18 +28,13 @@ const SearchResults = ({ search = '', hide } : { search: string, hide: () => voi
     return <Text>{t('common.loading')}</Text>;
   }
 
-  if (data.length === 0) {
-    return <Text>{t('component.search.no_results')}</Text>;
-  }
-
   const count = data.length;
-  const suffix = data.length === limit ? '+' : '';
 
   return (
     <>
-      <Text margin={{ bottom: 'large' }}>{t('component.search.results', { count, suffix })}</Text>
       <SearchOptions {...{ searchColumn, setSearchColumn, limit, setLimit }} />
-      <SearchTable {...{ data, limit, hide }} />
+      <SearchResultsCount {...{ count, limit }} />
+      {count > 0 && <SearchTable {...{ data, limit, hide }} />}
     </>
   );
 };
