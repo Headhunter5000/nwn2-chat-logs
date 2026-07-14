@@ -41,7 +41,7 @@ const AppHeader = (props: { [key: string]: unknown}) => {
         NWN2 Chat Logs
       </Text>
 
-      <Box direction="row" align="center" gap={size === 'small' ? 'medium' : 'large'}>
+      <Box direction="row" align="center" gap="large">
         <Search />
         <InternalLink
           to="settings"
