@@ -22,9 +22,10 @@ const ThemedContainer = () => {
 
   return (
     <Grommet
+      id="app-root"
       theme={theme}
       themeMode={themeMode}
-      id="app-root"
+      options={{ box: { cssGap: true } }}
       full
     >
       <GlobalStyle />

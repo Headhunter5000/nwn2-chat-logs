@@ -41,7 +41,7 @@ const UploadModal = ({
   if (loadingCountdown > 0 || success.length > 0 || error.length > 0) {
     return (
       <WideLayer modal>
-        <Box pad="large" gap={{ row: 'small' }}>
+        <Box pad="large" gap="small">
           {loadingCountdown > 0 ? (
             <Text>
               <FormattedTrans

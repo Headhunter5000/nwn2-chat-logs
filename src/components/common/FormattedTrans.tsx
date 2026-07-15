@@ -25,6 +25,7 @@ const FormattedTrans = ({
     strong: <strong />,
     i: <i />,
     em: <em />,
+    break: <span className="break" />,
     nobr: <span className="nowrap" />,
     nbsp: <>&nbsp;</>,
     a: <LinkTo to={to} />,

@@ -9,7 +9,7 @@ const ImportDropzone = lazy(() => import('../import/ImportDropzone'));
 const Characters = () => {
   const { stats } = useContext(ChatLogsContext);
   return (
-    <Box direction="row" gap={{ row:'large', column: 'large' }} wrap data-testid="char-menu">
+    <Box direction="row" gap="large" wrap data-testid="char-menu">
       {stats.map(stat => <CharacterCard {...stat} key={stat.name} />)}
       <ImportDropzone />
     </Box>

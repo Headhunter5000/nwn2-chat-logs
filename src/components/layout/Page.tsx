@@ -10,8 +10,10 @@ const PageLayout = ({ children }: { children: React.ReactNode } ) => {
         as="main"
         id="app-main"
         data-testid="app-main"
+        margin={{ horizontal: 'auto' }}
         pad={{ horizontal: 'large', bottom: 'large' }}
-        style={{ flex: 1 }}
+        alignSelf="start"
+        flex
       >
         {children}
       </PageContent>

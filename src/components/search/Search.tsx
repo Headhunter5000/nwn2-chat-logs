@@ -6,6 +6,7 @@ import { debounce } from 'throttle-debounce';
 import { useTranslation } from 'react-i18next';
 import theme from '../../config/theme';
 import { SettingsContext } from '../../utils/contextProviders/SettingsContext';
+import { ChatLogsContext } from '../../utils/contextProviders/StatsContext';
 import SearchResults from './SearchResults';
 
 const MIN_SEARCH_LENGTH = 2;
@@ -13,6 +14,7 @@ const MIN_SEARCH_LENGTH = 2;
 const Search = () => {
   const { t } = useTranslation();
   const size = useContext(ResponsiveContext);
+  const { stats } = useContext(ChatLogsContext);
   const { themeMode } = useContext(SettingsContext);
   const targetRef = useRef<HTMLInputElement>(null);
   const [value, setValue] = useState('');
@@ -61,6 +63,8 @@ const Search = () => {
     },
     [inputVisible],
   );
+
+  if (stats.length === 0) return null;
 
   return (
     <>

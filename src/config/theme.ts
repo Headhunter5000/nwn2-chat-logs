@@ -278,6 +278,14 @@ const theme = deepFreeze<ThemeType>({
       `,
     },
   },
+  page: {
+    wide: {
+      width: {
+        min: '320px',
+        max: 'xxlarge',
+      },
+    },
+  },
   pageHeader: {
     pad: { top: 'large', bottom: 'large' },
     size: {

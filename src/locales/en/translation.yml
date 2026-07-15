@@ -48,7 +48,7 @@ page:
     no_logs:
       heading: Import your chat logs
       text1: "This app is compatible with chat log files that the <nobr>NWN2 Client Extension</nobr> creates under the following path:"
-      text2: <nobr><i>C:\Users\Your_User\Documents\Neverwinter Nights 2\Logs</i></nobr>
+      text2: <break><i>C:\Users\Your_User\Documents\Neverwinter Nights 2\Logs</i></break>
       text3: Uploaded chat logs are stored locally in your browser. No files are transmitted to a server.
   character:
     logs_count: "{{count}} Logs"
