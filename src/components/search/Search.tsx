@@ -67,27 +67,27 @@ const Search = () => {
   if (stats.length === 0) return null;
 
   return (
-    <>
-      <Box>
-        {inputVisible ? (
-          <TextInput
-            ref={targetRef}
-            onBlur={onInputBlur}
-            onChange={onInputChange}
-            name="search"
-            placeholder={t('common.search')}
-          />
-        ) : (
-          <Button
-            onClick={onButtonClick}
-            icon={<LuSearch size={20} />}
-            label={size === 'small' ? undefined : t('common.search')}
-            plain
-          />
-        )}
-      </Box>
+
+    <Box>
+      {inputVisible ? (
+        <TextInput
+          ref={targetRef}
+          onBlur={onInputBlur}
+          onChange={onInputChange}
+          name="search"
+          placeholder={t('common.search')}
+        />
+      ) : (
+        <Button
+          onClick={onButtonClick}
+          icon={<LuSearch size={20} />}
+          label={size === 'small' ? undefined : t('common.search')}
+          plain
+        />
+      )}
+
       {layerVisible && (
-        <Grommet theme={theme} themeMode={themeMode/*themeMode === 'dark' ? 'light': 'dark'*/}>
+        <Grommet theme={theme} themeMode={themeMode}>
           <Layer
             onClickOutside={e => hide(e)}
             onEsc={() => hide()}
@@ -95,13 +95,11 @@ const Search = () => {
             responsive={false}
             margin="large"
           >
-            <Box pad="large" style={{ maxHeight: 'calc(100vh - 6em)', overflow: 'hidden' }}>
-              <SearchResults {...{ search: value.trim(), hide }} />
-            </Box>
+            <SearchResults {...{ search: value.trim(), hide }} />
           </Layer>
         </Grommet>
       )}
-    </>
+    </Box>
   );
 };
 

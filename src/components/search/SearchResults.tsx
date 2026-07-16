@@ -1,4 +1,4 @@
-import { Text } from 'grommet';
+import { Box, Text } from 'grommet';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -31,11 +31,15 @@ const SearchResults = ({ search = '', hide } : { search: string, hide: () => voi
   const count = data.length;
 
   return (
-    <>
+    <Box
+      pad="large"
+      width={count > 0 ? '1080px' : undefined}
+      style={{ maxHeight: 'calc(100vh - 6em)', overflow: 'hidden' }}
+    >
       <SearchOptions {...{ searchColumn, setSearchColumn, limit, setLimit }} />
       <SearchResultsCount {...{ count, limit }} />
-      {count > 0 && <SearchTable {...{ data, limit, hide }} />}
-    </>
+      {count > 0 && <SearchTable {...{ limit, data, hide }} />}
+    </Box>
   );
 };
 

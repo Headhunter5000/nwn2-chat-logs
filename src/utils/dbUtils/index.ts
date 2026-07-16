@@ -3,7 +3,7 @@ import db from '../../config/db';
 import type { ChatLog, ChatLogMessage } from '../../types/ChatLog';
 import type { SearchColumn } from '../../types/SearchColumn';
 import aggregateStats, { type NameAndDate } from './aggregateStats';
-import { finalFilterLogs, preFilterLogs } from './searchFilters';
+import { finalFilterLogs2, preFilterLogs } from './searchFilters';
 
 export const useChatLogStats = () =>
   useLiveQuery(() =>
@@ -41,7 +41,7 @@ export const useFilteredChatLogs = (
         .filter(preFilterLogs(search, searchColumn))
         .limit(Math.floor(limit / 2))
         .toArray()
-        .then(finalFilterLogs(search, searchColumn, limit)),
+        .then(finalFilterLogs2(search, searchColumn, limit)),
     [search, searchColumn, limit],
   );
 

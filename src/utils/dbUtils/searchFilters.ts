@@ -46,3 +46,47 @@ export const finalFilterLogs = (search: string, searchColumn: SearchColumn, limi
 
     return filteredLogs;
   };
+
+const escapeRegExp = (text: string): string => {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+export const finalFilterLogs2 = (search: string, searchColumn: SearchColumn, limit: number) =>
+  (logs: ChatLog[]) => {
+    const filteredLogs: SearchFilterProps[] = [];
+    const hasLimit = limit > 0;
+
+    const searchRegex = new RegExp(escapeRegExp(search), 'i');
+
+    // Äußere Schleife läuft vorwärts (respektiert die Dexie-Sortierung)
+    for (let i = 0; i < logs.length; i++) {
+      if (hasLimit && filteredLogs.length >= limit) {
+        break;
+      }
+
+      const { char: owner, date, messages } = logs[i];
+
+      // Innere Schleife läuft rückwärts (neueste Nachricht im Log zuerst)
+      for (let messageIndex = messages.length - 1; messageIndex >= 0; messageIndex--) {
+        if (hasLimit && filteredLogs.length >= limit) {
+          break;
+        }
+
+        const message = messages[messageIndex];
+        const column = message[searchColumn];
+
+        if (typeof column === 'string' && searchRegex.test(column)) {
+          filteredLogs.push({
+            ...message,
+            owner,
+            date,
+            messageIndex, // Korrekter Original-Index aus dem Array
+            formattedChar: message.char ? formatSearchMessage(message.char, search) : '',
+            formattedMessage: formatCroppedSearchMessage(message.plainMessage, search),
+          });
+        }
+      }
+    }
+
+    return filteredLogs;
+  };

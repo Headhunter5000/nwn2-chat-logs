@@ -9,7 +9,10 @@ import { Date } from '../common/Date';
 import InternalLink from '../common/InternalLink';
 import MessageText from '../common/MessageText';
 
-const getColumns = (t : (i18nKey: string) => string, hide: () => void) =>  [
+const getColumns = (
+  t : (i18nKey: string) => string,
+  hide: () => void,
+) =>  [
   {
     property: 'date',
     header: t('common.date'),
@@ -35,19 +38,27 @@ const getColumns = (t : (i18nKey: string) => string, hide: () => void) =>  [
   {
     property: 'plainMessage',
     header: t('common.message'),
-    size: '30em',
+    size: '100%',
     render: ({ type, formattedMessage: message }: SearchFilterProps) =>
       <MessageText {...{ type, message }} />,
   },
 ];
 
-const SearchTable = ({ data, hide } : { data: SearchFilterProps[], hide: () => void }) => {
+const SearchTable = (
+  { data, limit, hide } :
+  {
+    data: SearchFilterProps[];
+    limit: number;
+    hide: () => void;
+  },
+) => {
   const { t } = useTranslation();
   const columns = useMemo(() => getColumns(t, hide), [t, hide]);
 
   return (
     <DataTable {...{
       primaryKey: 'id',
+      key: `row-limit-${limit}`,
       verticalAlign: { body: 'top' },
       margin: {
         top: 'medium',
@@ -61,6 +72,7 @@ const SearchTable = ({ data, hide } : { data: SearchFilterProps[], hide: () => v
         },
       },
       size: '25.5em',
+      style: { width: '100%', whiteSpace: 'nowrap' },
       columns,
       data,
     }} />

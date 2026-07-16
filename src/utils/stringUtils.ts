@@ -6,8 +6,6 @@ import {
   STAR,
 } from '../regex/message';
 
-//import colorHash from '../config/colorHash';
-
 export const caseInsensitiveIndexOf = (text: string, search: string) =>
   text.toLowerCase().indexOf(search.toLowerCase());
 
@@ -38,29 +36,40 @@ export const formatCroppedSearchMessage = (message: string, search: string, maxL
 
   const searchLength = search.length;
   const messageLength = message.length;
-  const padLeft = Math.floor((maxLength - searchLength) / 2);
-  const padRight = Math.ceil((maxLength - searchLength) / 2);
 
   if (matchIndex !== -1) {
-    const beforeIndexStart = Math.max(0, matchIndex - padLeft);
-    const beforeIndexEnd = matchIndex;
+    const totalContextSpace = Math.max(0, maxLength - searchLength);
+
+    let leftCount = Math.floor(totalContextSpace / 2);
+    let rightCount = Math.ceil(totalContextSpace / 2);
+
+    const availableLeft = matchIndex;
+    const availableRight = messageLength - (matchIndex + searchLength);
+
+    if (availableLeft < leftCount) {
+      const unusedLeft = leftCount - availableLeft;
+      leftCount = availableLeft;
+      rightCount = Math.min(availableRight, rightCount + unusedLeft);
+    } else if (availableRight < rightCount) {
+      const unusedRight = rightCount - availableRight;
+      rightCount = availableRight;
+      leftCount = Math.min(availableLeft, leftCount + unusedRight);
+    }
+
+    const beforeIndexStart = matchIndex - leftCount;
+    const afterIndexEnd = matchIndex + searchLength + rightCount;
+
     const beforePrefix = beforeIndexStart === 0 ? '' : '&hellip;';
-
-    const matchIndexStart = matchIndex;
-    const matchIndesEnd = matchIndex + searchLength;
-
-    const afterIndexStart = matchIndex + searchLength;
-    const afterIndexEnd = Math.min(messageLength, matchIndex + searchLength + padRight);
     const afterSuffix = afterIndexEnd === messageLength ? '' : '&hellip;';
 
-    const beforeStr = message.substring(beforeIndexStart, beforeIndexEnd);
-    const matchStr = message.substring(matchIndexStart, matchIndesEnd);
-    const afterStr = message.substring(afterIndexStart, afterIndexEnd);
+    const beforeStr = message.substring(beforeIndexStart, matchIndex);
+    const matchStr = message.substring(matchIndex, matchIndex + searchLength);
+    const afterStr = message.substring(matchIndex + searchLength, afterIndexEnd);
 
     return `${beforePrefix}${beforeStr}<strong>${matchStr}</strong>${afterStr}${afterSuffix}`;
   }
 
-  if(messageLength > maxLength) {
+  if (messageLength > maxLength) {
     return `${message.substring(0, maxLength)}&hellip;`;
   }
 

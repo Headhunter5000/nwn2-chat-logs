@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 // @vitest-environment jsdom
 import { describe, expect, it } from 'vitest';
 import {
@@ -33,10 +34,21 @@ describe('stringUtils', () => {
   });
 
   it('formatCroppedSearchMessage wraps matched text in <strong> and crops the string', () => {
-    // eslint-disable-next-line max-len
     const message = 'Please make sure to run the test string through the validator function before deploying it live now.';
     const rendered = formatCroppedSearchMessage(message, 'test string', 30);
     expect(rendered).toBe('&hellip; run the <strong>test string</strong> through t&hellip;');
+  });
+
+  it('formatCroppedSearchMessage shifts budget to the right if match is at the very beginning', () => {
+    const message = 'Test string is at the beginning of this very long message that needs to be cropped.';
+    const rendered = formatCroppedSearchMessage(message, 'Test string', 30);
+    expect(rendered).toBe('<strong>Test string</strong> is at the beginnin&hellip;');
+  });
+
+  it('formatCroppedSearchMessage shifts budget to the left if match is at the very end', () => {
+    const message = 'This is a very long message and here at the end is the test string';
+    const rendered = formatCroppedSearchMessage(message, 'test string', 30);
+    expect(rendered).toBe('&hellip; at the end is the <strong>test string</strong>');
   });
 
   it('formatPlainMessage removes html tags and special markers', () => {
