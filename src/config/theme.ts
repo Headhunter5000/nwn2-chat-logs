@@ -5,6 +5,7 @@ import type { ThemeType } from 'grommet';
 import { StyledDayContainer } from 'grommet/components/Calendar/StyledCalendar';
 import {
   getColor,
+  getThemeProp,
   transparentBlack,
   transparentWhite,
 } from '../utils/themeUtils';
@@ -242,8 +243,9 @@ const theme = deepFreeze<ThemeType>({
     body: {
       extend: css`
         th button {
+          border-radius: ${getThemeProp('global.control.border.radius')};
           &:hover {
-            background: none;
+            background: ${getColor('background-contrast')}
           }
         }
       `,

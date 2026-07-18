@@ -28,7 +28,7 @@ const CharacterCard = (
           {t('component.char_card.latest_logs')}:
         </Text>
         <Nav gap="small">
-          {dates.slice(-4).map(date => (
+          {dates.slice(-4).reverse().map(date => (
             <InternalLink
               data-testid="char-log-date"
               to={buildCharacterUrl(name, date)}
