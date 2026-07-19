@@ -9,7 +9,7 @@ const getColumnOptions = (t: (i18nKey: string) => string): { value: SearchColumn
 ]);
 
 const LIMIT_OPTIONS: SearchLimit[] = [
-  50, 200, 500, 2000,
+  50, 200, 500, 2000, 5000,
 ];
 
 interface SearchOptionsProps {
