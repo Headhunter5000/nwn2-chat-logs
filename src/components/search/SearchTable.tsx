@@ -42,7 +42,7 @@ const getColumns = (
   {
     property: 'date',
     header: t('common.date'),
-    size: '8em',
+    size: '7em',
     render: ({ owner, date, messageIndex }: SearchFilterProps) => (
       <Text>
         <InternalLink
@@ -109,7 +109,13 @@ const SearchTable = ({
   return (
 
     <Table
-      style={{ display: 'block', width: '100%' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        height: '0',
+        flex: '0 1 max-content',
+      }}
       margin={{ top: 'medium' }}
     >
       <TableHeader style={{ display: 'block', flex: '0' }}>
@@ -139,7 +145,6 @@ const SearchTable = ({
         style={{
           display: 'block',
           height: `${containerHeight + ROW_HEIGHT}px`,
-          maxHeight: '100%',
           overflowY: 'auto',
         }}
       >
